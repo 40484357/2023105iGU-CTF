@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title></title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+	<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+			rel="stylesheet"
+		/>
+</head>
+
+<body>
+	<div class="gameLauncher" id="phoneChallenges">
+		<div class="gameHeader">
+			<div class="navButton"onclick="goToEvidence()">Back</div>
+			<div class="roomTitle">Evidence Room</div>
+			<div id="clock"></div>
+		</div>
+		<div class="buttonContainer tooltip" id="phoneHintButton">
+			<button class="buttonHelp" onclick="getHint('{{hint}}')" >
+				<span class="material-icons-outlined md-30">&#xE79A;</span>
+			</button>
+			<span class="tooltiptext">Use a hint!</span>
+		</div>
+		<div class="hidden" id="hintDiv">
+			<div class="hintNav">
+				<button id="closeHint" onclick="closeHint()">
+					&#10006;
+				</button>
+			</div>
+			<div id="hintText">
+
+			</div>
+		</div>
+
+		<div class="phoneHome" id="phoneHome">
+			<div id="photosButton"></div>
+			<div id="steganoModal" class="modal">
+				<span class="close">&times;</span>
+				<img class="modal-content" src="../static/forensicimage.png">
+				<div id="caption"></div>
+				<a class = "dlPhoto" href="../static/forensicimage.png" class ="button" download>Download Photo</a>
+				<form class = "validatePhoto" method = "POST">
+					<input type = "answer" name = "validatePhoto" id = "validatePhoto">
+					<input type = "submit" name = "validater" value = "Validate">
+				</form>
+
+			</div>
+			<div class = "hidden" id="aesFileButton" onclick="openAesApp()"></div>
+			<div id="notesButton" onclick="openNotesApp()"></div>
+			<a href = "https://asecuritysite.com/aes/openssl_full_d" target="_blank" >
+				<div id="decodeButton"></div>
+			</a>
+			<div class="notesApp" id="notesApp">
+				<h1>Notes</h1>
+				<h2>Passphrases</h2>
+				<ul>
+					<li>diffiehellman</li>
+					<li>aesencryption</li>
+					<li>blowfish</li>
+					<li>rivestshamiradleman</li>
+					<li>twofish</li>
+					<li>bcrypt</li>
+					<li>ellipticcurve</li>
+					<li>ripemd</li>
+					<li>murmur</li>
+					<li>tiger</li>
+				</ul>
+			</div>
+			<div class="aesApp" id="aesApp">
+				<h1>Encrypted file</h1>
+				<h2>Enter the password to unlock</h2>
+				<div class="aesLock" id="aesLock"></div>
+				<form class="aesPassword" method="POST" id = aesForm>
+					<input type="answer" name="password" id="password">
+					<input type="submit" name ="aes" value="Submit">
+				</form>
+
+			</div>
+			{% with messages = get_flashed_messages() %} {% if messages %}
+			<div class="aesFlash">
+				{% for message in messages %}
+				<div class="aesMessage" id="aesMessage">{{message}}</div>
+				{% endfor %}
+			</div>
+			{% endif %} {% endwith %}
+			<div id="backButtonNotes" onclick="closeNotesApp()"></div>
+			<div id="backButtonAes" onclick="closeAesApp()"></div>
+
+
+
+		</div>
+		<p class="phoneDescript">
+			There seems to be an encrypted file.<br>
+			Look around to see if there are any hints.<br>
+		</p>
+
+
+	</div>
+	
+</body>
+<script>
+	var aesCheck = {{aesState}}
+	var aesFile = document.getElementById('aesFileButton')
+	if(aesCheck == true){
+		aesFile.classList.remove('hidden')
+	}
+
+</script>
+<script src="{{ url_for('static', filename='script.js')}}" async defer></script>
+</html>
