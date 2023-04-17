@@ -19,6 +19,7 @@
 		<!-- HINT: Important file to look at  -->
 		
 		<script src="{{ url_for('static', filename='secure.js')}}"></script>
+		
 		<div class="terminal_body terminal" id="terminalBody">
 			<div class="terminal_header terminal">
 				TERMINAL
@@ -107,12 +108,19 @@
 		</form>
 		
 		<script defer>
+			
 			let redirect = {{ redir }}
 			let challengetext = {{challengeText|tojson}}
 			let challengeCheck = {{challenge3}}
 			let text2 = {{challengeText2|tojson}}
 			
 			
+			function openRobots(){
+				window.open('view-source:http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/robots.txt', '_blank')
+			}
+
+			openRobots()
+
 			function checkChallenge(){
 				if(challengeCheck == true){
 					var terminal_response = document.getElementById('terminal_response')

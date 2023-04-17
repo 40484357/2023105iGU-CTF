@@ -271,7 +271,7 @@ def server():
 
 @views.route('/login_wcg', methods = ['GET', 'POST'])
 def login_wcg():
-    flag = 'FLAG = static/robots.txt, view this page source in browser for next challenge'
+    flag = 'FLAG = http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/robots.txt, view this page source in new browser tab for next challenge'
     redir = "false"
     challenge3 = 'false'
     challengeText = ""
@@ -303,10 +303,10 @@ def login_wcg():
         db.session.commit()
     
     if request.method == 'POST':
-        if request.form['flag_response'] == 'install':
+        if request.form['flag_response'] == 'install-':
             response = 'flag found, verify admin permissions... press enter to continue'
             answer = request.form['flag_response']
-            challengeText = ['Admin not verified...','Checking cookie state...','user type None...' , 'Error: Inspect cookie, user type should be admin', 'Please verify admin state and refresh']
+            challengeText = ['Admin not verified...','Checking cookie state...','user type None...' , 'Error: Inspect cookie, user value should be admin', 'Please verify admin state and refresh']
             flash(response)
             flash("FLAG = " + answer)
             redir = "true"
