@@ -32,7 +32,9 @@
 					- -
 				</div>
 				<div class="terminal_response terminal">
+					<a class='wcg_anchor' href="http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/robots.txt" target="_blank">
 					"{{flag}}"
+					</a>
 				</div>
 			</div>
 			<div class="terminal_row terminal ">
@@ -115,11 +117,7 @@
 			let text2 = {{challengeText2|tojson}}
 			
 			
-			function openRobots(){
-				window.open('view-source:http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/robots.txt', '_blank')
-			}
-
-			openRobots()
+			
 
 			function checkChallenge(){
 				if(challengeCheck == true){
@@ -158,10 +156,24 @@
 					function complete(){
 						clearInterval(timer);
 						timer = null;
-								window.open(text2[0], '_blank')
+								
 								terminal_body.innerHTML+=
 								`
-
+								<div class="terminal_row terminal "id = 'terminal_response'>
+								<div class="terminal_address terminal">
+									10.0.0.1
+								</div>
+								<div class="terminal-split">
+									- -
+								</div>
+								<div class="terminal_response" >
+									<div>
+										<a class='wcg_anchor' href='${text2}' target='_blank'>
+										 view this to find the flag ${text2}
+										</a>
+									</div>
+								</div>
+								</div>
 								<div class="terminal_row terminal "id = 'terminal_response'>
 								<div class="terminal_address terminal">
 									10.0.0.1

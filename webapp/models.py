@@ -2,7 +2,15 @@ from . import db
 from flask_login import UserMixin
 from datetime import datetime, date
 
-class users(db.Model, UserMixin):
+class User(UserMixin):
+    def __init__(self, email, user_name, password, lecturerCode, lecturerStatus):
+        self.id = email
+        self.user_name = user_name
+        self.password = password
+        self.lecturerCode = lecturerCode
+        self.lecturerStatus = lecturerStatus
+
+class users(UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(1000), unique=True)
     password = db.Column(db.String(1000))

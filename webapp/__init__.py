@@ -2,6 +2,8 @@ from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, current_user
+from dynamodb import loadUser
+from .utils import User
 
 
 db = SQLAlchemy()
@@ -29,7 +31,14 @@ def create_app():
     login_manager.init_app(application)
 
     @login_manager.user_loader
-    def load_user(id):
-        return users.query.get(int(id))
+    def load_user(email):
+        print('email is ' + email)
+        items = loadUser(email)
+        print(items)
+
+        if items == None:
+            return
+        user = User(email=email, password=items[0]["password"], user_name=items[0]["user_name"], lecturerCode=items[0]['lecturerCode'], lecturerStatus=items[0]['lecturerStatus'])
+        return user
         
     return application

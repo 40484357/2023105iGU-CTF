@@ -6,6 +6,7 @@ from .models import users, phone_challenge, laptop_challenge, server_challenge, 
 from datetime import date, datetime
 from .utils import timeChange, pointsLogic, splunk_markup
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
+from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk
 import hashlib, random, time, webbrowser
 passwords = []
 with open('cyberA-Z.txt') as f:
@@ -47,68 +48,66 @@ views = Blueprint('views', __name__)
 
 @views.route('/laptop', methods=['GET', 'POST'])
 def laptop():
-    #database query for passkey, if it exists then that is the passkey otherwise generate and store new passkey
-    passkey = db.session.query(laptop_challenge.laptopPassword).filter_by(user_id = current_user.id).first()
-    challengeState = db.session.query(laptop_challenge.challengeState).filter_by(user_id = current_user.id).first()
-    #checks challenge state, if it's 2 it will redirect the user to second challenge
-    challengeHint = 'I am a common hash algorithm prone to collisions'
+    userData = loadUser(current_user.id)
 
-
-    if challengeState:
-        if challengeState[0] > 1:
-            return redirect('/desktop')
-    
-    if passkey:
+    try:
+        passkey = userData[0]['laptopPassword']
         print(passkey)
-        selected = passkey[0]
-        password = hashlib.md5(passkey[0].encode())
-        
-        print(password.hexdigest())
-    else:
-        passLength = len(passwords) - 1
-        selection = random.randint(0, passLength) 
-        selected = passwords[selection]
-        password = hashlib.md5(selected.encode())
-        beginTime = datetime.now()
-        new_password = laptop_challenge(user_id = current_user.id, challengeState = 1, laptopPassword = selected, hints = 0, startTime = beginTime)
-        db.session.add(new_password)
-        db.session.commit()
-        print(password.hexdigest())
+        challengeState = userData[0]['laptopState']
+    except:
+        passLen = len(passwords) - 1
+        selection = random.randint(0, passLen)
+        passkey = passwords[selection]
+        startTime = datetime.now()
+        challengeState = '1'
+        hints = '0'
+        initialiseLaptop(current_user.id, passkey, str(startTime), challengeState, hints)
 
+    password = hashlib.md5(passkey.encode())
     response = None
+
+    if int(challengeState) > 1:
+        return redirect('/desktop')
+
     if request.method=='POST':
-        if request.form['answer'] != selected:
+        if request.form['answer'] != passkey:
             response = 'wrong password, try again'
             flash(response)
         else:
-            userChallenge = laptop_challenge.query.get_or_404(current_user.id)
-            userChallenge.challengeState = 2
-            userPoints = points.query.get_or_404(current_user.id)
-
-            #newPoints = newPointsLogic( hintsUsed[0],time[0], totalPoints[0])
-            newPoints = pointsLogic(laptop_challenge)
-            userPoints.pointsTotal = newPoints #add new points total to DB
-            db.session.commit()
+            challengeState = 2
+            userData=loadUser(current_user.id)
+            startTime = userData[0]['laptopStart']
+            hints = userData[0]['hints']
+            points = userData[0]['points']
+            newPoints = pointsLogic(startTime, hints, points)
+            updateUser(current_user.id, 'laptopState', str(newPoints), str(challengeState))
             return redirect('/desktop')
-            
-    return render_template('laptop.html',password = password.hexdigest(), response = response)
-    
+
+    return render_template('laptop.html', password = password.hexdigest(), response = response)
+
+
 @views.route('/desktop', methods=['GET', 'POST'])
 def desktop():
     ip = "85.50.46.53"
     completed = 'false'
-    userChallenge = laptop_challenge.query.get_or_404(current_user.id)
-    challengeStateCheck = db.session.query(laptop_challenge.challengeState).filter_by(user_id = current_user.id).first()
-    if(challengeStateCheck[0] == 1):
+    userData = loadUser(current_user.id)
+    state = int(userData[0]['laptopState'])
+    if(state == 1):
         return redirect('/laptop')
-    elif(challengeStateCheck[0] >= 3):
-        userChallenge.startTime = datetime.now()
-        db.session.commit()
+    elif(state == 3):
+        startTime = datetime.now()
+    elif(state == 4):
+        response = "That's the IP, but where does it go? " + ip
+        completed = 'true'
+        flash(response)
+        return render_template('desktop.html', response = response, completed = completed)
     else:
-        userChallenge.challengeState = 3
-        userChallenge.hints = 0
-        userChallenge.startTime = datetime.now()
-        db.session.commit()
+        challengeState = '3'
+        hints = '0'
+        startTime = datetime.now()
+        challenge = 'laptop'
+        resetChallenge(current_user.id, challenge, challengeState, hints, startTime)
+        
 
     response = None
     if request.method == 'POST':
@@ -118,56 +117,42 @@ def desktop():
             return render_template('desktop.html', response = response)
             
         else:
+            userData=loadUser(current_user.id)
             response = "That's the IP, but where does it go? " + ip
             completed = 'true'
-            if(challengeStateCheck[0] ==3):
-                userPoints = points.query.get_or_404(current_user.id)
-                userChallenge.challengeState = 4
-                newPoints = pointsLogic(laptop_challenge)
-                splunkState = splunk_challenges.query.get_or_404(current_user.id)
-                splunkState.challengeState = 1
-                userPoints.pointsTotal = newPoints #add new points total to DB
-                db.session.commit()
+            if(state ==3):
+                points = userData[0]['points']
+                state = '4'
+                hints = userData[0]['hints']
+                newPoints = pointsLogic(str(startTime), hints, points)
+                splunkState = '1'
+                endRoom(current_user.id, 'laptop', state, splunkState, newPoints)
             flash(response)
             return render_template('desktop.html', response = response, completed = completed)
 
     return render_template('desktop.html', completed = completed)
 
 
-@views.route('/phone', methods=['GET', 'POST'])
+@views.route('/phone', methods=['GET','POST'])
 def phone():
     response = None
-    primeA = db.session.query(phone_challenge.phonePrime1).filter_by(user_id = current_user.id).first()
-    primeB = db.session.query(phone_challenge.phonePrime2).filter_by(user_id = current_user.id).first()
-    challengeState = db.session.query(phone_challenge.challengeState).filter_by(user_id = current_user.id).first()
-
-    if(challengeState):
-        if(challengeState[0] >= 2):
-            return redirect('/phoneHome')
-
-    if primeA:
-        a = primeA[0] #variable
-        b = primeB[0] #variable
-        A = pow(G,a) % N
-        B = pow(G,b) % N
-        secretKey = pow(B,a) % N
-        print("A: ", A)
-        print("B: ", B)
+    userData = loadUser(current_user.id)
+    challengeState=1
+    try:
+        secretKey = userData[0]['phoneKey']
+        a=userData[0]['primeA']
+        b=userData[0]['primeB']
+        challengeState = userData[0]['phoneState']
         print("Secret Key: ", secretKey)
-    else: 
-        # Need to select two random unique values from the list
+    except:
         possibleValuesLength = len(possibleValues) - 1
         primeSelection1 = random.randint(0, possibleValuesLength)
         prime1 = possibleValues[primeSelection1]
-
-        # Remove the first value from the list and decrease the length of the list by 1
         possibleValues.pop(primeSelection1)
         possibleValuesLength -= 1
-
-        # Select the second value from the list
         primeSelection2 = random.randint(0, possibleValuesLength)
         prime2 = possibleValues[primeSelection2]
-            
+        startTime = datetime.now()
         a = prime1 #variable
         b = prime2 #variable
         A = pow(G,a) % N
@@ -176,47 +161,47 @@ def phone():
         print("A: ", A)
         print("B: ", B)
         print("Secret Key: ", secretKey)
-        new_phone_challenge = phone_challenge(user_id = current_user.id, challengeState = 1, phonePrime1 = a, phonePrime2 = b, hints = 0, startTime = datetime.now(), stegChallenge = 0, aesChallenge = 0 )
-        db.session.add(new_phone_challenge)
-        db.session.commit()
+        initialisePhone(current_user.id, secretKey, a, b, str(startTime), '1')
+        
+    
+    if int(challengeState) >= 2:
+        return redirect('/phoneHome')
 
     if request.method=='POST':
         secretKeyGuess=request.form.get('answer', type=int)
-        #secretKeyGuess = int(request.form['answer'])
         if secretKeyGuess != secretKey:
             response = 'wrong password, try again'
-            print("secretKey: ", secretKey)
-            print("secretKeyGuess: ", secretKeyGuess)
             flash(response)
         else:
-            userChallenge = phone_challenge.query.get_or_404(current_user.id)
-            userChallenge.challengeState = 2
-            userPoints = points.query.get_or_404(current_user.id)
-            newPoints = pointsLogic(phone_challenge)
-            userPoints.pointsTotal = newPoints #add new points total to DB
-            userChallenge.hints = 0
-            db.session.commit()
-            # Redirect to the next page
+            userData=loadUser(current_user.id)
+            points = userData[0]['points']
+            state = '2'
+            hints = userData[0]['hints']
+            startTime = userData[0]['challengeStart']
+            newPoints = pointsLogic(str(startTime), hints, points)
+            updateUser(current_user.id, 'phoneState', str(newPoints), state)
             return redirect(url_for('views.phoneHome'))
-            
+    
     return render_template('phone.html',password = secretKey,a=a,b=b, response = response)
+        
 
 @views.route('/phoneHome',methods =['GET','POST'])
 def phoneHome():
 
-    challengeState = db.session.query(phone_challenge.challengeState).filter_by(user_id = current_user.id).first()
-    userChallenge = phone_challenge.query.get_or_404(current_user.id)
-    userPoints = points.query.get_or_404(current_user.id)
-    stegChallengeCheck = db.session.query(phone_challenge.stegChallenge).filter_by(user_id = current_user.id).first()
+    userData = loadUser(current_user.id)
+    challengeState = userData[0]['phoneState']
+    
     hint = 'phoneHomeHint'
     if (challengeState == 1):
         return redirect('/phone')
     else: 
-        userChallenge.startTime = datetime.now()
+        startTime = datetime.now()
+        hints = '0'
+        resetChallenge(current_user.id, 'phone', challengeState, hints, str(startTime))
 
     aesState = 'false'
 
-    if(stegChallengeCheck[0] == 1):
+    if(int(challengeState) >= 3):
         aesState = 'true'
         hint = 'phoneHomeHint2'
     
@@ -231,16 +216,17 @@ def phoneHome():
             else:
                 # assign chall 2 points, steganography
                 
-                if(stegChallengeCheck[0] == 0):
-                    
-                    newPoints = pointsLogic(phone_challenge)
-                    userPoints.pointsTotal = newPoints #add new points total to DB
-                    userChallenge.hints = 0
-                    userChallenge.startTime = datetime.now()
-                    userChallenge.stegChallenge = 1
+                if(int(challengeState) == 2):
+                    print('challengeState ' + challengeState)
+                    userData = loadUser(current_user.id)
+                    points = userData[0]['points']
+                    state = '3'
+                    hints = userData[0]['hints']
+                    startTime = userData[0]['challengeStart']
+                    newPoints = pointsLogic(str(startTime), hints, points)
+                    updateUser(current_user.id, 'phoneState', str(newPoints), state)
                     aesState = 'true'
                     hint = 'phoneHomeHint2'
-                    db.session.commit()
                 response = 'Correct Ciphertext.' 
                 flash(response)
         elif "aes" in request.form:
@@ -251,16 +237,15 @@ def phoneHome():
             else:
                 # assign chall 3 points, aes
                 response = Markup("Correct password.<br>Access Splunk <a href ='http://52.1.222.178:8000' target='_blank'>here</a><br>Username: ctf<br>Password: EscapeEscap3")
-                aesChallengeCheck = db.session.query(phone_challenge.aesChallenge).filter_by(user_id = current_user.id).first()
-                if(aesChallengeCheck[0] == 0):
-                    print('success')
-                    newPoints = pointsLogic(phone_challenge)
-                    userPoints.pointsTotal = newPoints #add new points total to DB
-                    userChallenge.aesChallenge = 1
-                    userChallenge.challengeState = 3
-                    splunkChallengeState = splunk_challenges.query.get_or_404(current_user.id)
-                    splunkChallengeState.challengeState = 3
-                    db.session.commit()
+                if(int(challengeState) == 3):
+                    userData = loadUser(current_user.id)
+                    points = userData[0]['points']
+                    state = '4'
+                    hints = userData[0]['hints']
+                    startTime = userData[0]['challengeStart']
+                    newPoints = pointsLogic(str(startTime), hints, points)
+                    splunkState = '3'
+                    endRoom(current_user.id, 'phone', state, splunkState, newPoints)
                 flash(response)
 
     return render_template('phoneHome.html', aesState = aesState, hint = hint)     
@@ -282,7 +267,7 @@ def login_wcg():
         return redirect('/wickedcybergames')
     elif(challengeState[0] == 3 and name == 'admin'):
         challengeText = ['admin permissions verified', 'please validate the flag']
-        challengeText2 = ['http://127.0.0.1:5000/static/cookie_admin.txt']
+        challengeText2 = ['http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/cookie_admin.txt']
         challenge3 = 'true'
         response = 'verifying admin permissions'
         userChallenge = server_challenge.query.get_or_404(current_user.id)
@@ -385,13 +370,24 @@ def wickedcybergames():
 
     return render_template('wickedcybergames.html')
 
+# @views.route('/intro')
+# @login_required
+# def intro():
+#     user_points = db.session.query(points.pointsTotal).filter_by(id = current_user.id).first()
+#     if user_points:
+#         return redirect('/cyberescape')
+#     return render_template('intro.html')
+
 @views.route('/intro')
 @login_required
 def intro():
-    user_points = db.session.query(points.pointsTotal).filter_by(id = current_user.id).first()
-    if user_points:
+    print('current user is ' + current_user.id)
+    user_points = getPoints(current_user.id)
+    user_points = int(user_points)
+    if user_points > 0:
         return redirect('/cyberescape')
-    return render_template('intro.html')
+    else:
+        return render_template('intro.html')
 
 @views.route('/winroom', methods=['GET', 'POST'])
 def winroom():
@@ -411,29 +407,30 @@ def winroom():
     return render_template('winroom.html',flash_message="False")
 @views.route('/splunk', methods = ['GET', 'POST'])
 def splunkKey():
-    splunk_State = db.session.query(splunk_challenges.challengeState).filter_by(user_id = current_user.id).first()
+    userData = loadUser(current_user.id)
+    splunkState = userData[0]['splunkState']
     response = None
     message = Markup('<div class="splunk_challenges">wrong answer, look again</div>')
-    print(splunk_State)
-    if(splunk_State[0] == 0):
+
+    if(int(splunkState) == 0):
         getMarkUp = splunk_markup(0)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] == 1):
+    elif(int(splunkState) == 1):
         getMarkUp = splunk_markup(1)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] == 2):
+    elif(int(splunkState)== 2):
         getMarkUp = splunk_markup(2)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] ==3):
+    elif(int(splunkState) ==3):
         getMarkUp = splunk_markup(3)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] == 4):
+    elif(int(splunkState) == 4):
         getMarkUp =splunk_markup(4)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] == 5):
+    elif(int(splunkState) == 5):
         getMarkUp = splunk_markup(5)
         response = Markup(getMarkUp)
-    elif(splunk_State[0] == 6):
+    elif(int(splunkState) == 6):
         getMarkUp = splunk_markup(6)
         response = Markup(getMarkUp)
 
@@ -443,22 +440,21 @@ def splunkKey():
                 
                 return render_template('splunk.html', response = response, message = message)
             else:
-                new_digits = 63
-                splunkUpdate = splunk_challenges.query.get_or_404(current_user.id)
-                splunkUpdate.key_one = new_digits
-                splunkUpdate.challengeState = 2
+                new_digits = '63'
+                state = '2'
+                key = 'key_one'
+                updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(2)
                 response = Markup(getMarkUp)
-                db.session.commit()
         elif "challenge_two" in request.form:
             if request.form['challenge_two'] != '1=1--':
                 print('wrong answer')
                 return render_template('splunk.html', response = response, message = message)
             else:
-                new_digits = 34
-                splunkUpdate = splunk_challenges.query.get_or_404(current_user.id)
-                splunkUpdate.key_two = new_digits
-                splunkUpdate.challengeState = 4
+                new_digits = '34'
+                state = '4'
+                key = 'key_two'
+                updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(4)
                 response = Markup(getMarkUp)
                 db.session.commit()
@@ -466,10 +462,10 @@ def splunkKey():
             if request.form['challenge_three'] != 'File-manager':
                 return render_template('splunk.html', response = response, message = message)
             else:
-                new_digits = 11
-                splunkUpdate = splunk_challenges.query.get_or_404(current_user.id)
-                splunkUpdate.key_three = new_digits
-                splunkUpdate.challengeState = 6
+                new_digits = '11'
+                state = '6'
+                key = 'key_three'
+                updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(6)
                 response = Markup(getMarkUp)
                 db.session.commit()
@@ -519,7 +515,7 @@ def logged_in():
             db.session.commit()
         
 
-    return render_template('loggedhome.html',user_name=current_user.user_name, lecturer_name = users.query.filter_by(lecturerId=current_user.lecturerCode).all())
+    return render_template('loggedhome.html',user_name=current_user.user_name)
 
 @views.route('/Database_Result')
 def results():

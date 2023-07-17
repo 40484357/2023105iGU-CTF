@@ -563,3 +563,8 @@ img {
 .fade{
     opacity: 1;
 }
+
+.wcg_anchor{
+    text-decoration: none;
+    color: white;
+}

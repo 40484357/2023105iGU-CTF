@@ -1,7 +1,6 @@
 from datetime import date, datetime
-from . import db
-from flask_login import current_user
-from .models import users, phone_challenge, laptop_challenge, server_challenge, points, splunk_challenges
+from flask_login import current_user, UserMixin
+from dynamodb import loadUser
 
 
 def timeChange(startTime):
@@ -14,30 +13,25 @@ def timeChange(startTime):
 
 
 
-def pointsLogic(challenge):
-    
-
-    hintsUsed = db.session.query(challenge.hints).filter_by(user_id = current_user.id).first()
-    time = db.session.query(challenge.startTime).filter_by(user_id = current_user.id).first()
-    totalPoints= db.session.query(points.pointsTotal).filter_by(id = current_user.id).first() 
+def pointsLogic(time, hints, points):
     
     basePoints = 50
     #timeTaken = timeChange(userTime)
-    timeTaken = timeChange(time[0])
+    timeTaken = timeChange(time)
     penalty = 0
     
     if(timeTaken > 300 and timeTaken < 1200):
          penalty += 10
     elif (timeTaken > 1200):
         penalty += 20
-    if(hintsUsed[0] == 1):
+    if(int(hints) == 1):
             penalty += 10
-    elif(hintsUsed[0] >= 2):
+    elif(int(hints) >= 2):
         penalty += 20
 
     basePoints -= penalty
 
-    newPoints = totalPoints[0] + basePoints
+    newPoints = int(points) + basePoints
     return(newPoints)
 
 
@@ -51,10 +45,18 @@ def splunk_markup(key):
     challenge_3 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_three">3. Which plug-in was installed and activated by the malicious actor?</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
     challenge_3_c = '<div class="splunk_challenge"><div>3. Which plug-in was installed and activated by the malicious actor?</div><div>Answer: File-manager</div><div class="digits">Key: 11</div></div>'
 
-    splunkDigitOne = db.session.query(splunk_challenges.key_one).filter_by(user_id = current_user.id).first()
-    splunkDigitTwo = db.session.query(splunk_challenges.key_two).filter_by(user_id = current_user.id).first()
-    digitOne = str(splunkDigitOne[0])
-    digitTwo = str(splunkDigitTwo[0])
+    userData = loadUser(current_user.id)
+    try:
+        digitOne = userData[0]['key_one']
+    except:
+        digitOne = '0'
+        
+        
+    try: 
+        digitTwo = userData[0]['key_two']
+    except:
+        digitTwo = '0'
+
     if key == 0:
         return key_0
     elif key == 1:
@@ -62,14 +64,14 @@ def splunk_markup(key):
         return key_1
     elif key == 2:
         
-        digits = str(splunkDigitOne[0])
+        digits = digitOne
         digitString = digits + '</div></div></div>'
         key_1 += challenge_1_c 
         key_1 += digitString
         return key_1
     elif key == 3:
-        if splunkDigitOne[0] > 1:
-            digits = str(splunkDigitOne[0])
+        if int(digitOne)> 1:
+            digits = digitOne
             key_1 += challenge_1_c
             digitString = digits + '</div></div>'
             key_1 += digitString
@@ -80,7 +82,7 @@ def splunk_markup(key):
             key_1 += challenge_2
             return key_1
     elif key == 4:
-        if splunkDigitOne[0] > 1:
+        if int(digitOne) > 1:
             key_1 += challenge_1_c
             digitOneStr = digitOne + '</div></div>'
             key_1 += digitOneStr
@@ -94,40 +96,40 @@ def splunk_markup(key):
             key_1 += digitTwo
             return key_1
     elif key == 5:
-        if splunkDigitOne[0] > 1 and splunkDigitTwo[0] > 1:
+        if int(digitOne) > 1 and int(digitTwo) > 1:
             key_1 += challenge_1_c
             key_1 += digitOne
             key_1 += challenge_2_c
             key_1 += digitTwo
             key_1 += challenge_3
             return key_1
-        elif splunkDigitOne[0] > 1:
+        elif int(digitOne) > 1:
             key_1 += challenge_1_c
             key_1 += digitOne
             key_1 += challenge_2
             key_1 += challenge_3
             return key_1
-        elif splunkDigitTwo[0] > 1:
+        elif int(digitTwo) > 1:
             key_1 += challenge_1
             key_1 += challenge_2_c
             key_1 += digitTwo
             key_1 += challenge_3
             return key_1
     elif key == 6:
-        if splunkDigitOne[0] > 1 and splunkDigitTwo[0] > 1:
+        if int(digitOne) > 1 and int(digitTwo) > 1:
             key_1 += challenge_1_c
             key_1 += digitOne
             key_1 += challenge_2_c
             key_1 += digitTwo
             key_1 += challenge_3_c
             return key_1
-        elif splunkDigitOne[0] > 1:
+        elif int(digitOne) > 1:
             key_1 += challenge_1_c
             key_1 += digitOne
             key_1 += challenge_2
             key_1 += challenge_3_c
             return key_1
-        elif splunkDigitTwo[0] > 1:
+        elif int(digitTwo) > 1:
             key_1 += challenge_1
             key_1 += challenge_2_c
             key_1 += digitTwo
@@ -135,7 +137,13 @@ def splunk_markup(key):
             return key_1
         
 
-
+class User(UserMixin):
+    def __init__(self, email, user_name, password, lecturerCode, lecturerStatus):
+        self.id = email
+        self.user_name = user_name
+        self.password = password
+        self.lecturerCode = lecturerCode
+        self.lecturerStatus = lecturerStatus
 
 
 
