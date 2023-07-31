@@ -105,31 +105,33 @@ def checkLecturerCode(code):
     else:
         return(False)
 
-def initialiseLaptop(email, password, startTime, challengeState, hints):
+def initialiseLaptop(email, password, startTime, challengeState, hints, laptopSelect):
     response = user_table.update_item(
         Key = {'email': email},
-        UpdateExpression='SET laptopPassword= :l, challengeStart= :t, laptopState= :s, hints= :h',
+        UpdateExpression='SET laptopPassword= :l, challengeStart= :t, laptopState= :s, hints= :h, laptopSelect= :r',
         ExpressionAttributeValues={
             ':l': password,
             ':t': startTime,
             ':s': challengeState,
-            ':h': hints
+            ':h': hints,
+            ':r': laptopSelect
         },
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
 
-def initialisePhone(email, secretKey, a, b, startTime, challengeState):
+def initialisePhone(email, secretKey, a, b, startTime, challengeState, stegSelect):
     response = user_table.update_item(
         Key={'email': email},
-        UpdateExpression = 'SET phoneKey= :k, primeA= :a, primeB= :b, challengeStart= :t, phoneState= :s, hints= :h',
+        UpdateExpression = 'SET phoneKey= :k, primeA= :a, primeB= :b, challengeStart= :t, phoneState= :s, hints= :h, stegSelect = :r',
         ExpressionAttributeValues={
             ':k': secretKey,
             ':a': a,
             ':b': b,
             ':t': startTime,
             ':s': challengeState,
-            ':h': '0'
+            ':h': '0',
+            ':r': stegSelect
         },
         ReturnValues='UPDATED_NEW'
     )

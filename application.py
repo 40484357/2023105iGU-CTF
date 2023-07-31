@@ -2,8 +2,6 @@ from webapp import create_app
 from flask import render_template, redirect, url_for, request, Markup
 from flask_login import login_user, login_required, current_user
 import atexit, json
-from webapp import db
-from webapp.models import users, phone_challenge, laptop_challenge, server_challenge, points, splunk_challenges
 from datetime import date, datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from webapp.utils import timeChange
@@ -57,6 +55,7 @@ def landing():
         userData = loadUser(current_user.id)
         userPoints = user_points
         timePassed = timeChange(userData[0]['startGameTime'])
+        print('timepassed' + str(timePassed))
         timeLeft = 86400 - timePassed
         print(timeLeft)
     return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft)
