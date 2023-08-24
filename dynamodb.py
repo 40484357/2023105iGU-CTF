@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 
-boto3.resource('ebs', region_name = 'eu-west-2')
+boto3.resource('dynamodb', region_name = 'eu-west-2')
 
 user_table = resource ('dynamodb').Table('Users')
 
