@@ -6,16 +6,9 @@ from botocore.config import Config
 from datetime import datetime
 
 
-my_config = Config(
-    region_name = 'eu-west-2',
-    signature_version = 'v4',
-    retries = {
-        'max_attempts': 10,
-        'mode': 'standard'
-    }
-)
 
-client = boto3.client('elasticbeanstalk', config=my_config)
+
+client = boto3.client('elasticbeanstalk', region_name='eu-west-2')
 
 user_table = resource ('dynamodb').Table('Users')
 
