@@ -1,8 +1,10 @@
 import boto3
+from botocore.config import Config
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.config import Config
 from datetime import datetime
+
 
 my_config = Config(
     region_name = 'eu-west-2',
@@ -13,7 +15,7 @@ my_config = Config(
     }
 )
 
-client = boto3.client('kinesis', config=my_config)
+client = boto3.client('elasticbeanstalk', config=my_config)
 
 user_table = resource ('dynamodb').Table('Users')
 
