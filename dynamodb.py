@@ -5,6 +5,8 @@ from datetime import datetime
 
 resource = resource(
     'dynamodb',
+    aws_access_key_id = 'AKIA5FBZYB2GS6TYFVXG',
+    aws_secret_access_key= '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',
     region_name = 'eu-west-2'
 )
 
