@@ -46,9 +46,9 @@
 			<div id="photosButton"></div>
 			<div id="steganoModal" class="modal">
 				<span class="close">&times;</span>
-				<img class="modal-content" src="../static/forensicimage.png">
+				<img class="modal-content" src={{stegImageRoute}}>
 				<div id="caption"></div>
-				<a class = "dlPhoto" href="../static/forensicimage.png" class ="button" download>Download Photo</a>
+				<a class = "dlPhoto" href={{stegImageRoute}} class ="button" download>Download Photo</a>
 				<form class = "validatePhoto" method = "POST">
 					<input type = "answer" name = "validatePhoto" id = "validatePhoto">
 					<input type = "submit" name = "validater" value = "Validate">

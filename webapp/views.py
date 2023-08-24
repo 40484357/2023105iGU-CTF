@@ -1,12 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import hashlib, random, time, math, pandas as pd
-from . import db
 from flask_login import login_user, login_required, current_user
-from .models import users, phone_challenge, laptop_challenge, server_challenge, points, splunk_challenges
 from datetime import date, datetime
-from .utils import timeChange, pointsLogic, splunk_markup
+from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
-from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk
+from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto
 import hashlib, random, time, webbrowser
 passwords = []
 with open('cyberA-Z.txt') as f:
@@ -43,6 +41,27 @@ print("A: ", A)
 print("B: ", B)
 print("Secret Key: ", secretKey)
 
+# List of passwords for web challenge
+ccPasswords = ["'pass1234' or 1=1--","'pass1234' or 1=1","'pass1234' or 1=1 #","'pass1234' or true--","'pass1234' or true-- +","'pass1234' OR ‘’ = ‘","'pass1234' OR 'x'='x","'pass1234' or '1'='1'/*",
+             "'pass1234' OR 1=1 LIMIT 1--","'pass1234' or 1=1 LIMIT 1#","'pass1234' or true LIMIT 1--","'pass1234' or true LIMIT 1#"]
+
+# Creating a dictionary of wallet addresses and their corresponding flags
+walletAddressDict = {
+    "aW5zdGFsbC1wbHVnaW4=" : "install-plugin",
+    "InBocD98Ig==" : "\"php?|\"",
+    "ImV0Yy9wYXNzd2Qi" : "\"etc/passwd\"",
+    "Ii9ldGMvcGFzc3dkIg==" : "\"/etc/passwd\"",
+    "Ki50eHQ=" : "*.txt"
+}
+
+# Can use this to get the randomly selected address, keep the pair to validate later
+walletAddressPair = random.choice(list(walletAddressDict.items()))
+walletAddress = walletAddressPair[0]
+print(walletAddress)
+
+# Truncate the address with an elipsis to hide it in web challenge 2
+hiddenWalletAddress = walletAddress[:4]+"..."+walletAddress[-4:]
+
 views = Blueprint('views', __name__)
 
 
@@ -61,7 +80,8 @@ def laptop():
         startTime = datetime.now()
         challengeState = '1'
         hints = '0'
-        initialiseLaptop(current_user.id, passkey, str(startTime), challengeState, hints)
+        laptopSelect = random.randint(0, 4)
+        initialiseLaptop(current_user.id, passkey, str(startTime), challengeState, hints, laptopSelect)
 
     password = hashlib.md5(passkey.encode())
     response = None
@@ -76,7 +96,7 @@ def laptop():
         else:
             challengeState = 2
             userData=loadUser(current_user.id)
-            startTime = userData[0]['laptopStart']
+            startTime = userData[0]['challengeStart']
             hints = userData[0]['hints']
             points = userData[0]['points']
             newPoints = pointsLogic(startTime, hints, points)
@@ -88,9 +108,11 @@ def laptop():
 
 @views.route('/desktop', methods=['GET', 'POST'])
 def desktop():
-    ip = "85.50.46.53"
     completed = 'false'
     userData = loadUser(current_user.id)
+    challengeSelection = int(userData[0]['laptopSelect'])
+    ip = base65Set[challengeSelection]['IP']
+    code = base65Set[challengeSelection]['code']
     state = int(userData[0]['laptopState'])
     if(state == 1):
         return redirect('/laptop')
@@ -130,7 +152,7 @@ def desktop():
             flash(response)
             return render_template('desktop.html', response = response, completed = completed)
 
-    return render_template('desktop.html', completed = completed)
+    return render_template('desktop.html', completed = completed, code=code)
 
 
 @views.route('/phone', methods=['GET','POST'])
@@ -153,6 +175,7 @@ def phone():
         primeSelection2 = random.randint(0, possibleValuesLength)
         prime2 = possibleValues[primeSelection2]
         startTime = datetime.now()
+        stegSelect = random.randint(0, 4)
         a = prime1 #variable
         b = prime2 #variable
         A = pow(G,a) % N
@@ -161,7 +184,7 @@ def phone():
         print("A: ", A)
         print("B: ", B)
         print("Secret Key: ", secretKey)
-        initialisePhone(current_user.id, secretKey, a, b, str(startTime), '1')
+        initialisePhone(current_user.id, secretKey, a, b, str(startTime), '1', stegSelect)
         
     
     if int(challengeState) >= 2:
@@ -190,7 +213,9 @@ def phoneHome():
 
     userData = loadUser(current_user.id)
     challengeState = userData[0]['phoneState']
-    
+    challengeSelection = int(userData[0]['stegSelect'])
+    stegImageRoute = stegSet[challengeSelection]['image']
+    stegHash = stegSet[challengeSelection]['stegHash']
     hint = 'phoneHomeHint'
     if (challengeState == 1):
         return redirect('/phone')
@@ -210,7 +235,7 @@ def phoneHome():
     # Doing this because of two forms on one view, checks which one was used
     if request.method =='POST':
         if "validater" in request.form:
-            if request.form['validatePhoto'] != "U2FsdGVkX18099HHwV0FYWBJXXfd4JDKkrhsHwGeD64=":
+            if request.form['validatePhoto'] != stegHash:
                 response = 'Incorrect Ciphertext'
                 flash(response)
             else:
@@ -230,7 +255,7 @@ def phoneHome():
                 response = 'Correct Ciphertext.' 
                 flash(response)
         elif "aes" in request.form:
-            if request.form['password'] != "check_user.php":
+            if request.form['password'] != stegSet[challengeSelection]['hash']:
                 response = 'Incorrect password'
                 flash(response)
                 print('fail')
@@ -248,135 +273,11 @@ def phoneHome():
                     endRoom(current_user.id, 'phone', state, splunkState, newPoints)
                 flash(response)
 
-    return render_template('phoneHome.html', aesState = aesState, hint = hint)     
+    return render_template('phoneHome.html', aesState = aesState, hint = hint, stegImageRoute = stegImageRoute)     
 
 @views.route('/server')
 def server():
     return render_template('server.html')
-
-@views.route('/login_wcg', methods = ['GET', 'POST'])
-def login_wcg():
-    flag = 'FLAG = http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/robots.txt, view this page source in new browser tab for next challenge'
-    redir = "false"
-    challenge3 = 'false'
-    challengeText = ""
-    challengeText2 = ""
-    name = request.cookies.get('user')
-    challengeState = db.session.query(server_challenge.challengeState).filter_by(user_id = current_user.id).first()
-    if(challengeState[0] == 1):
-        return redirect('/wickedcybergames')
-    elif(challengeState[0] == 3 and name == 'admin'):
-        challengeText = ['admin permissions verified', 'please validate the flag']
-        challengeText2 = ['http://cyberescape-env-1.eba-pxgmppwm.eu-west-2.elasticbeanstalk.com/static/cookie_admin.txt']
-        challenge3 = 'true'
-        response = 'verifying admin permissions'
-        userChallenge = server_challenge.query.get_or_404(current_user.id)
-        userChallenge.challengeState = 4
-        db.session.commit()
-        return render_template('login_wcg.html', flag = flag, redir = redir, challengeText = challengeText,  challengeText2 = challengeText2, challenge3 = challenge3)
-    elif(challengeState[0] == 3):
-        print(name)
-        response = 'verify admin permissions... press enter to continue'
-        challengeText = ['Admin not verified...','cookie user type None', 'Please verify admin state and refresh to continue']
-        flash(response)
-        redir = "true"
-        return render_template('login_wcg.html', flag = flag, response = response, redir = redir, challengeText = challengeText, challenge3 = challenge3, challengeText2 = challengeText2)
-    else:
-        userChallenge = server_challenge.query.get_or_404(current_user.id)
-        userChallenge.startTime = datetime.now()
-        userChallenge.hints = 0
-        db.session.commit()
-    
-    if request.method == 'POST':
-        if request.form['flag_response'] == 'install-':
-            response = 'flag found, verify admin permissions... press enter to continue'
-            answer = request.form['flag_response']
-            challengeText = ['Admin not verified...','Checking cookie state...','user type None...' , 'Error: Inspect cookie, user value should be admin', 'Please verify admin state and refresh']
-            flash(response)
-            flash("FLAG = " + answer)
-            redir = "true"
-            userChallenge = server_challenge.query.get_or_404(current_user.id)
-            userPoints = points.query.get_or_404(current_user.id)
-            newPoints = pointsLogic(server_challenge)
-            userPoints.pointsTotal = newPoints #add new points total to DB
-            userChallenge.startTime = datetime.now()
-            userChallenge.hints = 0
-            userChallenge.challengeState = 3
-            db.session.commit()
-            return render_template('login_wcg.html', flag = flag, response = response, answer = answer, redir = redir, challengeText = challengeText, challengeText2 = challengeText2, challenge3 = challenge3)
-        elif request.form['flag_response'] == 'plugin':
-            response = 'flag found, press enter to continue'
-            challengeText = ['Flag: install-plugin', 'continue to splunk with flags', 'splunk link']
-            flash(response)
-            redir = 'true'
-            userChallenge = server_challenge.query.get_or_404(current_user.id)
-            userPoints = points.query.get_or_404(current_user.id)
-            newPoints = pointsLogic(server_challenge)
-            userPoints.pointsTotal = newPoints #add new points total to DB
-            userChallenge.startTime = datetime.now()
-            userChallenge.challengeState = 4
-            splunkChallengeState = splunk_challenges.query.get_or_404(current_user.id)
-            splunkChallengeState.challengeState = 5
-            db.session.commit()
-            return render_template('login_wcg.html', redir = redir, flag = flag, response = response, challenge3 = challenge3, challengeText = challengeText, challengeText2 = challengeText2)
-        else: 
-            response = 'incorrect flag, keep looking'
-            answer = request.form['flag_response']
-            print(answer)
-            flash(response)
-            flash(answer)
-            return render_template('login_wcg.html', flag = flag, response = response, answer = answer, challengeText = challengeText, challengeText2 = challengeText2)
-
-    return render_template('login_wcg.html', flag = flag, redir = redir, challenge3 = challenge3, challengeText = challengeText, challengeText2 = challengeText2)
-
-
-@views.route('/wickedcybergames' , methods=['GET','POST'])
-def wickedcybergames():
-    challengeState = db.session.query(server_challenge.challengeState).filter_by(user_id = current_user.id).first()
-    if(challengeState):
-        if(challengeState[0] == 1):
-            userChallenge = server_challenge.query.get_or_404(current_user.id)
-            userChallenge.startTime = datetime.now()
-            db.session.commit()
-        elif(challengeState[0] == 2 | 3):
-            return redirect('/login_wcg')
-        elif(challengeState[0] == 4):
-            return redirect('/login_wcg')
-    else:
-        new_server_challenge = server_challenge(user_id = current_user.id, challengeState = 1, startTime = datetime.now(), hints = 0)
-        db.session.add(new_server_challenge)
-        db.session.commit()
-
-    response = None
-    if request.method == 'POST':
-        if request.form['username'] == 'admin':
-            if request.form['password'] == 'IloveWickedGames2023':
-                userChallenge = server_challenge.query.get_or_404(current_user.id)
-                userPoints = points.query.get_or_404(current_user.id)
-                newPoints = pointsLogic(server_challenge)
-                userPoints.pointsTotal = newPoints #add new points total to DB
-                userChallenge.startTime = datetime.now()
-                userChallenge.hints = 0
-                userChallenge.challengeState = 2
-                db.session.commit()
-                return redirect('/login_wcg')
-            else: 
-                response = 'wrong password'
-        else: 
-            response = 'wrong username'
-            flash(response)
-            return render_template('wickedcybergames.html', response = response)
-
-
-    return render_template('wickedcybergames.html')
-
-# @views.route('/intro')
-# @login_required
-# def intro():
-#     user_points = db.session.query(points.pointsTotal).filter_by(id = current_user.id).first()
-#     if user_points:
-#         return redirect('/cyberescape')
-#     return render_template('intro.html')
 
 @views.route('/intro')
 @login_required
@@ -417,6 +318,8 @@ def splunkKey():
         response = Markup(getMarkUp)
     elif(int(splunkState) == 1):
         getMarkUp = splunk_markup(1)
+        challengeSelection = int(userData[0]['laptopSelect'])
+        answer = base65Set[challengeSelection]['answer']
         response = Markup(getMarkUp)
     elif(int(splunkState)== 2):
         getMarkUp = splunk_markup(2)
@@ -436,7 +339,9 @@ def splunkKey():
 
     if request.method == 'POST':
         if "challenge_one" in request.form:
-            if request.form['challenge_one'] != '17':
+            challengeSelection = int(userData[0]['laptopSelect'])
+            answerSelect = base65Set[challengeSelection]['answer']
+            if request.form['challenge_one'] != answerSelect:
                 
                 return render_template('splunk.html', response = response, message = message)
             else:
@@ -447,7 +352,9 @@ def splunkKey():
                 getMarkUp = splunk_markup(2)
                 response = Markup(getMarkUp)
         elif "challenge_two" in request.form:
-            if request.form['challenge_two'] != '1=1--':
+            challengeSelection = int(userData[0]['stegSelect'])
+            answerSelect = stegSet[challengeSelection]['answer']
+            if request.form['challenge_two'] != answerSelect:
                 print('wrong answer')
                 return render_template('splunk.html', response = response, message = message)
             else:
@@ -457,7 +364,7 @@ def splunkKey():
                 updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(4)
                 response = Markup(getMarkUp)
-                db.session.commit()
+               
         elif "challenge_three" in request.form:
             if request.form['challenge_three'] != 'File-manager':
                 return render_template('splunk.html', response = response, message = message)
@@ -468,24 +375,24 @@ def splunkKey():
                 updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(6)
                 response = Markup(getMarkUp)
-                db.session.commit()
+               
 
     
     return render_template('splunk.html', response = response)
 
-@views.route('/leaderboard')
-def leaderBoard():
-    leaders = db.session.query(users.user_name, points.pointsTotal).join(points).order_by(points.pointsTotal.desc()).all()
-    user = db.session.query(users.user_name).filter_by(id = current_user.id).first()
-    userPoints = db.session.query(points.pointsTotal).filter_by(id = current_user.id).first()
-    index = 0
-    for index, item in enumerate(leaders):
-        if user[0] == item[0]:
-            leaderLength = round(len(leaders) / 2)
-            del leaders[-leaderLength:]
-            userName = user[0]
-            userpoints = userPoints[0]
-            return render_template('leaderboard.html', leaders=leaders, index = index, userName = userName, userpoints = userpoints)
+# @views.route('/leaderboard')
+# def leaderBoard():
+#     leaders = db.session.query(users.user_name, points.pointsTotal).join(points).order_by(points.pointsTotal.desc()).all()
+#     user = db.session.query(users.user_name).filter_by(id = current_user.id).first()
+#     userPoints = db.session.query(points.pointsTotal).filter_by(id = current_user.id).first()
+#     index = 0
+#     for index, item in enumerate(leaders):
+#         if user[0] == item[0]:
+#             leaderLength = round(len(leaders) / 2)
+#             del leaders[-leaderLength:]
+#             userName = user[0]
+#             userpoints = userPoints[0]
+#             return render_template('leaderboard.html', leaders=leaders, index = index, userName = userName, userpoints = userpoints)
 
 @views.route('/')
 def landing():
@@ -524,4 +431,104 @@ def results():
 @views.route('/resources')
 def resources():
     return render_template('resources.html')
+
+# Web challenge 1
+@views.route('/cryptocartel' , methods=['GET','POST'])
+def cryptocartel():
+    response = None
+    userData = loadUser(current_user.id)
+    challengeState = '1'
+    try: 
+        challengeState = userData[0]['cryptoState']
+    except:
+        startTime = datetime.now()
+        initialiseCrypto(current_user.id, str(startTime), challengeState, '0')
     
+    if int(challengeState) == 2:
+        return redirect('/cryptocartel/loggedin')
+    elif int(challengeState) == 3:
+        return redirect('/cryptocartel/loggedin/txn')
+    if request.method=='POST':
+        # Check if user enters admin + any of the passwords
+        if request.form['ccUsername'] == "admin" and request.form['ccPassword'] in ccPasswords:
+            challengeState = 2
+            userData = loadUser(current_user.id)
+            startTime = userData[0]['challengeStart']
+            hints = userData[0]['hints']
+            points = userData[0]['points']
+            newPoints = pointsLogic(startTime, hints, points)
+            updateUser(current_user.id, 'cryptoState', str(newPoints), str(challengeState))
+            return redirect('/cryptocartel/loggedin')
+        else:
+            response = 'Incorrect username or password, please try again.'
+            flash(response)
+    return render_template('web_chall.html')  
+
+# Web challenge 2
+@views.route('/cryptocartel/loggedin' , methods=['GET','POST'])
+def cryptocartel_loggedin():
+    response = None
+    userData = loadUser(current_user.id)
+    state = int(userData[0]['cryptoState'])
+
+    if(state == 1):
+        return redirect('/cryptocartel')
+    elif(state == 3):
+        return redirect('/cryptocartel/loggedin/txn')
+    else:
+        hints = '0'
+        startTime = datetime.now()
+        initialiseCrypto(current_user.id, str(startTime), state, hints)
+
+    if request.method =='POST':
+        if "script" in request.form:
+            if(request.form['ccScript'] == "<img src=x oneerror=alert(document.cookie)>"):
+                response = "Session ID = tcbd7x3q8k1690833065130"
+                flash(response)
+                return render_template('web_chall_2.html',hiddenWalletAddress = hiddenWalletAddress)
+        elif "session" in request.form:
+            if(request.form['ccSession']== "tcbd7x3q8k1690833065130"):
+                userData = loadUser(current_user.id)
+                challengeState = 3
+                startTime = userData[0]['challengeStart']
+                hints = userData[0]['hints']
+                points = userData[0]['points']
+                newPoints = pointsLogic(startTime, hints, points)
+                updateUser(current_user.id, 'cryptoState', str(newPoints), str(challengeState))
+                return redirect('/cryptocartel/loggedin/txn')
+    return render_template('web_chall_2.html',hiddenWalletAddress = hiddenWalletAddress)
+
+#These routes can be changed, couldn't really think of better names
+# The wallet address will be the random part of the challenge.
+# Web challenge 3
+@views.route('/cryptocartel/loggedin/txn' , methods=['GET','POST'])
+def cryptocartel_loggedin_txn():
+    response = None
+    userData = loadUser(current_user.id)
+    state = int(userData[0]['cryptoState'])
+    if(state == 1):
+        return redirect('/cryptocartel')
+    elif(state == 2):
+        return redirect('/cryptocartel/loggedin')
+    else:
+        hints = '0'
+        startTime = datetime.now()
+        initialiseCrypto(current_user.id, str(startTime), state, hints)
+    if request.method =='POST':
+        if(request.form['ccTxn']==walletAddressPair[1]):
+            response = Markup("Well done. Now use this flag in <a href ='/splunk' target='_blank'>Splunk</a>.")
+            flash(response)
+            if (state == 3):
+                userData = loadUser(current_user.id)
+                challengeState = 4
+                startTime = userData[0]['challengeStart']
+                hints = userData[0]['hints']
+                points = userData[0]['points']
+                newPoints = pointsLogic(startTime, hints, points)
+                endRoom(current_user.id, 'crypto', str(challengeState), '5', newPoints)
+            return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
+        else:
+            response = "Thank you for the feedback."
+            flash(response)
+            return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
+    return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)

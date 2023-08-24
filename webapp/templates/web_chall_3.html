@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title></title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+	<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+			rel="stylesheet"
+		/>
+	<script>
+		var walletAddress = "{{walletAddress}}";
+	</script>
+</head>
+
+<body>
+   
+	<div class="gameLauncher" id="phoneChallenges">
+		<div class="gameHeader">
+			<div class="navButton"onclick="goToEvidence()">Back</div>
+			<div class="roomTitle">Evidence Room</div>
+			<div id="clock"></div>
+		</div>
+		<div class="buttonContainer tooltip" id="phoneHintButton">
+			<button class="buttonHelp" onclick="getHint('{{hint}}')" >
+				<span class="material-icons-outlined md-30">&#xE79A;</span>
+			</button>
+			<span class="tooltiptext">Use a hint!</span>
+		</div>
+		<div class="hidden" id="hintDiv">
+			<div class="hintNav">
+				<button id="closeHint" onclick="closeHint()">
+					&#10006;
+				</button>
+			</div>
+			<div id="hintText">
+
+			</div>
+		</div>
+
+		<div class = "helpOverlayButton" onclick="showHelp()">i</div>
+		<div id="helpOverlay">
+			<h1>Challenge instructions</h1>
+			<p>You have accessed the transaction... Now see if you can decode anything within.</p>
+		</div>
+		
+		
+
+        <div class="virtualBrowser">
+            <div class="addressBar">
+              <div class="column left">
+                <span class="dot" style="background:#ED594A;"></span>
+                <span class="dot" style="background:#FDD800;"></span>
+                <span class="dot" style="background:#5AC05A;"></span>
+              </div>
+              <div class="column middle">
+                <input type="text" id = "urlText" value="http://www.cryptocartel.com">
+              </div>
+             
+            </div>
+          
+            <div class="browserContent2">
+				<h1>Crypto Cartel</h1>
+                <h2>Admin Overview</h2>
+                {% with messages = get_flashed_messages() %} {% if messages %}
+						{% for message in messages %}
+        
+						    <div class = "popupAlert" id = "popupAlert">
+                                <p>This page says</p>
+                                {{message}}<br><br>
+                                <button id = "closeAlert" onclick="closeAlert()">Close</button>
+                            </div>
+						{% endfor %}
+				{% endif %} {% endwith %}
+
+                <div class = "transactionPanel" id = "transactionPanel">
+                    <h1>Withdrawl Details</h1>
+                    <div class = "timelineGrid">
+                        <div class = "leftColumn">
+                            <p class = "txnNum">1</p>
+                            <p class = "line">|</p>
+                            <p class = "txnNum">2</p>
+                            <p class = "line">|</p>
+                            <p class = "txnNum">3</p>
+                        </div>
+                        <div class = "rightColumn">
+                            <p>Withdrawl order submitted</p>
+                            <p class = "subtext">2023-07-22 11:05</p>
+                            <br>
+                            <p>System Processing</p>
+                            <p class = "subtext">2023-07-22 11:20</p>
+                            <br>
+                            <p>Completed</p>
+                            <p class = "subtext">2023-07-22 11:21</p>
+                        </div>
+                    </div>
+                    <div class = "separationLine"></div>
+                    <div class = "detailsGrid">
+                        <div class = "leftColumn">
+                            <p>Withdraw wallet</p>
+                            <p>Coin</p>
+                            <p>Withdraw amount</p>
+                            <p>Network fee</p>
+                            <p>Address</p>
+                        </div>
+                        <div class = "rightColumn">
+                            <p>Spot Wallet</p>
+                            <p>BTC</p>
+                            <p>115.15223</p>
+                            <p>0.0001</p>
+                            <p>{{walletAddress}}</p> <button id = "copyAddress" onclick="copyAddress(walletAddress)">Copy Address</button>
+                        </div>
+                    </div>
+					<div class = "separationLine"></div>
+					
+                    <form id="ccTxnForm" action="" method="POST">
+						<label for="ccTxnText">Would you like to leave feedback on this transaction?</label><br>
+						{% with messages = get_flashed_messages() %} {% if messages %}
+							{% for message in messages %}
+							<div class="ccFeedbackMessage">{{message}}</div>
+							{% endfor %}
+						{% endif %} {% endwith %}
+						<input type="text" id="ccTxn" placeholder = "Enter feedback here" name="ccTxn"><br><br>
+						<input type="submit" name = "txn" id="ccSubmitFeedback" value="Submit">
+				  	</form> 
+                </div>
+				
+				<div class = "mainPanel">
+					<h3>John's Wallet</h3>
+					<div class = grid1>
+						<div class = "leftColumn">
+							<h4>Wallet Overview</h4>	
+							<h4>139.75 BTC</h4>
+							<h4>$4,091,729.10</h4>
+						</div>
+						<div class = "rightColumn">
+							<h4>Today</h4>
+							<h4>-0.26%</h4>
+							<h4>-$10840</h4>
+						</div>
+					</div>
+					<div class = "transactionSection">
+						<h3>Transaction history</h3>
+						<h4><mark>Crypto</mark>&emsp;Fiat&emsp;Transfer&emsp;Distribution&emsp;CC convert&emsp;Loan</h4>
+					</div>
+					<div class = "grid2">
+						<div class = "firstColumn">
+							<h4>Type</h4>
+							<h4>Withdrawl</h4>
+						</div>
+						<div class = "secondColumn">
+							<h4>Time</h4>
+							<h4>All time</h4>
+						</div>
+						<div class = "thirdColumn">
+							<h4>Asset</h4>
+							<h4>All</h4>
+						</div>
+					</div>
+					<div class = "grid3">
+						<div class = "firstColumn">
+							<h4>Time</h4>
+							<h4>2023-07-22</h4>
+						</div>
+						<div class = "secondColumn">
+							<h4>Type</h4>
+							<h4>Withdrawl</h4>
+						</div>
+						<div class = "thirdColumn">
+							<h4>Asset</h4>
+							<h4>BTC</h4>
+						</div>
+						<div class = "fourthColumn">
+							<h4>Amount</h4>
+							<h4>115.15223</h4>
+						</div>
+						<div class = "fifthColumn">
+							<h4>Destination</h4>
+							<h4>{{hiddenWalletAddress}}</h4>
+						</div>
+						<div class = "sixthColumn">
+							<h4>Status</h4>
+							<h4>Completed</h4>
+						</div>
+						<div class = "seventhColumn">
+							<button id = "view" onclick="openTransaction()">View</button>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+            </div>
+          </div>
+
+
+	</div>
+	
+</body>
+<script src="{{ url_for('static', filename='script.js')}}" async defer></script>
+</html>

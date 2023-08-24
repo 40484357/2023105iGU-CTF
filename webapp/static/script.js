@@ -139,7 +139,7 @@ function goToWinroom(){
 } //goes to winroom
 
 function goToServer(){
-    window.location.href = '/server'
+    window.location.href = '/cryptocartel'
 }
 
 function copyTextToClipboard(hash){
@@ -539,4 +539,48 @@ function closeProfile(){
 }
 function slideLeft(){
     document.getElementById("side-profile-background").style.left = "100%";
+}
+
+function showHelp(){
+    if(document.getElementById('helpOverlay').classList.contains('hidden')){
+        document.getElementById('helpOverlay').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('helpOverlay').classList.add('hidden');
+    }
+}
+function copyScript(){
+    navigator.clipboard.writeText("PGltZyBzcmM9eCBvbmVlcnJvcj1hbGVydChkb2N1bWVudC5jb29raWUpPg==");
+    alert('Copied data to clipboard!');
+}
+function scriptPanel(){
+    if(document.getElementById('browserBottom').classList.contains('hidden')){
+        document.getElementById('browserBottom').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('browserBottom').classList.add('hidden');
+    }
+}
+function closeAlert(){
+    document.getElementById('popupAlert').classList.add('hidden');
+}
+function openSessionForm(){
+    if(document.getElementById('ccSessionForm').classList.contains('hidden')){
+        document.getElementById('ccSessionForm').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('ccSessionForm').classList.add('hidden');
+    }
+}
+function openTransaction(){
+    if(document.getElementById('transactionPanel').classList.contains('hidden')){
+        document.getElementById('transactionPanel').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('transactionPanel').classList.add('hidden');
+    }
+}
+function copyAddress(walletAddress){
+    navigator.clipboard.writeText(walletAddress);
+    alert('Copied address to clipboard!');
 }

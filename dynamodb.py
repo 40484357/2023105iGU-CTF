@@ -1,7 +1,19 @@
+import boto3
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
+from botocore.config import Config
 from datetime import datetime
 
+my_config = Config(
+    region_name = 'eu-west-2',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
+
+client = boto3.client('kinesis', config=my_config)
 user_table = resource ('dynamodb').Table('Users')
 
 def insertUser(email, password, user_name, lecturerCode, lecturerStatus):
@@ -105,35 +117,50 @@ def checkLecturerCode(code):
     else:
         return(False)
 
-def initialiseLaptop(email, password, startTime, challengeState, hints):
+def initialiseLaptop(email, password, startTime, challengeState, hints, laptopSelect):
     response = user_table.update_item(
         Key = {'email': email},
-        UpdateExpression='SET laptopPassword= :l, challengeStart= :t, laptopState= :s, hints= :h',
+        UpdateExpression='SET laptopPassword= :l, challengeStart= :t, laptopState= :s, hints= :h, laptopSelect= :r',
         ExpressionAttributeValues={
             ':l': password,
             ':t': startTime,
             ':s': challengeState,
-            ':h': hints
+            ':h': hints,
+            ':r': laptopSelect
         },
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
 
-def initialisePhone(email, secretKey, a, b, startTime, challengeState):
+def initialisePhone(email, secretKey, a, b, startTime, challengeState, stegSelect):
     response = user_table.update_item(
         Key={'email': email},
-        UpdateExpression = 'SET phoneKey= :k, primeA= :a, primeB= :b, challengeStart= :t, phoneState= :s, hints= :h',
+        UpdateExpression = 'SET phoneKey= :k, primeA= :a, primeB= :b, challengeStart= :t, phoneState= :s, hints= :h, stegSelect = :r',
         ExpressionAttributeValues={
             ':k': secretKey,
             ':a': a,
             ':b': b,
             ':t': startTime,
             ':s': challengeState,
-            ':h': '0'
+            ':h': '0',
+            ':r': stegSelect
         },
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
+
+def initialiseCrypto(email, startTime, challengeState, hints):
+    response = user_table.update_item(
+        Key = {'email': email},
+        UpdateExpression='SET challengeStart= :t, cryptoState= :s, hints= :h',
+        ExpressionAttributeValues={
+            ':t': startTime,
+            ':s': challengeState,
+            ':h': hints
+        },
+        ReturnValues='UPDATED_NEW'
+    )
+
 
 def updateUser(email, challenge, points, state):
     response = user_table.update_item(
@@ -200,6 +227,18 @@ def endRoom(email, challenge, state, splunkState, points):
             ReturnValues='UPDATED_NEW'
         )
         print(response['Attributes'])
+    elif challenge == 'crypto':
+        response = user_table.update_item(
+            Key={'email': email},
+            UpdateExpression='SET cryptoState= :l, hints = :h, points = :p, splunkState= :s',
+            ExpressionAttributeValues={
+                ':l': state,
+                ':h': '0',
+                ':p': points,
+                ':s': splunkState
+            },
+            ReturnValues='UPDATED_NEW'
+        )
 
 def addHints(email, hints):
     response = user_table.update_item(

@@ -2005,3 +2005,580 @@ background-color: #ec131a;
 .input-group.profile-form{
     padding-bottom:10px;
 }
+
+.helpOverlayButton{
+    float: left;
+    color: white;
+    width:60px;
+    height: 60px;
+    font-size: 50px;
+    border: white solid 2px;
+    text-align: center;
+    border-radius:50%;
+}
+.helpOverlayButton:hover{
+    background-color: white;
+    color: #0B0909;
+    cursor: pointer;
+}
+#helpOverlay{
+    float: left;
+    width: 250px;
+    border: white solid 2px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top:70px;
+    margin-left:-50px;
+}
+#helpOverlay h1{
+    color: black;
+    font-size: 30px;
+}
+#helpOverlay p{
+    color: black;
+    font-size: 20px;
+}
+#helpOverlay #copyScript{
+    color: black;
+    font-size: 20px;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: black solid 2px;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    
+}
+
+
+.virtualBrowser{
+    border: 3px solid #f1f1f1;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    width: 60%;
+    align-items: center;
+    position: absolute;
+    transform: translate(30%, 0%);
+    margin-top:-30px;
+}
+
+.virtualBrowser .addressBar {
+    padding: 10px;
+    background: #f1f1f1;
+  }
+
+.virtualBrowser .column {
+  float: left;
+}
+
+.virtualBrowser .left {
+  width: 15%;
+}
+
+.virtualBrowser .right {
+  width: 10%;
+}
+
+.virtualBrowser .middle {
+  width: 75%;
+}
+
+
+.addressBar:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Three dots */
+  .dot {
+    margin-top: 4px;
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  /* Most of the form text use this class */
+  input[id="urlText"], input[id="ccUsername"], input[id="ccPassword"],input[id="ccScript"], input[id="ccSession"],input[id="ccTxn"] {
+    width: 100%;
+    border-radius: 3px;
+    border: none;
+    background-color: white;
+    margin-top: -8px;
+    height: 25px;
+    color: #666;
+    padding: 5px;
+  }
+  
+  
+  .browserContent {
+    padding: 10px;
+    background-image: linear-gradient(rgb(105,88,156), rgb(40, 37, 107));
+    color: white;
+  }
+
+  .browserContent h1{
+    font-size: 50px;
+    font-weight: 600;
+    text-shadow: 0px 0px 5px #5cfac8, 0px 0px 10px #b393d3, 0px 0px 10px #b393d3,
+      0px 0px 20px #b393d3;
+    text-align: center;
+    color: #572cf5;
+    margin-bottom: 20px;
+  }
+
+  .loginPanel {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50%;
+    padding: 40px;
+    margin:30px;
+    border:#0B0909 3px solid;
+    border-radius: 30px;
+    /*center the box*/
+    top: 50%;
+    left: 23%;
+    background-color: white;
+  }
+  input[id="ccUsername"], input[id="ccPassword"]{
+    position: relative;
+    width: 50%;
+    left:25%;
+    background: transparent;
+    border: black 1px solid;
+    border-radius: 5px;
+    
+    
+  }
+    input[id="ccUsername"]:focus, input[id="ccPassword"]:focus{
+        outline: none;
+        border: rgb(18, 94, 215) 1px solid;
+    }
+    input[id="ccUsername"]::placeholder,  input[id="ccPassword"]::placeholder{
+        color: rgb(18, 94, 215);
+        opacity: 0.7;
+    }
+    label[for=ccUsername], label[for=ccPassword]{
+        position: relative;
+        left: 25%;
+        color: rgb(18, 94, 215);
+        line-height: 40px;
+    }
+    input[id="ccSubmit"]{
+        position: relative;
+        padding: 1em;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+        left: 40%;
+        background:transparent;
+    }
+    input[id="ccSubmit"]:hover{
+        /*glow effect*/
+        box-shadow: 0px 0px 10px 0px rgb(18, 94, 215);
+        cursor: pointer;
+    }
+    .ccMessage{
+        color:rgb(18, 94, 215);
+    }
+
+    /* Challenge 2  CSS start*/
+    .browserContent2 {
+        padding: 10px;
+        background-image: linear-gradient(rgb(105,88,156), rgb(40, 37, 107));
+        color: white;
+      }
+    
+    .browserContent2 h1{
+        display: flex;
+        font-size: 30px;
+        text-shadow: 0px 0px 5px #5cfac8, 0px 0px 10px #b393d3, 0px 0px 10px #b393d3,
+          0px 0px 20px #b393d3;
+        text-align: left;
+        color: #572cf5;
+        margin-bottom: 0px;
+        margin-top: -5px;
+    }
+    .browserContent2 h2 {
+        display:flex;
+        float:right;
+        margin-top: -27px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    .browserContent2 p{
+        display:flex;
+        font-size: 20px;
+        text-align: left;
+        margin-bottom: 10px;
+        margin-left:23px;
+        color: rgba(255, 255, 255, 0.292);
+    }
+    .ccSessionForm{
+       display:none;
+    }
+
+    label[for=ccSessionID]{
+        position: relative;
+        left: 45%;
+        color: rgb(18, 94, 215);
+        line-height: 40px;
+    }
+    input[id="ccSession"]{
+        position: relative;
+        width: 30%;
+        left:35%;
+        background: transparent;
+        border: black 1px solid;
+        border-radius: 5px;  
+    }
+    input[id="ccView"]{
+        display:block;
+        position: relative;
+        padding: 1em;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+        top: -55px;
+        left: -28%;
+        float:right;
+        background:transparent;
+    }
+      
+    .mainPanel {
+       position: relative;  
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 90%;
+        padding: 40px;
+        margin:30px;
+        border:#0B0909 3px solid;
+        border-radius: 30px;
+        /*center the box*/
+        top: 50%;
+        left: 2%;
+        background-color: white;
+    }
+    .mainPanel h3{
+        color:rgb(18, 94, 215);
+        font-size: 30px;
+       text-align: center;
+       margin:0px;
+       margin-bottom: 10px;
+
+    }
+    .grid1{
+        display:grid;
+        column-gap:-10px;
+        row-gap: 0px;   
+    }
+    .grid1 h3{
+        color:rgb(18, 94, 215);
+        font-size: 25px;
+       text-align: left;
+    }
+    .grid1 h4{
+        color:rgb(18, 94, 215);
+        text-align: left;
+        font-size: 20px;
+        margin:10px;
+    }
+    .grid1 .leftColumn{
+      grid-row-start: 2;
+      grid-row-end:2;
+    }
+    .grid1 .rightColumn{
+        grid-column-start: 2;
+        grid-row-start: 2;
+    }
+    .transactionSection{
+        grid-row-start:3;
+    }
+    .transactionSection h3{
+        color:rgb(18, 94, 215);
+        font-size: 25px;
+       text-align: left;
+    }
+    .transactionSection h4{
+        color:rgb(18, 94, 215);
+        font-size: 17px;
+       text-align: left;
+    }
+    .transactionSection mark{
+        color:rgb(18, 94, 215);
+        font-size: 19px;
+        background-color: wheat;
+        border: rgb(18, 94, 215) 2px solid;
+        padding:2px;
+        border-radius: 5px;
+    }
+    .grid2{
+        display:grid;
+        column-gap: 3em;
+        justify-content: start;
+    }
+    .grid2 h4{
+        color:rgb(18, 94, 215);
+        font-size: 15px;
+    }
+    .grid2 .firstColumn{
+        grid-row-start: 1;
+        grid-column-start: 1;
+    }
+    .grid2 .secondColumn{
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+    .grid2 .thirdColumn{
+        grid-row-start: 1;
+        grid-column-start: 3;
+    }
+
+    .grid3{
+        display:grid;
+    }
+    .grid3 h4{
+        color:rgb(18, 94, 215);
+        font-size: 15px;
+       text-align: left;
+    }
+    .grid3 .firstColumn{
+        grid-row-start: 1;
+        grid-column-start: 1;
+    }
+    .grid3 .secondColumn{
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+    .grid3 .thirdColumn{
+        grid-row-start: 1;
+        grid-column-start: 3;
+    }
+    .grid3 .fourthColumn{
+        grid-row-start: 1;
+        grid-column-start: 4;
+    }
+    .grid3 .fifthColumn{
+        grid-row-start: 1;
+        grid-column-start: 5;
+    }
+    .grid3 .sixthColumn{
+        grid-row-start: 1;
+        grid-column-start: 6;
+    }
+    .grid3 .seventhColumn{
+        grid-row-start: 1;
+        grid-column-start:7;
+    }
+    .grid3 .seventhColumn button {
+        position: relative;
+        left: 25%;
+        top:45%;
+        padding: 1em;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+        background:transparent;
+    }
+    .grid3 .seventhColumn button:hover{
+        cursor: pointer;
+    }
+  
+    #scriptPanel{
+        position: relative;
+        padding: 1em;
+        border-radius: 5px;
+        color:black;
+    }
+    #scriptPanel:hover{
+        cursor: pointer;
+    }
+   
+    input[id="ccScript"]{
+        position: relative;
+        width: 50%;
+        left:2%;
+        background: rgba(255, 255, 255, 0.292);
+        border: black 1px solid;
+        border-radius: 5px;
+        color:white;
+    }
+    #ccScriptSubmit{
+        position: relative;
+        left:2%;
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.292);
+    }
+    #ccScriptSubmit:hover{
+        cursor: pointer;
+    }
+    input[id="ccScript"]:focus{
+        outline: none;
+        border: rgb(18, 94, 215) 1px solid;
+    }
+    .popupAlert{
+        position: fixed;
+        font-size: 20px;
+        z-index: 1;
+        width: 40%;
+        left:30%;
+        background: white;
+        border: black 1px solid;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .popupAlert p{
+       position: relative;
+        justify-content: center;
+        right:15px;
+        color: rgb(18, 94, 215);
+    }
+    .popupAlert button{
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        background: transparent;
+        border: black 1px solid;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+    }
+    .popupAlert button:hover{
+        cursor: pointer;
+    }
+
+    /* Challenge 3 CSS Start */
+    .transactionPanel{
+        position: fixed;
+        font-size: 20px;
+        z-index: 1;
+        width: 40%;
+        left:30%;
+        bottom:1%;
+        background: wheat;
+        border: black 2px solid;
+        border-radius: 5px;
+        color:rgb(18, 94, 215);
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .transactionPanel h1{
+        position: relative;
+        color:rgb(18, 94, 215);
+        font-size: 25px;
+       justify-content: center;
+       margin-top:10px;
+       border-bottom: 2px solid black
+    }
+    .timelineGrid{
+        display:grid;
+        column-gap: 0.2em;
+        justify-content: start;
+    }
+    .timelineGrid .leftColumn{
+        grid-row-start: 1;
+        grid-column-start: 1;
+        margin-top:-5px;
+    }
+    .timelineGrid .rightColumn{
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+    .timelineGrid p{
+        color:rgb(18, 94, 215);
+        font-size: 15px;
+       text-align: left;
+    }
+    .timelineGrid .txnNum{
+        display:block;
+        width: 35px;
+        line-height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 20px;
+        color:white;
+        border: 2px solid rgb(18, 94, 215);
+        background-color:rgb(18, 94, 215); 
+    }
+   .timelineGrid .line{
+        display:block;
+        width: 35px;
+        text-align: center;
+        font-size: 20px;
+        color:rgb(18, 94, 215);
+   }
+   .timelineGrid .subtext{
+        color:rgb(63, 108, 181);
+        font-size: 13px;
+   }
+   .separationLine{
+        border-bottom: 2px solid black;
+   }
+   .detailsGrid {
+        display:grid;
+
+   }
+   .detailsGrid p{
+        color:rgb(18, 94, 215);
+        font-size: 15px;
+       text-align: left;
+   }
+   .detailsGrid .leftColumn{
+        grid-row-start: 1;
+        grid-column-start: 1;
+        margin-top:-5px;
+    }
+    .detailsGrid .rightColumn{
+        grid-row-start: 1;
+        grid-column-start: 2;
+        justify-content: right;
+    }
+    #copyAddress{
+        float:right;
+        margin:5px;
+        background: rgb(63, 108, 181);
+        color:white;
+        border: black 1px solid;
+        border-radius: 5px;
+    }
+    #copyAddress:hover{
+        cursor: pointer;
+    }
+
+    input[id="ccTxn"]{
+        position: relative;
+        width:50%;
+        margin-top:10px;
+        border: black 1px solid;
+        color: rgb(18, 94, 2215);
+    }
+    input[id="ccSubmitFeedback"]{
+        position: relative;
+        width: 40%;
+        margin:5px;
+        line-height: 200%;
+        background: rgb(63, 108, 181);
+        border: black 1px solid;
+        border-radius: 5px;
+        color:white;
+    }
+    input[id="ccSubmitFeedback"]:hover{
+        cursor: pointer;
+    }
+    .ccFeedbackMessage{
+        font-size:17px;
+        position: relative;
+        margin:10px;
+        color:Black;
+        text-shadow: White 1px 1px 1px;
+    }
+    .ccFeedbackMessage a{
+        color:rgb(0, 98, 255);
+    }
+    .ccFeedbackMessage a:hover{
+        cursor: pointer;
+    }
