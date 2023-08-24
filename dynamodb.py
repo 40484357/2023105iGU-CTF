@@ -1,13 +1,12 @@
 import boto3
-from botocore.config import Config
-
-boto3.client('dynamodb', region_name = 'eu-west-2')
-
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from datetime import datetime
 
-
+resource = resource(
+    'dynamodb',
+    region_name = 'eu-west-2'
+)
 
 
 
