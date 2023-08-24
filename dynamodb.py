@@ -7,8 +7,7 @@ from datetime import datetime
 
 
 
-
-client = boto3.client('elasticbeanstalk', region_name='eu-west-2')
+boto3.client('elastibeanstalk', region = 'eu-west-2')
 
 user_table = resource ('dynamodb').Table('Users')
 
