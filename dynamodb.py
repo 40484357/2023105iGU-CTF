@@ -14,6 +14,7 @@ my_config = Config(
 )
 
 client = boto3.client('kinesis', config=my_config)
+
 user_table = resource ('dynamodb').Table('Users')
 
 def insertUser(email, password, user_name, lecturerCode, lecturerStatus):
