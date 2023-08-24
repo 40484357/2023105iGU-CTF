@@ -12,7 +12,7 @@ resource = resource(
 
 
 
-user_table = resource ('dynamodb').Table('Users')
+user_table = resource.Table('Users')
 
 def insertUser(email, password, user_name, lecturerCode, lecturerStatus):
     response = user_table.put_item(
