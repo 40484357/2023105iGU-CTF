@@ -399,7 +399,7 @@ def landing():
     if current_user.is_authenticated:
         return redirect(url_for('views.logged_in'))
     else:
-        return render_template('index.html')
+        return render_template('home.html')
 
 @views.route('/logged_in', methods = ['GET', 'POST'])
 @login_required
