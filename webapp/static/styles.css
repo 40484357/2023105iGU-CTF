@@ -2949,16 +2949,14 @@ background-color: #ec131a;
   .flex-column-image {
     box-sizing: border-box;
     display: flex;
-    flex: 0 0 auto;
+    width: 100%;
     height: 100%;
     flex-direction: column;
     align-items: flex-end;
-    align-self: stretch;
-    justify-content: flex-start;
     padding-bottom: 76px;
     background: url('/static/homelock.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
   .image-container3 {
     box-sizing: border-box;
@@ -3321,6 +3319,7 @@ background-color: #ec131a;
     flex: 0 1 auto;
     padding-top: 14.5px;
     margin-left: 153px;
+    padding-bottom: 17.5px;
   }
   .resource-description {
     box-sizing: border-box;
