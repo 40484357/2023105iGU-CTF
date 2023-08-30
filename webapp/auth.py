@@ -40,7 +40,7 @@ def login():
                     print('wrong password')
             except:
                 flash('email does not exist', category='error')
-        return render_template("login.html")
+        return render_template("new-sign-up.html")
 
 @auth.route('/logout')
 @login_required
@@ -227,4 +227,4 @@ def sign_up():
                     flash('Account created', category='success')
                     login_user(new_user, remember=True) 
                     return redirect(url_for('views.logged_in'))
-    return render_template("register.html")
+    return render_template("new-register.html")

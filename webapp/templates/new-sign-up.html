@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Register</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css')}}"
+		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
+	</head>
+    <body>
+        <div style="display: inline-block; width: 100%" data-ignore="used only for top most containter width">
+            <div class="main-header-container">
+                <div class="header-container">
+                <div class="cyber-scaping-containe">
+                <img class="image-container1 img-content-cb0a6a63" />
+                </div>
+                <p class="gradient-text-title">
+                <span class="cyber-scape">CyberEscape</span>
+                </p>
+                </div>
+                <div class="navbar">
+                <div class="navigation-bar">
+                <p class="navigation-link">About</p>
+                <p class="navigation-link">Contact</p>
+                <p class="navigation-link">News</p>
+                </div>
+                <a href="/">
+                <button class="register-button register-link">back</button>
+                </a> 
+                </div>
+            </div>
+            <div class="login-container1">
+                <div class="login-container2">
+                <div class="login-container">
+                <p class="welcome-message">Welcome back</p>
+                <form method="POST">
+                    <div class="email-login-form">
+                            <div class="email-container">
+                            <div class="email-container1">
+                            <div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" width="34" height="28" viewBox="0 0 34 28" fill="none">
+                                <path d="M30.3567 1.25H3.64244C2.30118 1.25 1.21387 2.33731 1.21387 3.67857V24.3214C1.21387 25.6627 2.30118 26.75 3.64244 26.75H30.3567C31.698 26.75 32.7853 25.6627 32.7853 24.3214V3.67857C32.7853 2.33731 31.698 1.25 30.3567 1.25Z" stroke="#6357CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1.21387 4.28613L15.4453 16.429C15.8817 16.7925 16.4317 16.9915 16.9996 16.9915C17.5675 16.9915 18.1175 16.7925 18.5539 16.429L32.7853 4.28613" stroke="#6357CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg></div>
+                            </div>
+                            <input type="email" name="email" id="email" placeholder="you@example.com" class="input" required="true">
+                            </div>
+                            <div class="password-container">
+                            <div class="email-container1">
+                            <div class="svg-container"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Group_2" xmlns="http://www.w3.org/2000/svg">
+                                <path id="Vector_4" d="M11.7484,21.7512c0,0.375 -0.149,0.736 -0.415,1.001c-0.265,0.266 -0.626,0.415 -1.001,0.415c-0.376,0 -0.736,-0.149 -1.002,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.736 0.415,-1.002c0.266,-0.266 0.626,-0.415 1.002,-0.415c0.375,0 0.736,0.149 1.001,0.415c0.266,0.266 0.415,0.626 0.415,1.002zM17.4154,21.7512c0,0.375 -0.149,0.736 -0.415,1.001c-0.266,0.266 -0.626,0.415 -1.002,0.415c-0.375,0 -0.736,-0.149 -1.001,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.736 0.415,-1.002c0.265,-0.266 0.626,-0.415 1.001,-0.415c0.376,0 0.736,0.149 1.002,0.415c0.266,0.266 0.415,0.626 0.415,1.002zM21.6654,23.1672c0.376,0 0.736,-0.149 1.002,-0.415c0.265,-0.265 0.415,-0.626 0.415,-1.001c0,-0.376 -0.15,-0.736 -0.415,-1.002c-0.266,-0.266 -0.626,-0.415 -1.002,-0.415c-0.376,0 -0.736,0.149 -1.002,0.415c-0.265,0.266 -0.415,0.626 -0.415,1.002c0,0.375 0.15,0.736 0.415,1.001c0.266,0.266 0.626,0.415 1.002,0.415z" fill="currentColor" />
+                                <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M6.4364,10.4172v1.846c-0.321,0.023 -0.623,0.051 -0.909,0.091c-1.275,0.17 -2.349,0.538 -3.202,1.389c-0.853,0.853 -1.218,1.927 -1.39,3.202c-0.165,1.228 -0.165,2.791 -0.165,4.727v0.156c0,1.937 0,3.499 0.165,4.728c0.17,1.275 0.539,2.349 1.39,3.201c0.853,0.853 1.927,1.219 3.202,1.392c1.228,0.164 2.791,0.164 4.727,0.164h11.489c1.937,0 3.499,0 4.728,-0.164c1.275,-0.173 2.349,-0.539 3.201,-1.392c0.853,-0.852 1.219,-1.926 1.392,-3.201c0.164,-1.229 0.164,-2.791 0.164,-4.728v-0.156c0,-1.936 0,-3.499 -0.164,-4.727c-0.173,-1.275 -0.539,-2.349 -1.392,-3.202c-0.852,-0.852 -1.926,-1.218 -3.201,-1.389c-0.302,-0.04 -0.606,-0.07 -0.91,-0.091v-1.846c0,-2.536 -1.007,-4.968 -2.801,-6.762c-1.793,-1.793 -4.225,-2.8 -6.761,-2.8c-2.536,0 -4.969,1.007 -6.762,2.8c-1.793,1.794 -2.801,4.226 -2.801,6.762zM15.9994,2.9802c-1.973,0 -3.865,0.783 -5.259,2.178c-1.395,1.395 -2.179,3.286 -2.179,5.259v1.775c0.529,-0.004 1.094,-0.004 1.693,-0.004h11.489c0.6,0 1.165,0 1.693,0.004v-1.775c0,-4.108 -3.329,-7.437 -7.437,-7.437zM5.8104,14.4592c-1.04,0.14 -1.589,0.396 -1.982,0.787c-0.392,0.393 -0.647,0.943 -0.788,1.984c-0.143,1.069 -0.145,2.487 -0.145,4.52c0,2.033 0.002,3.451 0.145,4.522c0.141,1.04 0.397,1.59 0.788,1.982c0.393,0.393 0.942,0.648 1.983,0.788c1.069,0.143 2.488,0.146 4.521,0.146h11.333c2.033,0 3.451,-0.003 4.522,-0.146c1.04,-0.14 1.59,-0.397 1.982,-0.788c0.393,-0.392 0.648,-0.942 0.788,-1.983c0.143,-1.07 0.146,-2.488 0.146,-4.521c0,-2.033 -0.003,-3.452 -0.146,-4.522c-0.14,-1.039 -0.397,-1.589 -0.788,-1.982c-0.392,-0.392 -0.942,-0.647 -1.983,-0.787c-1.07,-0.143 -2.488,-0.146 -4.521,-0.146h-11.333c-2.033,0 -3.452,0.003 -4.522,0.146z" fill="currentColor" />
+                                </g>
+                                </svg></div>
+                            </div>
+                            <input type="password" name="password" id="password" placeholder="At least 8 characters" class="input" required="true">
+                            </div>
+                            <p class="forgot-password-link">Forgot password?</p>
+                            <button class="login-button" type="submit">Login</button>
+                    </div>
+                </form>
+                </div>
+                <div class="account-section">
+                <p class="account-heading">Don’t Have an Account?</p>
+                <a href="{{url_for('auth.sign_up')}}">
+                <button class="login-button">Register</button>
+                 </a>
+                </div>
+                </div>
+                </div>
+        </div>
+    </body>
+</html>

@@ -532,3 +532,8 @@ def cryptocartel_loggedin_txn():
             flash(response)
             return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
     return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
+
+
+@views.route('/logintest')
+def login_test():
+    return render_template('new-register.html')
