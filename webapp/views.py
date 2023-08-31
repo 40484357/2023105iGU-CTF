@@ -536,4 +536,4 @@ def cryptocartel_loggedin_txn():
 
 @views.route('/logintest')
 def login_test():
-    return render_template('new-register.html')
+    return render_template('new-login-screen.html')

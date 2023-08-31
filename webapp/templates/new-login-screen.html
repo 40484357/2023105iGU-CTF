@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Register</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style.css')}}"
+		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
+	</head>
+    <body>
+        <div style="display: inline-block; width: 100%; height: 100%;" data-ignore="used only for top most containter width">
+            <div class="main-header-container">
+                <div class="header-container">
+                <div class="cyber-scaping-container">
+                <img class="image-container1 img-content-cb0a6a63" />
+                </div>
+                <p class="gradient-text-title">
+                <span class="cyber-scape">CyberEscape</span>
+                </p>
+                </div>
+                <div class="navbar">
+                <div class="navigation-bar">
+                <p class="navigation-link">About</p>
+                <p class="navigation-link">Contact</p>
+                <p class="navigation-link">News</p>
+                </div>
+                <a href="/">
+                <button class="register-button register-link">Log out</button>
+                </a> 
+                </div>
+            </div>
+            <div class="game-profile-leaderboard">
+                <div class="game-menu-container">
+                <p class="game-title active" id="game_click">GAMES</p>
+                <p class="game-link" id="profile_click">PROFILE</p>
+                <p class="game-link" id="leaderboard_click">LEADERBOARD</p>
+                </div>
+                <div class="game-section" id="games_section">
+                <div class="murder-mystery-card">
+                        <div class="murder-mystery-container">
+                        <div class="flex-container">
+                        <div class="card-container2">
+                        <img class="image-container2 img-content-92c95e35" />
+                        </div>
+                        <div class="info-box1">
+                        <div class="circle-button">
+                        <p class="header-title1">i</p>
+                        </div>
+                        </div>
+                        </div>
+                        <p class="murder-mystery-title">Murder Mystery</p>
+                        <p class="medium-title">Easy</p>
+                        </div>
+                        <div class="launch-button-container">
+                        
+                        <button class="launch-button1">Launch</button>
+                        </div>
+                </div>
+                <div class="murder-mystery-card">
+                <div class="murder-mystery-container">
+                <div class="flex-container">
+                <div class="card-container2">
+                <img class="image-container2 img-content-92c95e36" />
+                </div>
+                <div class="info-box1">
+                <div class="circle-button">
+                <p class="header-title1">i</p>
+                </div>
+                </div>
+                </div>
+                <p class="murder-mystery-title">CSI</p>
+                <p class="medium-title">Medium</p>
+                </div>
+                <div class="launch-button-container">
+                
+                <a href="/cyberescape"><button class="launch-button1">Launch</button></a>
+                </div>
+                </div>
+                <div class="main-container">
+                <div class="flex-container">
+                <div class="card-container1">
+                <img class="image-container2 img-content-fb7836ef" />
+                </div>
+                <div class="info-box1">
+                <div class="circle-button">
+                <p class="header-title1">i</p>
+                </div>
+                </div>
+                </div>
+                <p class="upcoming-title">Coming Soon...</p>
+                <p class="medium-title">Hard</p>
+                </div>
+                </div>
+                <div class="user-profile-container hidden" id="profile_container">
+                    <div class="user-profile-card">
+                    <img class="user-avatar img-content-efbef174" />
+                    <p class="username-heading">Username</p>
+                    </div>
+                    <div class="profile-section">
+                    <div class="profile-container">
+                    <div class="profile-section2">
+                    <p class="profile-title">Profile</p>
+                    <p class="profile-settings-text">Profile Settings</p>
+                    </div>
+                    <!-- <div class="profile-section1">
+                    <p class="overview-title">Overview</p>
+                    <p class="overview-badge">Badges</p>
+                    </div> -->
+                    <div class="leaderboard">
+                    <div class="global-rank-card">
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-cfa5c622" />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Global rank</p>
+                        <p class="rank-label">#6</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-cfa5c623" />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Class Rank</p>
+                        <p class="rank-label">#4</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-ee222295 " />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Points</p>
+                        <p class="rank-label">1566</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="crime-game-container">
+                    <div class="crime-scene-investigation">
+                    <p class="global-rank">CSI</p>
+                    <div class="game-attempts-container">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <p class="game-attempts1 game-attempts">Attempts: 4</p>
+                    <p class="game-attempts1">Best Time: 1h 10m</p>
+                    <p class="game-attempts1 game-attempts">Best Score: 545</p>
+                    </div>
+                    </div>
+                    <div class="murder-mystery-container">
+                    <p class="global-rank">Murder Mystery</p>
+                    <div class="game-info-container">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <p class="game-attempts1 game-attempts">Attempts: 4</p>
+                    <p class="game-attempts1">Best Time: 1h 10m</p>
+                    <p class="game-attempts1 game-attempts">Best Score: 545</p>
+                    </div>
+                    </div>
+                    <div class="murder-mystery-container">
+                    <p class="global-rank">Murder Mystery</p>
+                    <div class="game-info-container">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <p class="game-attempts1 game-attempts">Attempts: 4</p>
+                    <p class="game-attempts1">Best Time: 1h 10m</p>
+                    <p class="game-attempts1 game-attempts">Best Score: 545</p>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+        <script>
+            var profileClick = document.getElementById('profile_click')
+            var gameSection = document.getElementById('games_section')
+            var profileContainer = document.getElementById('profile_container')
+            var gameClick = document.getElementById('game_click')
+            profileClick.addEventListener('click', () => {
+                gameSection.classList.add('hidden')
+                profileContainer.classList.remove('hidden')
+                gameClick.classList.remove('active')
+                profileClick.classList.add('active')
+            })
+            gameClick.addEventListener('click', () => {
+                gameSection.classList.remove('hidden')
+                profileContainer.classList.add('hidden')
+                gameClick.classList.add('active')
+                profileClick.classList.remove('active')
+
+            })
+
+        </script>
+    </body>
+</html>

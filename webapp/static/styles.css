@@ -3371,7 +3371,7 @@ background-color: #ec131a;
     min-width: 1440px;
     padding-top: 87px;
     padding-bottom: 94px;
-    background: url(https://s3-alpha-sig.figma.com/img/6be1/1f15/7dc3f21065c14bcad20ceedf7eb33ee1?Expires=1694390400&Signature=nN7k~IidyKw4-A~1sle0gqJw9JUcb4XAvA~ilI0eiHuuX~UbxT3j-lb85gi3TSJvgpR9lD5cS6362CUv~ob4bpOUavFaKZnEc2VcP8meF3aN~LqZICimSABmPSHcwyC-51RogrZACbubnV6OIF45-vPgdejFaTp5ybPLMrH5zPQ2987cj340bEwvI1vyuKaIXzfLgaed8CadXUO6nxNhO9VY8Okvi~OmH1W9eQ5v4ptZG615wKh2n7dKU29ssoTQ52JGTMSh1IDeCZPbw6PsrUIHOAA7XkQJx-m9JX2xwE-wMCoo0N7ymYAhVNvtcJW7VhpgXBG7BVkSS1wyR679DQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
+    background: url("/static/sherlockcyber.png") ;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -3574,12 +3574,12 @@ background-color: #ec131a;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-width: 1440px;
+  width:100%;
   padding-top: 34px;
   padding-bottom: 34px;
-  background: url(https://s3-alpha-sig.figma.com/img/6be1/1f15/7dc3f21065c14bcad20ceedf7eb33ee1?Expires=1694390400&Signature=nN7k~IidyKw4-A~1sle0gqJw9JUcb4XAvA~ilI0eiHuuX~UbxT3j-lb85gi3TSJvgpR9lD5cS6362CUv~ob4bpOUavFaKZnEc2VcP8meF3aN~LqZICimSABmPSHcwyC-51RogrZACbubnV6OIF45-vPgdejFaTp5ybPLMrH5zPQ2987cj340bEwvI1vyuKaIXzfLgaed8CadXUO6nxNhO9VY8Okvi~OmH1W9eQ5v4ptZG615wKh2n7dKU29ssoTQ52JGTMSh1IDeCZPbw6PsrUIHOAA7XkQJx-m9JX2xwE-wMCoo0N7ymYAhVNvtcJW7VhpgXBG7BVkSS1wyR679DQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
+  background: url("/static/sherlockcyber.png") ;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;
   height: 100%;
 }
 .registration-form-container {
