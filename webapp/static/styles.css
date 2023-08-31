@@ -651,6 +651,66 @@ body {
     color: #FFFFFF;
 }
 
+.descriptText button {
+  height: 40px;
+  width: 200px;
+  outline: none;
+  background: white;
+  border: black solid 2px;
+}
+
+#score, #scoreText{ /*styling of the score box*/
+  float:inline-start;
+  margin: 0.1em;
+  font-size: 30px;
+  font-family: 'public sans';
+  color: #ffffff;
+}
+
+.answerBoxes{ /*spacing of the answer boxes*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: 1em;
+  gap: 1em;
+}
+#answerA,#answerB,#answerC,#answerD{ /*styling of the answer boxes*/
+  background: rgba(204, 101, 57, 1);
+  border-radius: 14px;
+  padding: 1em;
+  font-family: 'public sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 193.9%;
+  color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+#retry{
+  background: rgba(204, 101, 57, 1);
+  border-radius: 14px;
+  padding: 1em;
+  font-family: 'public sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 193.9%;
+  color: #FFFFFF;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+}
+#answerA:hover,#answerB:hover,#answerC:hover,#answerD:hover,#retry:hover{ /*hover styling of the answer boxes*/
+  background: rgba(204, 101, 57, 0.65);
+  cursor: pointer;
+}
+
 #nav {
     display: flex;
     flex-direction: row;
@@ -719,12 +779,10 @@ body {
     cursor: pointer;
 }
 #introQuiz {
-    margin: auto;
-    text-align:center;
-    position: relative;
-    width: 80%;
-    height: 0;
-    padding-bottom: 40%; /* The height of the item will now be 56.25% of the width. */
+  width: 1000px;
+  margin: auto;
+  text-align: center;
+  border-radius: 14px
 }
 
   /* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
@@ -3316,6 +3374,7 @@ background-color: #ec131a;
     background: url(https://s3-alpha-sig.figma.com/img/6be1/1f15/7dc3f21065c14bcad20ceedf7eb33ee1?Expires=1694390400&Signature=nN7k~IidyKw4-A~1sle0gqJw9JUcb4XAvA~ilI0eiHuuX~UbxT3j-lb85gi3TSJvgpR9lD5cS6362CUv~ob4bpOUavFaKZnEc2VcP8meF3aN~LqZICimSABmPSHcwyC-51RogrZACbubnV6OIF45-vPgdejFaTp5ybPLMrH5zPQ2987cj340bEwvI1vyuKaIXzfLgaed8CadXUO6nxNhO9VY8Okvi~OmH1W9eQ5v4ptZG615wKh2n7dKU29ssoTQ52JGTMSh1IDeCZPbw6PsrUIHOAA7XkQJx-m9JX2xwE-wMCoo0N7ymYAhVNvtcJW7VhpgXBG7BVkSS1wyR679DQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
  }
   
  .login-container2 {
@@ -3521,6 +3580,7 @@ background-color: #ec131a;
   background: url(https://s3-alpha-sig.figma.com/img/6be1/1f15/7dc3f21065c14bcad20ceedf7eb33ee1?Expires=1694390400&Signature=nN7k~IidyKw4-A~1sle0gqJw9JUcb4XAvA~ilI0eiHuuX~UbxT3j-lb85gi3TSJvgpR9lD5cS6362CUv~ob4bpOUavFaKZnEc2VcP8meF3aN~LqZICimSABmPSHcwyC-51RogrZACbubnV6OIF45-vPgdejFaTp5ybPLMrH5zPQ2987cj340bEwvI1vyuKaIXzfLgaed8CadXUO6nxNhO9VY8Okvi~OmH1W9eQ5v4ptZG615wKh2n7dKU29ssoTQ52JGTMSh1IDeCZPbw6PsrUIHOAA7XkQJx-m9JX2xwE-wMCoo0N7ymYAhVNvtcJW7VhpgXBG7BVkSS1wyR679DQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
 }
 .registration-form-container {
   box-sizing: border-box;
