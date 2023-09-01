@@ -17,19 +17,46 @@ key = 'key'
 @application.route('/cyberescape')
 @login_required
 def landing():
+    userData = loadUser(current_user.id)
     user_points = getPoints(current_user.id)
     if int(user_points) <= 0:
         userPoints= 100
         initialiseGame(current_user.id, str(userPoints), str(datetime.now()))
         timeLeft = 86400
     else:
-        userData = loadUser(current_user.id)
         userPoints = user_points
         timePassed = timeChange(userData[0]['startGameTime'])
         print('timepassed' + str(timePassed))
         timeLeft = 86400 - timePassed
         print(timeLeft)
-    return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft)
+    
+    chall1State  =  False
+    chall2State  =  False
+    chall3State  =  False
+
+    try:
+        splunkChall1 = userData[0]['key_one']
+        chall1State  =  True
+    except:
+        chall1State  =  False
+    
+    try:
+        splunkChall2 = userData[0]['key_two']
+        chall2State = True
+    except:
+        splunkChall2 = None
+        chall2State  =  False
+    
+    try: 
+        splunkChall3 = userData[0]['key_three']
+        chall3State = True
+    except:
+        splunkChall3 = None
+        chall3State = False
+
+   
+    return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State)
+
 
 
 @application.route('/hints')

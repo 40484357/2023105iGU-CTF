@@ -101,19 +101,19 @@
                 <div class="user-profile-container hidden" id="profile_container">
                     <div class="user-profile-card">
                     <img class="user-avatar img-content-efbef174" />
-                    <p class="username-heading">Username</p>
+                    <p class="username-heading">{{username}}</p>
                     </div>
                     <div class="profile-section">
                     <div class="profile-container">
                     <div class="profile-section2">
-                    <p class="profile-title">Profile</p>
-                    <p class="profile-settings-text">Profile Settings</p>
+                    <p class="profile-title active" id="inner-profile-nav">Profile</p>
+                    <p class="profile-settings-text" id="profile-settings-nav">Profile Settings</p>
                     </div>
                     <!-- <div class="profile-section1">
                     <p class="overview-title">Overview</p>
                     <p class="overview-badge">Badges</p>
                     </div> -->
-                    <div class="leaderboard">
+                    <div class="leaderboard" id="inner-profile">
                     <div class="global-rank-card">
                     <div class="ranking-container">
                         <div class="rank-container">
@@ -179,9 +179,104 @@
                     </div>
                     </div>
                     </div>
+                    <div class="leaderboard hidden" id="profile-settings">
+                    <form method="POST">
+                        <div class="profile_form">
+                                <div class="inputBox">
+                                    <input type="text" name="class" id="class">
+                                    <span>Class</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="class2" id="class2">
+                                    <span>Confirm Class</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="password" name="password" id="password">
+                                    <span>Password</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="password" name="passsword2" id="password2">
+                                    <span>Confirm password</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="email" name="email" id="email">
+                                    <span>E-mail</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="email" name="email2" id="email2">
+                                    <span>Confirm e-mail</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="github" id="github">
+                                    <span>Github</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="linkedin" id="linkedin">
+                                    <span>LinkedIn</span>
+                                </div>
+                                <button class="profile-settings-button">
+                                    Save Changes
+                                </button>
+                        </div>
+                    </form>
                     </div>
                     </div>
                     </div>
+                </div>
+                <div class="leaderboard-container hidden" id="leaderboard_section">
+                    <div class="leaderboard-container2">
+                        <div class="menu-container">
+                            <div class="dropdown" data-dropdown>
+                                <div class="dropdown-button" data-dropdown-button>
+                                    <p>Global</p>
+                                    <p class="dropdown-arrow" data-dropdown-button>&#8964;</p>
+                                </div>
+                                <div class="dropdown-menu" >
+                                    <div class="dropdown-content">
+                                        Class
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown" data-dropdown >
+                                <div class="dropdown-button" data-dropdown-button>
+                                    <p>Overall</p>
+                                    <p class="dropdown-arrow" data-dropdown-button>&#8964;</p>
+                                </div>
+                                <div class="dropdown-menu" >
+                                    <div class="dropdown-content">
+                                        CSI
+                                    </div>
+                                    <div class="dropdown-content">
+                                        Murder Mystery
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leaderboard-headers-container">
+                            <div class="leaderboard-header">
+                                Rank
+                            </div>
+                            <div class="leaderboard-header">
+                                Username
+                            </div>
+                            <div class="leaderboard-header">
+                                Points
+                            </div>
+                        </div>
+                        <div class="leaderboard-headers-container">
+                            <div class="leaderboard-header">
+                                
+                            </div>
+                            <div class="leaderboard-header">
+                                
+                            </div>
+                            <div class="leaderboard-header">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
         <script>
@@ -189,20 +284,69 @@
             var gameSection = document.getElementById('games_section')
             var profileContainer = document.getElementById('profile_container')
             var gameClick = document.getElementById('game_click')
+            var profile_settingsClick = document.getElementById('profile-settings-nav')
+            var innerProfile_Click = document.getElementById('inner-profile-nav')
+            var innerProfile_settings = document.getElementById('profile-settings')
+            var innerProfile = document.getElementById('inner-profile')
+            var leaderboardClick = document.getElementById('leaderboard_click')
+            var leaderboardContainer = document.getElementById('leaderboard_section')
+
             profileClick.addEventListener('click', () => {
                 gameSection.classList.add('hidden')
                 profileContainer.classList.remove('hidden')
                 gameClick.classList.remove('active')
                 profileClick.classList.add('active')
+                leaderboardContainer.classList.add('hidden')
+                leaderboardClick.classList.remove('active')
             })
             gameClick.addEventListener('click', () => {
                 gameSection.classList.remove('hidden')
                 profileContainer.classList.add('hidden')
                 gameClick.classList.add('active')
                 profileClick.classList.remove('active')
+                leaderboardContainer.classList.add('hidden')
+                leaderboardClick.classList.remove('active')
 
             })
 
+            profile_settingsClick.addEventListener('click', ()=> {
+                innerProfile_settings.classList.remove('hidden')
+                innerProfile.classList.add('hidden')
+                profile_settingsClick.classList.add('active')
+                innerProfile_Click.classList.remove('active')
+            })
+
+            innerProfile_Click.addEventListener('click', () => {
+                innerProfile_settings.classList.add('hidden')
+                innerProfile.classList.remove('hidden')
+                profile_settingsClick.classList.remove('active')
+                innerProfile_Click.classList.add('active')
+            })
+
+            leaderboardClick.addEventListener('click', ()=>{
+                profileContainer.classList.add('hidden')
+                gameSection.classList.add('hidden')
+                leaderboardContainer.classList.remove('hidden')
+                gameClick.classList.remove('active')
+                profileClick.classList.remove('active')
+                leaderboardClick.classList.add('active')
+            })
+
+            document.addEventListener('click', e => {
+                const isDropDownButton = e.target.matches("[data-dropdown-button]")
+                if (!isDropDownButton && e.target.closest('[data-dropdown]') != null) return
+
+                let currentDropdown
+                if(isDropDownButton){
+                    currentDropdown = e.target.closest('[data-dropdown]')
+                    currentDropdown.classList.toggle('toggled')
+                }
+
+                document.querySelectorAll("[data-dropdown].toggled").forEach(dropdown => {
+                    if (dropdown === currentDropdown) return
+                    dropdown.classList.remove("toggled")
+                })
+            })
         </script>
     </body>
 </html>

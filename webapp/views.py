@@ -4,7 +4,7 @@ from flask_login import login_user, login_required, current_user
 from datetime import date, datetime
 from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
-from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto
+from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, newScore
 import hashlib, random, time, webbrowser
 passwords = []
 with open('cyberA-Z.txt') as f:
@@ -306,6 +306,8 @@ def winroom():
             flash(response)
         
     return render_template('winroom.html',flash_message="False")
+
+
 @views.route('/splunk', methods = ['GET', 'POST'])
 def splunkKey():
     userData = loadUser(current_user.id)
@@ -536,4 +538,7 @@ def cryptocartel_loggedin_txn():
 
 @views.route('/logintest')
 def login_test():
-    return render_template('new-login-screen.html')
+    userData = loadUser(current_user.id)
+    username = userData[0]['user_name']
+
+    return render_template('new-login-screen.html', username = username)

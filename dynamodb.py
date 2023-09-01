@@ -14,6 +14,8 @@ resource = resource(
 
 user_table = resource.Table('Users')
 
+scores_table = resource.Table('GameScores')
+
 def insertUser(email, password, user_name, lecturerCode, lecturerStatus):
     response = user_table.put_item(
         Item={
@@ -195,9 +197,6 @@ def resetChallenge(email, challenge, state, hints, startTime):
             }
         )
 
-
-
-
 def endRoom(email, challenge, state, splunkState, points):
     if challenge == 'laptop':
         response = user_table.update_item(
@@ -260,3 +259,25 @@ def updateSplunk(email, state, key, digits):
             ReturnValues='UPDATED_NEW'
         )
     print(response['Attributes'])
+
+def newScore(user_name, game_name, points, classCode):
+    response = scores_table.put_item(
+        Item = {
+            'user_name': user_name,
+            'gamename': game_name,
+            'points': points,
+            'classCode': classCode
+        }
+    )
+
+def getScores():
+        response = scores_table.query(
+            IndexName = 'gamename-points-index',
+            KeyConditionExpression = Key('gamename').eq('overall'),
+            Limit = 2,
+            ScanIndexForward = False
+
+        )
+        items = response['Items']
+        print(items)
+
