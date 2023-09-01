@@ -167,7 +167,6 @@ body {
     flex-direction: row;
     gap: 102px;
     align-items: flex-start;
-    justify-content: space-between;
     padding-right: 3px;
     margin-top: 30px;
  }
@@ -567,7 +566,7 @@ element-styles {
  .profile-section {
     box-sizing: border-box;
     flex: 0 0 auto;
-    margin-left: 10%;
+    margin-left: 1em;
     padding-right: 15px;
     padding-left: 15px;
  }
