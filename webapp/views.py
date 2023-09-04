@@ -4,7 +4,7 @@ from flask_login import login_user, login_required, current_user
 from datetime import date, datetime
 from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
-from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, newScore
+from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, getScores, updateUserDetails
 import hashlib, random, time, webbrowser
 passwords = []
 with open('cyberA-Z.txt') as f:
@@ -344,15 +344,19 @@ def splunkKey():
             challengeSelection = int(userData[0]['laptopSelect'])
             answerSelect = base65Set[challengeSelection]['answer']
             if request.form['challenge_one'] != answerSelect:
-                
                 return render_template('splunk.html', response = response, message = message)
             else:
                 new_digits = '63'
-                state = '2'
+                if int(splunkState) < 2:
+                    state =2
+                else: 
+                    state = splunkState
+                    print('state is ' + state)
                 key = 'key_one'
                 updateSplunk(current_user.id, state, key, new_digits)
-                getMarkUp = splunk_markup(2)
+                getMarkUp = splunk_markup(int(state))
                 response = Markup(getMarkUp)
+
         elif "challenge_two" in request.form:
             challengeSelection = int(userData[0]['stegSelect'])
             answerSelect = stegSet[challengeSelection]['answer']
@@ -361,12 +365,14 @@ def splunkKey():
                 return render_template('splunk.html', response = response, message = message)
             else:
                 new_digits = '34'
-                state = '4'
+                if int(splunkState)<4:
+                    state = 4
+                else:
+                    state = int(splunkState)
                 key = 'key_two'
                 updateSplunk(current_user.id, state, key, new_digits)
-                getMarkUp = splunk_markup(4)
-                response = Markup(getMarkUp)
-               
+                getMarkUp = splunk_markup(state)
+                response = Markup(getMarkUp)       
         elif "challenge_three" in request.form:
             if request.form['challenge_three'] != 'File-manager':
                 return render_template('splunk.html', response = response, message = message)
@@ -403,25 +409,6 @@ def landing():
     else:
         return render_template('home.html')
 
-@views.route('/logged_in', methods = ['GET', 'POST'])
-@login_required
-def logged_in():
-    if request.method == 'POST':
-        if request.form['code'] == 'Submit':
-
-            lecturerCode2 = request.form.get('student-code2')
-            codeCheck = users.query.filter_by(lecturerId=lecturerCode2).first()
-
-            if codeCheck == None:
-                flash('Code does not exist.', category='error')
-                lecturerCode2=None
-
-            current_user.lecturerCode = lecturerCode2
-            db.session.commit()
-
-        if request.form['code'] == 'Leave':
-            current_user.lecturerCode = None
-            db.session.commit()
         
 
     return render_template('loggedhome.html',user_name=current_user.user_name)
@@ -535,10 +522,54 @@ def cryptocartel_loggedin_txn():
             return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
     return render_template('web_chall_3.html', walletAddress = walletAddress, hiddenWalletAddress = hiddenWalletAddress)
 
-
-@views.route('/logintest')
-def login_test():
+@views.route('/logged_in', defaults={'selection': 'global'}, methods = ['GET','POST'])
+@views.route('/logged_in/<string:selection>', methods = ['GET','POST'])
+def logged_in(selection):
     userData = loadUser(current_user.id)
     username = userData[0]['user_name']
+    scores = getScores()
+    userclass = userData[0]['lecturerCode']
+    classScores =[]
+    classrank = 'n/a'
+    globalrank = 'n/a'
+    rank = 'n/a'
+    for x, value in enumerate(scores):
+            print(value['user_name'])
+            if value['user_name'] == username:
+                points = value['points']
+                globalrank = x + 1
+                rank = x+1
+            else:
+                points = userData[0]['points']
+    for x in scores:
+            if userclass == x['classCode']:
+                classScores.append(x)
+    
+    for x, value in enumerate(classScores):
+        if value['user_name'] == username:
+                points = value['points']
+                classrank = x + 1
+        else:
+                classrank = 'n/a'
+                points = userData[0]['points']
 
-    return render_template('new-login-screen.html', username = username)
+    if selection == 'Class':
+        scores = classScores
+        for x, value in enumerate(scores):
+             if value['user_name'] == username:
+                points = value['points']
+                rank = classrank
+            
+    if request.method == 'POST':
+        newClass = request.form.get('class')
+        newClass2 = request.form.get('class2')
+        newPass = request.form.get('password')
+        newPass2 = request.form.get('password2')
+        newMail = request.form.get('email')
+        newMail2 = request.form.get('email2')
+        if newClass == newClass2 or str(newPass) == str(newPass2) or str(newMail) == str(newMail2):
+            updateUserDetails(current_user.id, newClass, newPass, newMail)
+            if len(newPass) > 7 or len(newMail)>7:
+                return redirect('/logout')
+
+    return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points)

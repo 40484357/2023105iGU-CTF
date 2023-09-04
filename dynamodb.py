@@ -2,6 +2,8 @@ import boto3
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import redirect
 
 resource = resource(
     'dynamodb',
@@ -274,10 +276,43 @@ def getScores():
         response = scores_table.query(
             IndexName = 'gamename-points-index',
             KeyConditionExpression = Key('gamename').eq('overall'),
-            Limit = 2,
             ScanIndexForward = False
 
         )
         items = response['Items']
-        print(items)
+        return(items)
 
+def updateUserDetails(email, newClass, newPass, newMail):
+    if len(newPass) > 7:
+        newPass = generate_password_hash(newPass, method='sha256')
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression=f'SET  password = :P',
+            ExpressionAttributeValues = {
+            ':P': newPass
+        },
+        ReturnValues='UPDATED_NEW'
+        )
+        
+
+    if len(newMail) > 7:
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression= f'SET email = :E',
+            ExpressionAttributeValues = {
+            ':E': newMail
+        },
+        )
+        
+
+    
+    if len(newClass) > 3:
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression= f'SET lecturerCode = :l',
+            ExpressionAttributeValues = {
+            ':l': newClass
+        },
+     )
+        
+    

@@ -1037,7 +1037,10 @@ element-styles {
 .leaderboard-headers-container{
    display: flex;
    flex-direction: row;
-   gap: 75px;
+   justify-content: space-between;
+}
+
+.main-leaderboard-header{
    margin-top: 2em;
 }
 
@@ -1046,9 +1049,18 @@ element-styles {
    color: #fff;
    display: flex;
    align-items: center;
-   padding: 10px;
+   padding: 20px 10px;
+   width: 120px;
+}
+
+.leaderboard-headers-container:nth-of-type(even){
+   background-color: #011126;
 }
 
 .dropdown-content{
    cursor: pointer;
+}
+
+.userscore{
+   background-color: #6357ce;
 }

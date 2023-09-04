@@ -31,7 +31,7 @@
                 <p class="navigation-link">Contact</p>
                 <p class="navigation-link">News</p>
                 </div>
-                <a href="/">
+                <a href="/logout">
                 <button class="register-button register-link">Log out</button>
                 </a> 
                 </div>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="rank-container2">
                         <p class="global-rank">Global rank</p>
-                        <p class="rank-label">#6</p>
+                        <p class="rank-label">{{ globalrank }}</p>
                         </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="rank-container2">
                         <p class="global-rank">Class Rank</p>
-                        <p class="rank-label">#4</p>
+                        <p class="rank-label">{{ classrank }}</p>
                         </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="rank-container2">
                         <p class="global-rank">Points</p>
-                        <p class="rank-label">1566</p>
+                        <p class="rank-label">{{ points }}</p>
                         </div>
                         </div>
                     </div>
@@ -198,22 +198,22 @@
                                     <input type="password" name="passsword2" id="password2">
                                     <span>Confirm password</span>
                                 </div>
-                                <div class="inputBox">
+                                <!-- <div class="inputBox">
                                     <input type="email" name="email" id="email">
                                     <span>E-mail</span>
                                 </div>
                                 <div class="inputBox">
                                     <input type="email" name="email2" id="email2">
                                     <span>Confirm e-mail</span>
-                                </div>
-                                <div class="inputBox">
+                                </div> -->
+                                <!-- <div class="inputBox">
                                     <input type="text" name="github" id="github">
                                     <span>Github</span>
                                 </div>
                                 <div class="inputBox">
                                     <input type="text" name="linkedin" id="linkedin">
                                     <span>LinkedIn</span>
-                                </div>
+                                </div> -->
                                 <button class="profile-settings-button">
                                     Save Changes
                                 </button>
@@ -228,52 +228,49 @@
                         <div class="menu-container">
                             <div class="dropdown" data-dropdown>
                                 <div class="dropdown-button" data-dropdown-button>
-                                    <p>Global</p>
+                                    <p id = 'dropdown-button-main'>Global</p>
                                     <p class="dropdown-arrow" data-dropdown-button>&#8964;</p>
                                 </div>
                                 <div class="dropdown-menu" >
-                                    <div class="dropdown-content">
-                                        Class
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown" data-dropdown >
-                                <div class="dropdown-button" data-dropdown-button>
-                                    <p>Overall</p>
-                                    <p class="dropdown-arrow" data-dropdown-button>&#8964;</p>
-                                </div>
-                                <div class="dropdown-menu" >
-                                    <div class="dropdown-content">
-                                        CSI
-                                    </div>
-                                    <div class="dropdown-content">
-                                        Murder Mystery
-                                    </div>
+                                    <div class="dropdown-content" id = 'ddContent' data-dropdown-class>Class</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="leaderboard-headers-container">
-                            <div class="leaderboard-header">
+                        <div class="leaderboard-headers-container main-leaderboard-header">
+                            <div class="leaderboard-header first-header">
                                 Rank
                             </div>
-                            <div class="leaderboard-header">
+                            <div class="leaderboard-header first-header">
                                 Username
                             </div>
-                            <div class="leaderboard-header">
+                            <div class="leaderboard-header first-header">
                                 Points
                             </div>
                         </div>
-                        <div class="leaderboard-headers-container">
-                            <div class="leaderboard-header">
-                                
+                        <div class="leaderboard-headers-container userscore ">
+                            <div class="leaderboard-header  ">
+                                {{rank}}
                             </div>
-                            <div class="leaderboard-header">
-                                
+                            <div class="leaderboard-header ">
+                                {{username}}
                             </div>
-                            <div class="leaderboard-header">
-                                
+                            <div class="leaderboard-header ">
+                                {{points}}
                             </div>
                         </div>
+                        {% for x in scores %}
+                        <div class="leaderboard-headers-container">
+                            <div class="leaderboard-header">
+                                {{loop.index}}
+                            </div>
+                            <div class="leaderboard-header">
+                                {{x['user_name']}}
+                            </div>
+                            <div class="leaderboard-header">
+                                {{x['points']}}
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                     
                 </div>
@@ -298,6 +295,7 @@
                 profileClick.classList.add('active')
                 leaderboardContainer.classList.add('hidden')
                 leaderboardClick.classList.remove('active')
+                sessionStorage.setItem('leaderboard', 'false')
             })
             gameClick.addEventListener('click', () => {
                 gameSection.classList.remove('hidden')
@@ -306,6 +304,7 @@
                 profileClick.classList.remove('active')
                 leaderboardContainer.classList.add('hidden')
                 leaderboardClick.classList.remove('active')
+                sessionStorage.setItem('leaderboard', 'false')
 
             })
 
@@ -346,6 +345,36 @@
                     if (dropdown === currentDropdown) return
                     dropdown.classList.remove("toggled")
                 })
+            })
+
+            document.addEventListener('click', e => {
+                const isClassButton = e.target.matches("[data-dropdown-class]")
+                if(!isClassButton && e.target.close('[data-dropdown]') != null) return
+                let currentSelection
+                
+                if(isClassButton){
+                    currentSelection = e.target.closest('[data-dropdown-class]')
+                    currentSelection = currentSelection.innerHTML
+                    sessionStorage.setItem('leaderboard', 'true')
+                    window.location.href = `http://127.0.0.1:5000/logged_in/${currentSelection}`
+                }
+            })
+
+            window.addEventListener('load', e => {
+                if (sessionStorage.getItem('leaderboard') == 'true'){
+                    profileContainer.classList.add('hidden')
+                    gameSection.classList.add('hidden')
+                    leaderboardContainer.classList.remove('hidden')
+                    gameClick.classList.remove('active')
+                    profileClick.classList.remove('active')
+                    leaderboardClick.classList.add('active')
+                }
+                if (window.location == 'http://127.0.0.1:5000/logged_in/Class'){
+                    const dropdownButtonMain = document.getElementById('dropdown-button-main')
+                    const dropdownOption = document.getElementById('ddContent')
+                    dropdownButtonMain.innerHTML = 'Class'
+                    dropdownOption.innerHTML = 'Global'
+                }
             })
         </script>
     </body>

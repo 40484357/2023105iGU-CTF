@@ -5,7 +5,7 @@ import atexit, json
 from datetime import date, datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from webapp.utils import timeChange
-from dynamodb import getPoints, initialiseGame, loadUser, addHints
+from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore
 
 application = create_app()
 
@@ -54,7 +54,11 @@ def landing():
         splunkChall3 = None
         chall3State = False
 
-   
+    if chall1State == True & chall2State == True & chall3State == True:
+        newScore(userData[0]['user_name'], 'overall', user_points, userData[0]['lecturerCode'])
+
+
+
     return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State)
 
 
@@ -99,6 +103,10 @@ def updateHints(challenge):
     elif challenge == 'serverHint':
         addHints(current_user.id, '1')
     return 'success', 202
+
+@application.route('/checkLeaderboard/<string:selection>')
+def checkLeaderboard(selection):
+    return 
 
 
 if __name__ == '__main__':

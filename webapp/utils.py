@@ -50,12 +50,14 @@ def splunk_markup(key):
         digitOne = userData[0]['key_one']
     except:
         digitOne = '0'
-        
-        
     try: 
         digitTwo = userData[0]['key_two']
     except:
         digitTwo = '0'
+    try: 
+        digitThree = userData[0]['key_three']
+    except:
+        digitThree = '0'
 
     if key == 0:
         return key_0
@@ -63,7 +65,7 @@ def splunk_markup(key):
         key_1 += challenge_1
         return key_1
     elif key == 2:
-        
+
         digits = digitOne
         laptopSelect = int(userData[0]['laptopSelect'])
         answer = base65Set[laptopSelect]['answer']
@@ -108,48 +110,90 @@ def splunk_markup(key):
             key_1 += answerTwoString
             return key_1
         else: 
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             return key_1
     elif key == 5:
         if int(digitOne) > 1 and int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3
             return key_1
         elif int(digitOne) > 1:
+            digits = digitOne
+            laptopSelect = int(userData[0]['laptopSelect'])
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2
+            key_1 += questionString
             key_1 += challenge_3
             return key_1
         elif int(digitTwo) > 1:
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3
             return key_1
     elif key == 6:
         if int(digitOne) > 1 and int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3_c
             return key_1
         elif int(digitOne) > 1:
+            digits = digitOne
+            laptopSelect = int(userData[0]['laptopSelect'])
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2
+            key_1 += questionString
             key_1 += challenge_3_c
             return key_1
         elif int(digitTwo) > 1:
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3_c
             return key_1
         
@@ -236,3 +280,4 @@ stegSet=[
         'answer': 'password12345'
     }
 ]
+
