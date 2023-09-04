@@ -319,7 +319,7 @@ function getHint(challenge){
     var hintBox = document.getElementById('hintDiv')
     var hintText = document.getElementById('hintText')
     
-    const url = 'http://127.0.0.1:5000/hints'
+    const url = 'http://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
 
     fetch(url)
     .then(response => response.json())

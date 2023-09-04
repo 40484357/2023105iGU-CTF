@@ -196,7 +196,7 @@ def selectfrom():
 
 stegSet=[
     {
-        'image': '../static/forensicimage1.png',
+        'image': '/static/forensicimage1.png',
         'stegHash': 'U2FsdGVkX18099HHwV0FYWBJXXfd4JDKkrhsHwGeD64=',
         'passphrase': 'ellipticcurve',
         'hash': 'check_user.php',
@@ -204,7 +204,7 @@ stegSet=[
         'answer': 'or 1=1-'
     },
     {
-        'image': '../static/forensicimage2.png',
+        'image': '/static/forensicimage2.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQRevY8ym+nWBOaUX/wxlYC0=',
         'passphrase': 'ellipticcurve',
         'hash': 'get.php?file',
@@ -212,7 +212,7 @@ stegSet=[
         'answer': '/etc/passwd'
     },
     {
-        'image': '../static/forensicimage3.png',
+        'image': '/static/forensicimage3.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUwpm+BzKNfdwAGxLg12a54=',
         'passphrase': 'ellipticcurve',
         'hash': 'cgi-bin',
@@ -220,7 +220,7 @@ stegSet=[
         'answer': '/bin/sh'
     },
     {
-        'image': '../static/forensicimage4.png',
+        'image': '/static/forensicimage4.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQTB0T6u+oNS022XDT/vBaiQ=',
         'passphrase': 'ellipticcurve',
         'hash': 'wshell0x.php',
@@ -228,7 +228,7 @@ stegSet=[
         'answer': 'pass1234!'
     },
     {
-        'image': '../static/forensicimage5.png',
+        'image': '/static/forensicimage5.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUdUNJCeR/SOREsGgmjZCuLasc8853KIZG/Sh/vYuY1t',
         'passphrase': 'ellipticcurve',
         'hash': 'blood`1234567890',
