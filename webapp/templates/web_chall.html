@@ -16,21 +16,75 @@
 			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
 			rel="stylesheet"
 		/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
 	<div class="gameLauncher" id="phoneChallenges">
 		<div class="gameHeader">
 			<div class="navButton"onclick="goToEvidence()">Back</div>
-			<div class="roomTitle">Evidence Room</div>
+			<div class="roomTitle">Crypto Cartel</div>
 			<div id="clock"></div>
 		</div>
-		<div class="buttonContainer tooltip" id="phoneHintButton">
-			<button class="buttonHelp" onclick="getHint('{{hint}}')" >
-				<span class="material-icons-outlined md-30">&#xE79A;</span>
-			</button>
-			<span class="tooltiptext">Use a hint!</span>
+		<div class="toolButtonContainer">
+			<div class="buttonContainer tooltip">
+				<div class="buttonHelp" onclick="openInfoBox()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">help</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<div class="buttonHelp" onclick="openToolBox()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">
+							construction
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<button class="buttonHelp" onclick="getHint('webchall')">
+					<span class="material-icons-outlined md-30">&#xE79A;</span>
+				</button>
+				<span class="tooltiptext">Use a hint!</span>
+			</div>
+			<div class="hidden" id="hintDiv">
+				<div class="hintNav">
+					<button id="closeHint" onclick="closeHint()">
+						&#10006;
+					</button>
+				</div>
+				<div id="hintText">
+
+				</div>
+			</div>
 		</div>
+		<div class="gameBox" id="gameInfoBox">
+			<div class="closeBox" >
+				<span class="material-symbols-outlined" onclick="openInfoBox()">
+					close
+				</span>
+			</div>
+			<p class="hashDescript">
+				The administrator of this site can view account details, use SQL injection to hack into the administrators overview
+			</p>
+		</div>
+		<div class="toolBox hidden" id="toolBox">
+			<div class="closeBox" >
+				<span class="material-symbols-outlined" onclick="openToolBox()">
+					close
+				</span>
+			</div>
+			<p class="toolBoxHeader">Tools</p>
+			<p class="toolBoxTool">Hash Decrypter</p>
+			<a href="https://hashes.com/en/decrypt/hash" target="_blank">
+			<div class="openToolButton">
+				Open Tool
+			</div>
+			</a>
+		</div>
+		
 		<div class="hidden" id="hintDiv">
 			<div class="hintNav">
 				<button id="closeHint" onclick="closeHint()">
@@ -40,12 +94,6 @@
 			<div id="hintText">
 
 			</div>
-		</div>
-
-		<div class = "helpOverlayButton" onclick="showHelp()">i</div>
-		<div id="helpOverlay">
-			<h1>Challenge instructions</h1>
-			<p>The administrator of this site can view account details, use SQL injection to hack into the administrators overview.</p>
 		</div>
 	
 
@@ -91,6 +139,18 @@
 	
 </body>
 <script>
+	var infoBox = document.getElementById('gameInfoBox')
+			var toolBox = document.getElementById('toolBox')
+			function openInfoBox(){
+				infoBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+
+			}
+
+			function openToolBox(){
+				toolBox.classList.toggle('hidden')
+				infoBox.classList.add('hidden')
+			}
 </script>
 <script src="{{ url_for('static', filename='script.js')}}" async defer></script>
 </html>

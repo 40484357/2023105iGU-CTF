@@ -261,7 +261,7 @@ def phoneHome():
                 print('fail')
             else:
                 # assign chall 3 points, aes
-                response = Markup("Correct password.<br>Access Splunk <a href ='http://52.1.222.178:8000' target='_blank'>here</a><br>Username: ctf<br>Password: EscapeEscap3")
+                response = Markup("Correct password.<br>Continue to Splunk <a href ='/splunk'>here</a><br>")
                 if(int(challengeState) == 3):
                     userData = loadUser(current_user.id)
                     points = userData[0]['points']
@@ -533,16 +533,21 @@ def logged_in(selection):
     classrank = 'n/a'
     globalrank = 'n/a'
     rank = 'n/a'
+    
     try:
         CSI_attempts = userData[0]['CSI_attempts']
+        
     except:
         CSI_attempts = 0
     try:
         best_csi = userData[0]['best_csi']
-        best_csi_time = userData[0]['best_csi_time=']
+        bestCSITIME = int(userData[0]['best_csi_time'])
+        print(bestCSITIME)
+        bestCSITIME = time.strftime('%H:%M:%S', time.gmtime(bestCSITIME))
+        
     except:
         best_csi = 'n/a'
-        best_csi_time = 'n/a'
+        bestCSITIME = 'n/a'
     for x, value in enumerate(scores):
             print(value['user_name'])
             if value['user_name'] == username:
@@ -588,4 +593,4 @@ def logged_in(selection):
             if len(newPass) > 7 or len(newMail)>7:
                 return redirect('/logout')
 
-    return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = best_csi_time)
+    return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = bestCSITIME)

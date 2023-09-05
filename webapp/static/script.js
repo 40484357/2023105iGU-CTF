@@ -318,27 +318,32 @@ function getHint(challenge){
     let currentHint = ""
     var hintBox = document.getElementById('hintDiv')
     var hintText = document.getElementById('hintText')
-    
-    const url = 'http://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
+    if(challenge == 'webchall'){
+        hintText.innerHTML = 'No hint available'
+    }
+    else{
+        const url = 'http://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
 
-    fetch(url)
-    .then(response => response.json())
-    .then((jsonData) =>{
-        for(const[key, value] of Object.entries(jsonData)){
-            if(value.name === challenge){
-                currentHint = value.hint
-                hintText.innerHTML = currentHint
+        fetch(url)
+        .then(response => response.json())
+        .then((jsonData) =>{
+            for(const[key, value] of Object.entries(jsonData)){
+                if(value.name === challenge){
+                    currentHint = value.hint
+                    hintText.innerHTML = currentHint
+                }
             }
-        }
-
-    })
-
     
-
-    const request = new XMLHttpRequest()
-    request.open('POST', `updateHints/${challenge}`)
-    request.send()
-   
+        })
+    
+        
+    
+        const request = new XMLHttpRequest()
+        request.open('POST', `updateHints/${challenge}`)
+        request.send()
+       
+    }
+    
     hintBox.classList.remove('hidden')
 
     

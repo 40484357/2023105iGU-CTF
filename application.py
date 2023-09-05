@@ -2,7 +2,7 @@ from webapp import create_app
 from flask import render_template, redirect, url_for, request, Markup
 from flask_login import login_user, login_required, current_user
 import atexit, json
-from datetime import date, datetime
+from datetime import date, datetime, time
 from apscheduler.schedulers.background import BackgroundScheduler
 from webapp.utils import timeChange
 from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore, bestScore
@@ -63,16 +63,17 @@ def landing():
         newScore(userData[0]['user_name'], 'overall', user_points, userData[0]['lecturerCode'])
         try:
             bestPoints = userData[0]['best_csi']
-            bestTime = userData[0]['best_csi_time']
+            bestTime = int(userData[0]['best_csi_time'])
+            bestTime = time.strftime('%H:%M:%S', time.gmtime(bestTime))
             newTime = datetime.timedelta(timePassed)
-            convertedTime  = datetime.strptime(bestTime, '%H:%M:%S.%f')
+            convertedTime  = datetime.strptime(bestTime, '%H:%M:%S')
             if newTime < convertedTime:
                 bestTime = str(newTime)
             if int(user_points) > bestPoints:
                 bestPoints = user_points
             bestScore(current_user.id, bestPoints, bestTime)
         except:
-            bestScore(current_user.id, user_points, timeLeft)
+            bestScore(current_user.id, user_points, timePassed)
 
 
 

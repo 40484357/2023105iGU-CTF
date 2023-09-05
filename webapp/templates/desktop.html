@@ -5,7 +5,20 @@
 {% block button %}
 {% endblock %}
 {% block game_ui %}
-
+<div class="toolBox hidden" id="toolBox">
+    <div class="closeBox" >
+        <span class="material-symbols-outlined" onclick="openToolBox()">
+            close
+        </span>
+    </div>
+    <p class="toolBoxHeader">Tools</p>
+    <p class="toolBoxTool">Hash Decrypter</p>
+    <a href="https://hashes.com/en/decrypt/hash" target="_blank">
+    <div class="openToolButton">
+        Open Tool
+    </div>
+    </a>
+</div>
 <div class="desktopBox">
     <div class="toast_msg" id="toast">
         successfully logged in.
@@ -75,7 +88,7 @@
                 </button>
             </div>
         </div>
-        <div class="base64text B64" id="B64"><p style = "width: 100%;">{{ code }}</p></div>
+        <div class="base64text B64" id="B64"><p style = "width: 100%; word-wrap:break-word;">{{ code }}</p></div>
     </div>
     <div class="base64file hidden" id="ipcheck">
         <div class="txt_file_bar">
