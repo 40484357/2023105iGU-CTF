@@ -854,6 +854,7 @@ element-styles {
     padding-top: 14px;
     padding-bottom: 14px;
     background: #0e294b;
+    opacity: 0;
  }
  
  .game-info-container {

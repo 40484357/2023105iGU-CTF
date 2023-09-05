@@ -84,18 +84,29 @@ def initialisePoints(email):
     )
     print(response['Attributes'])
 
-def initialiseGame(email, points, startGameTime):
+def initialiseGame(email, points, startGameTime, attempts):
     response = user_table.update_item(
         Key = {'email': email},
-        UpdateExpression='SET points= :p, startGameTime= :t, splunkState= :s',
+        UpdateExpression='SET points= :p, startGameTime= :t, splunkState= :s, CSI_attempts= :c',
         ExpressionAttributeValues={
             ':p': points,
             ':t': startGameTime,
-            ':s': '0'
+            ':s': '0',
+            ':c': attempts
         },
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
+
+def bestScore(email, points, timePassed):
+    response = user_table.update_item(
+        Key = {'email': email},
+        UpdateExpression = 'SET best_csi= :p, best_csi_time= :t',
+        ExpressionAttributeValues = {
+            ':p': points,
+            ':t': timePassed
+        }
+    )
 
 def checkUsername(username):
     response = user_table.scan(

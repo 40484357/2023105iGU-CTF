@@ -5,7 +5,7 @@ import atexit, json
 from datetime import date, datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from webapp.utils import timeChange
-from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore
+from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore, bestScore
 
 application = create_app()
 
@@ -21,7 +21,12 @@ def landing():
     user_points = getPoints(current_user.id)
     if int(user_points) <= 0:
         userPoints= 100
-        initialiseGame(current_user.id, str(userPoints), str(datetime.now()))
+        try:
+            attempts = userData[0]['CSI_attemps']
+            attempts = int(attempts) + 1
+        except:
+            attempts = 1
+        initialiseGame(current_user.id, str(userPoints), str(datetime.now()), attempts)
         timeLeft = 86400
     else:
         userPoints = user_points
@@ -56,6 +61,20 @@ def landing():
 
     if chall1State == True & chall2State == True & chall3State == True:
         newScore(userData[0]['user_name'], 'overall', user_points, userData[0]['lecturerCode'])
+        try:
+            bestPoints = userData[0]['best_csi']
+            bestTime = userData[0]['best_csi_time']
+            newTime = datetime.timedelta(timePassed)
+            convertedTime  = datetime.strptime(bestTime, '%H:%M:%S.%f')
+            if newTime < convertedTime:
+                bestTime = str(newTime)
+            if int(user_points) > bestPoints:
+                bestPoints = user_points
+            bestScore(current_user.id, bestPoints, bestTime)
+        except:
+            bestScore(current_user.id, user_points, timeLeft)
+
+
 
 
 

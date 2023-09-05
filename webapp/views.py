@@ -533,6 +533,16 @@ def logged_in(selection):
     classrank = 'n/a'
     globalrank = 'n/a'
     rank = 'n/a'
+    try:
+        CSI_attempts = userData[0]['CSI_attempts']
+    except:
+        CSI_attempts = 0
+    try:
+        best_csi = userData[0]['best_csi']
+        best_csi_time = userData[0]['best_csi_time=']
+    except:
+        best_csi = 'n/a'
+        best_csi_time = 'n/a'
     for x, value in enumerate(scores):
             print(value['user_name'])
             if value['user_name'] == username:
@@ -540,7 +550,10 @@ def logged_in(selection):
                 globalrank = x + 1
                 rank = x+1
             else:
-                points = userData[0]['points']
+                try:
+                    points = userData[0]['points']
+                except: 
+                    points = 0
     for x in scores:
             if userclass == x['classCode']:
                 classScores.append(x)
@@ -551,7 +564,10 @@ def logged_in(selection):
                 classrank = x + 1
         else:
                 classrank = 'n/a'
-                points = userData[0]['points']
+                try:
+                    points = userData[0]['points']
+                except: 
+                    points = 0
 
     if selection == 'Class':
         scores = classScores
@@ -572,4 +588,4 @@ def logged_in(selection):
             if len(newPass) > 7 or len(newMail)>7:
                 return redirect('/logout')
 
-    return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points)
+    return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = best_csi_time)
