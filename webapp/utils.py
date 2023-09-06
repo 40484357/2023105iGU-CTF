@@ -256,7 +256,7 @@ stegSet=[
         'answer': '/etc/passwd'
     },
     {
-        'image': '/static/forensicimage3.png',
+        'image': '/static/forensicImage3.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUwpm+BzKNfdwAGxLg12a54=',
         'passphrase': 'ellipticcurve',
         'hash': 'cgi-bin',
@@ -264,7 +264,7 @@ stegSet=[
         'answer': '/bin/sh'
     },
     {
-        'image': '/static/forensicimage4.png',
+        'image': '/static/forensicImage4.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQTB0T6u+oNS022XDT/vBaiQ=',
         'passphrase': 'ellipticcurve',
         'hash': 'wshell0x.php',
@@ -272,7 +272,7 @@ stegSet=[
         'answer': 'pass1234!'
     },
     {
-        'image': '/static/forensicimage5.png',
+        'image': '/static/forensicImage5.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUdUNJCeR/SOREsGgmjZCuLasc8853KIZG/Sh/vYuY1t',
         'passphrase': 'ellipticcurve',
         'hash': 'blood`1234567890',
