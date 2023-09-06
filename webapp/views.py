@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 import hashlib, random, time, math, pandas as pd
 from flask_login import login_user, login_required, current_user
 from datetime import date, datetime
-from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet
+from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet, webSet
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
 from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, getScores, updateUserDetails
 import hashlib, random, time, webbrowser
@@ -54,13 +54,8 @@ walletAddressDict = {
     "Ki50eHQ=" : "*.txt"
 }
 
-# Can use this to get the randomly selected address, keep the pair to validate later
-walletAddressPair = random.choice(list(walletAddressDict.items()))
-walletAddress = walletAddressPair[0]
-print(walletAddress)
 
-# Truncate the address with an elipsis to hide it in web challenge 2
-hiddenWalletAddress = walletAddress[:4]+"..."+walletAddress[-4:]
+
 
 views = Blueprint('views', __name__)
 
@@ -119,7 +114,7 @@ def desktop():
     elif(state == 3):
         startTime = datetime.now()
     elif(state == 4):
-        response = "That's the IP, but where does it go? " + ip
+        response = 'Use this IP in the enxt Splunk Challenge: ' + ip
         completed = 'true'
         flash(response)
         return render_template('desktop.html', response = response, completed = completed)
@@ -134,7 +129,7 @@ def desktop():
     response = None
     if request.method == 'POST':
         if request.form['answer'] != ip:
-            response = 'not quite try again'
+            response = 'Error: This is an IP address, put in the right format Try again! (Hint: ...)'
             flash(response)
             return render_template('desktop.html', response = response)
             
@@ -175,7 +170,7 @@ def phone():
         primeSelection2 = random.randint(0, possibleValuesLength)
         prime2 = possibleValues[primeSelection2]
         startTime = datetime.now()
-        stegSelect = random.randint(0, 4)
+        stegSelect = userData[0]['laptopSelect']
         a = prime1 #variable
         b = prime2 #variable
         A = pow(G,a) % N
@@ -374,7 +369,9 @@ def splunkKey():
                 getMarkUp = splunk_markup(state)
                 response = Markup(getMarkUp)       
         elif "challenge_three" in request.form:
-            if request.form['challenge_three'] != 'File-manager':
+            challengeSelection = int(userData[0]['laptopSelect'])
+            answerSelect = webSet[challengeSelection]['answer']
+            if request.form['challenge_three'] != answerSelect:
                 return render_template('splunk.html', response = response, message = message)
             else:
                 new_digits = '11'
@@ -494,6 +491,11 @@ def cryptocartel_loggedin():
 def cryptocartel_loggedin_txn():
     response = None
     userData = loadUser(current_user.id)
+    challSelect = userData[0]['laptopSelect']
+    walletAddressPair = walletAddressDict[int(challSelect)]
+    walletAddress= walletAddressPair[0]
+    # Truncate the address with an elipsis to hide it in web challenge 2
+    hiddenWalletAddress = walletAddress[:4]+"..."+walletAddress[-4:]
     state = int(userData[0]['cryptoState'])
     if(state == 1):
         return redirect('/cryptocartel')
