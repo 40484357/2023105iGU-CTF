@@ -276,7 +276,7 @@ stegSet=[
         'answer': 'or 1=1-'
     },
     {
-        'image': '/static/forensicimage2.png',
+        'image': '/static/forensicImage2.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQRevY8ym+nWBOaUX/wxlYC0=',
         'passphrase': 'ellipticcurve',
         'hash': 'get.php?file',
