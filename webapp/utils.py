@@ -43,7 +43,7 @@ def splunk_markup(key):
     challenge_2 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"><label for="challenge_two">2. '
     challenge_2_c = '<div class="splunk_challenge"><div>2. '
     challenge_3 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_three">'
-    challenge_3_c = '<div class="splunk_challenge">'
+    challenge_3_c = '<div class="splunk_challenge">3. '
 
     userData = loadUser(current_user.id)
     try:
