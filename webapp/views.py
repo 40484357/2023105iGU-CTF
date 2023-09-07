@@ -46,13 +46,29 @@ ccPasswords = ["'pass1234' or 1=1--","'pass1234' or 1=1","'pass1234' or 1=1 #","
              "'pass1234' OR 1=1 LIMIT 1--","'pass1234' or 1=1 LIMIT 1#","'pass1234' or true LIMIT 1--","'pass1234' or true LIMIT 1#"]
 
 # Creating a dictionary of wallet addresses and their corresponding flags
-walletAddressDict = {
-    "aW5zdGFsbC1wbHVnaW4=" : "install-plugin",
-    "InBocD98Ig==" : "\"php?|\"",
-    "ImV0Yy9wYXNzd2Qi" : "\"etc/passwd\"",
-    "Ii9ldGMvcGFzc3dkIg==" : "\"/etc/passwd\"",
-    "Ki50eHQ=" : "*.txt"
-}
+walletAddressDict = [
+    {
+        'key': "aW5zdGFsbC1wbHVnaW4=",
+        'value': "install-plugin"
+    },
+    {
+        'key': "InBocD98Ig==",
+        'value': "\"php?|\""
+    },
+    {
+        'key': "ImV0Yy9wYXNzd2Qi",
+        'value': "\"etc/passwd\""
+    },
+    {
+        'key': "Ii9ldGMvcGFzc3dkIg==",
+        'value': "\"/etc/passwd\""
+    },
+    {
+        'key': "Ki50eHQ=",
+        'value': "*.txt"
+    }
+
+]
 
 
 
@@ -456,7 +472,10 @@ def cryptocartel_loggedin():
     response = None
     userData = loadUser(current_user.id)
     state = int(userData[0]['cryptoState'])
-
+    challSelect = int(userData[0]['laptopSelect'])
+    walletAddress= walletAddressDict[challSelect]['key']
+    # Truncate the address with an elipsis to hide it in web challenge 2
+    hiddenWalletAddress = walletAddress[:4]+"..."+walletAddress[-4:]
     if(state == 1):
         return redirect('/cryptocartel')
     elif(state == 3):
@@ -492,8 +511,8 @@ def cryptocartel_loggedin_txn():
     response = None
     userData = loadUser(current_user.id)
     challSelect = userData[0]['laptopSelect']
-    walletAddressPair = walletAddressDict[int(challSelect)]
-    walletAddress= walletAddressPair[0]
+    challSelect = int(userData[0]['laptopSelect'])
+    walletAddress= walletAddressDict[challSelect]['key']
     # Truncate the address with an elipsis to hide it in web challenge 2
     hiddenWalletAddress = walletAddress[:4]+"..."+walletAddress[-4:]
     state = int(userData[0]['cryptoState'])
@@ -506,7 +525,7 @@ def cryptocartel_loggedin_txn():
         startTime = datetime.now()
         initialiseCrypto(current_user.id, str(startTime), state, hints)
     if request.method =='POST':
-        if(request.form['ccTxn']==walletAddressPair[1]):
+        if(request.form['ccTxn']==walletAddressDict[challSelect]['value']):
             response = Markup("Well done. Now use this flag in <a href ='/splunk' target='_blank'>Splunk</a>.")
             flash(response)
             if (state == 3):
