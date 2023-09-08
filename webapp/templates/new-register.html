@@ -10,6 +10,7 @@
 			rel="stylesheet"
 			href="{{ url_for('static', filename='styles.css')}}"
 		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
@@ -80,6 +81,12 @@
                         </div>
                         </div>
                         <input type="email" name="student-email" id="student-email" placeholder="you@example.com" class="input" required="true">
+                        
+                        </div>
+                        <div class="error-message-container">
+                        <span class="material-symbols-outlined {{category}}" >
+                            {{category}} </span>
+                        <span class="{{category}}">{{error}}</span>
                         </div>
                         <div class="signup-container">
                         <div class="svg-container3">
@@ -93,6 +100,11 @@
                         </div>
                         <input type="password" name="student-password" id="student-password" placeholder="At least 8 characters" class="input" required="true">
                         </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{passwordCategory}}" >
+                                {{passwordCategory}} </span>
+                            <span class="{{passwordCategory}}">{{passwordError}}</span>
+                        </div>
                         <div class="signup-container">
                         <div class="svg-container3">
                         <div class="svg-container1" style="color: #6357ce"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,6 +117,11 @@
                         </div>
                         <input type="password" name="student-password2" id="student-password2" placeholder="Enter password again" class="input" required="true">
                         </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{passwordMatchCategory}}" >
+                                {{passwordMatchCategory}} </span>
+                            <span class="{{passwordMatchCategory}}">{{passwordMatch}}</span>
+                        </div>
                         <div class="signup-container">
                         <div class="svg-container3">
                         <div class="svg-container1">
@@ -112,6 +129,11 @@
                         </div>
                         </div>
                         <input type="text" name="student-code" id="student-code" placeholder="Enter lecturer code (optional)" class="input" >
+                        </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{lecturerCodeCategory}}" >
+                                {{lecturerCodeCategory}} </span>
+                            <span class="{{lecturerCodeCategory}}">{{lecturerError}}</span>
                         </div>
                         <input
 						type="radio"

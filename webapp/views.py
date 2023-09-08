@@ -104,6 +104,7 @@ def laptop():
         if request.form['answer'] != passkey:
             response = 'wrong password, try again'
             flash(response)
+            return render_template('laptop.html', password = password.hexdigest(), response = response)
         else:
             challengeState = 2
             userData=loadUser(current_user.id)
@@ -114,7 +115,7 @@ def laptop():
             updateUser(current_user.id, 'laptopState', str(newPoints), str(challengeState))
             return redirect('/desktop')
 
-    return render_template('laptop.html', password = password.hexdigest(), response = response)
+    return render_template('laptop.html', password = password.hexdigest())
 
 
 @views.route('/desktop', methods=['GET', 'POST'])
@@ -371,7 +372,13 @@ def splunkKey():
         elif "challenge_two" in request.form:
             challengeSelection = int(userData[0]['stegSelect'])
             answerSelect = stegSet[challengeSelection]['answer']
-            if request.form['challenge_two'] != answerSelect:
+            print(answerSelect)
+            try:
+                answerSelect2 = stegSet[challengeSelection]['answer2']
+            except:
+                answerSelect2 = answerSelect
+
+            if request.form['challenge_two'] != answerSelect or request.form['challenge_two'] != answerSelect2:
                 print('wrong answer')
                 return render_template('splunk.html', response = response, message = message)
             else:

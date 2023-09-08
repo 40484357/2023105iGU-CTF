@@ -96,11 +96,11 @@ def hints():
             },
             "hint3" : {
                 "name" : "phoneHint",
-                "hint" : "I am used for secure key-exchange"
+                "hint" : "This is a Diffi Helman Key Exchange Challenge, use the Resource Link to get the 6-digit key"
             },
             "hint4" : {
                 "name" : "phoneHomeHint",
-                "hint" : "The hint lies in the image"
+                "hint" : "The hint lies in the image, download the image and use the Resource Link to solve the challenge and get the flag"
             },
             "hint5" : {
                 "name" : "phoneHomeHint2",

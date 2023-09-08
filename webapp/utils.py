@@ -37,7 +37,7 @@ def pointsLogic(time, hints, points):
 
 def splunk_markup(key):
     key_0 = '<div class = "splunk_instructions"><div class="locked">You have not unlocked the necessary flags to complete Splunk challenges, return to the evidence and obtain the flags required</div></div>'
-    key_1 ='<div class="splunk_instructions"><div class="link">Follow this link to access the splunk server: <a href="http://18.132.27.173:8000/" target="_blank">http://18.132.27.173:8000/</a></div><div class="username">Username: user1</div><div class="password">Password: CyberEscape</div><div class="setUp"><p>To set up your splunk follow these instructions</p><ul class="splunk_points"><li>Once logged in click search & report</li><li>Enter: source="ctf_dataset.log"</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will unlock a set of digits</li><li>After solving each challenge return to the evidence room to receive further keys</li></ul></div></div>'
+    key_1 ='<div class="splunk_instructions"><div class="link">Follow this link to access the splunk server: <a href="http://18.132.27.173:8000/" target="_blank">http://18.132.27.173:8000/</a></div><div class="username">Username: user1</div><div class="password">Password: CyberEscape</div><div class="setUp"><p>To set up your splunk follow these instructions</p><ul class="splunk_points"><li>Once logged in - enter the following into the search bar:</li><li>index = windows</li><li>sourcetype = webserver</li><li> ipaddress = (enter your challenges ip address)</li><li>add any addition flag information here</li><li>table timestamps ipaddress request_method status_code url referrer</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will get the key and unlock the evidence</li><li>Return to the evidence room to retrieve all three keys</li></ul></div></div>'
     challenge_1 = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_one">1. How many log entries are there for the malicious actor\'s IP address?</label><input type="text" name="challenge_one" id="challenge_one"><input type = "submit" name = "challange_1" value = "Validate"></form><div></div></div>'
     challenge_1_c = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><div>1. How many log entries are there for the malicious actor\'s IP address?</div><div>Answer:  '
     challenge_2 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"><label for="challenge_two">2. '
@@ -78,7 +78,7 @@ def splunk_markup(key):
             digits = digitOne
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKey ' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
@@ -99,11 +99,11 @@ def splunk_markup(key):
         if int(digitOne) > 1:
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1_c
             key_1 += answerString
             key_1 += challenge_2_c
@@ -113,7 +113,7 @@ def splunk_markup(key):
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1
             key_1 += challenge_2_c
             key_1 += answerTwoString
@@ -122,11 +122,11 @@ def splunk_markup(key):
         if int(digitOne) > 1 and int(digitTwo) > 1:
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY'  + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             challenge3Q = webSet[laptopSelect]['question']
 
             key_1 += challenge_1_c
@@ -142,7 +142,7 @@ def splunk_markup(key):
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
             challenge3Q = webSet[laptopSelect]['question']
-            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
@@ -159,7 +159,7 @@ def splunk_markup(key):
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
             challenge3Q = webSet[laptopSelect]['question']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1
             key_1 += challenge_2_c
             key_1 += answerTwoString
@@ -171,11 +171,11 @@ def splunk_markup(key):
         if int(digitOne) > 1 and int(digitTwo) > 1:
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             challenge3Q = webSet[laptopSelect]['question']
             challenge3A = webSet[laptopSelect]['answer']
             key_1 += challenge_1_c
@@ -184,15 +184,15 @@ def splunk_markup(key):
             key_1 += answerTwoString
             key_1 += challenge_3_c
             key_1 += challenge3Q
-            key_1 += '</div><div><div>'
+            key_1 += '<div><div>'
             key_1 += challenge3A
-            key_1 += '</div><div class="digits">Key: 11</div></div>'
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         elif int(digitOne) > 1:
             digits = digitOne
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             challenge3Q = webSet[laptopSelect]['question']
@@ -204,15 +204,15 @@ def splunk_markup(key):
             key_1 += questionString
             key_1 += challenge_3_c
             key_1 += challenge3Q
-            key_1 += '</div><div><div>'
+            key_1 += '<div><div>'
             key_1 += challenge3A
-            key_1 += '</div><div class="digits">Key: 11</div></div>'
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         elif int(digitTwo) > 1:
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             challenge3Q = webSet[laptopSelect]['question']
             challenge3A = webSet[laptopSelect]['answer']
             key_1 += challenge_1
@@ -220,9 +220,9 @@ def splunk_markup(key):
             key_1 += answerTwoString
             key_1 += challenge_3_c
             key_1 += challenge3Q
-            key_1 += '</div><div><div>'
+            key_1 += '<div><div>'
             key_1 += challenge3A
-            key_1 += '</div><div class="digits">Key: 11</div></div>'
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         
 
@@ -273,7 +273,8 @@ stegSet=[
         'passphrase': 'ellipticcurve',
         'hash': 'check_user.php',
         'splunkChallenge': 'using flag check_user.php, what is the input ip address 85.50.46.53 used in the password field for sql injection (status_code=200)?',
-        'answer': 'or 1=1-'
+        'answer': "or 1=1-",
+        'answer2': "or 1=1--" 
     },
     {
         'image': '/static/forensicImage2.png',

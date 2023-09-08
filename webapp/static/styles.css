@@ -3456,8 +3456,6 @@ background-color: #ec131a;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 13px;
-  align-items: flex-end;
   justify-content: flex-start;
   margin-top: 27px;
 }
@@ -3527,6 +3525,7 @@ background-color: #ec131a;
   flex: 0 0 auto;
   font: 400 20px Inter;
   color: #c6c0fa;
+  align-self: flex-end;
 }
 
 .login-button {
@@ -3589,7 +3588,7 @@ background-color: #ec131a;
   height: 53px;
   padding-right: 196px;
   padding-left: 196px;
-  margin-top: 34px;
+  margin-top: 20px;
   background: #6357ce;
   border-radius: 10px;
 }
@@ -3883,3 +3882,23 @@ cursor: pointer;
   padding-top: 2px;
 }
 
+.error-message-container{
+  display: flex;
+  gap: 5px;
+}
+
+.error{
+  font-size: 16px;
+  margin-top: 1em;
+  color: rgb(215, 110, 110);
+}
+
+.material-symbols-outlined.error {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20;
+
+  font-size: 16px !important;
+}
