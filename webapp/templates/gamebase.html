@@ -19,6 +19,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 	</head>
 	<body>
 		<div class="gameLauncher" id="challengeOne">
@@ -40,6 +41,15 @@
 						<div class="buttonInfo">
 							<span class="material-symbols-outlined">
 								construction
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="buttonContainer tooltip">
+					<div class="buttonHelp" onclick="openWiki()">
+						<div class="buttonInfo">
+							<span class="material-symbols-outlined">
+								dictionary
 							</span>
 						</div>
 					</div>
@@ -88,15 +98,26 @@
 			async
 			defer
 		></script>
-		<script>
+		<script> 
+			var wikiBox = document.getElementById('wikiBox')
 			var infoBox = document.getElementById('gameInfoBox')
 			var toolBox = document.getElementById('toolBox')
 			function openInfoBox(){
 				infoBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+				wikiBox.classList.add('hidden')
+			}
+
+			function openWiki(){
+				wikiBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+				infoBox.classList.add('hidden')
 			}
 
 			function openToolBox(){
 				toolBox.classList.toggle('hidden')
+				wikiBox.classList.add('hidden')
+				infoBox.classList.add('hidden')
 			}
 		</script>
 	</body>

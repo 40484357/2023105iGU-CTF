@@ -76,10 +76,7 @@ def landing():
             bestScore(current_user.id, user_points, timePassed)
 
 
-
-
-
-    return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State)
+    return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State, user_points = str(user_points))
 
 
 

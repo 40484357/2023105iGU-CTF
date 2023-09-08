@@ -134,7 +134,7 @@ def desktop():
         response = 'Use this IP in the enxt Splunk Challenge: ' + ip
         completed = 'true'
         flash(response)
-        return render_template('desktop.html', response = response, completed = completed)
+        return render_template('desktop.html', response = response, completed = completed, code=code)
     else:
         challengeState = '3'
         hints = '0'
@@ -148,7 +148,7 @@ def desktop():
         if request.form['answer'] != ip:
             response = 'Error: This is an IP address, put in the right format Try again! (Hint: ...)'
             flash(response)
-            return render_template('desktop.html', response = response)
+            return render_template('desktop.html', response = response, code=code)
             
         else:
             userData=loadUser(current_user.id)
@@ -162,7 +162,7 @@ def desktop():
                 splunkState = '1'
                 endRoom(current_user.id, 'laptop', state, splunkState, newPoints)
             flash(response)
-            return render_template('desktop.html', response = response, completed = completed)
+            return render_template('desktop.html', response = response, completed = completed, code=code)
 
     return render_template('desktop.html', completed = completed, code=code)
 
