@@ -623,6 +623,10 @@ def logged_in(selection):
 
     return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = bestCSITIME)
 
+@views.route('/wiki')
+def wiki():
+    return render_template('wiki.html')
+
 @views.route('/splunkpractice')
 def splunkpractice():
     return render_template('splunk_test.html')
