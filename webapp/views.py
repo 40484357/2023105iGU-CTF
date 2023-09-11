@@ -229,6 +229,7 @@ def phoneHome():
     stegImageRoute = stegSet[challengeSelection]['image']
     stegHash = stegSet[challengeSelection]['stegHash']
     hint = 'phoneHomeHint'
+    message=''
     if (challengeState == 1):
         return redirect('/phone')
     else: 
@@ -242,14 +243,12 @@ def phoneHome():
         aesState = 'true'
         hint = 'phoneHomeHint2'
     
-
-    response = None
     # Doing this because of two forms on one view, checks which one was used
     if request.method =='POST':
         if "validater" in request.form:
             if request.form['validatePhoto'] != stegHash:
-                response = 'Incorrect Ciphertext'
-                flash(response)
+                message = 'Incorrect Ciphertext'
+    
             else:
                 # assign chall 2 points, steganography
                 
@@ -264,16 +263,17 @@ def phoneHome():
                     updateUser(current_user.id, 'phoneState', str(newPoints), state)
                     aesState = 'true'
                     hint = 'phoneHomeHint2'
-                response = 'Correct Ciphertext.' 
-                flash(response)
+                    message = 'Correct Ciphertext. ' + stegHash
+                message = 'Correct Ciphertext. ' + stegHash
+                
         elif "aes" in request.form:
             if request.form['password'] != stegSet[challengeSelection]['hash']:
                 response = 'Incorrect password'
-                flash(response)
+              
                 print('fail')
             else:
                 # assign chall 3 points, aes
-                response = Markup("Correct password.<br>Continue to Splunk <a href ='/splunk'>here</a><br>")
+                message = Markup("Correct password.<br>Continue to Splunk <a href ='/splunk'>here</a><br>")
                 if(int(challengeState) == 3):
                     userData = loadUser(current_user.id)
                     points = userData[0]['points']
@@ -283,9 +283,9 @@ def phoneHome():
                     newPoints = pointsLogic(str(startTime), hints, points)
                     splunkState = '3'
                     endRoom(current_user.id, 'phone', state, splunkState, newPoints)
-                flash(response)
+                
 
-    return render_template('phoneHome.html', aesState = aesState, hint = hint, stegImageRoute = stegImageRoute)     
+    return render_template('phoneHome.html', aesState = aesState, hint = hint, stegImageRoute = stegImageRoute, message=message)     
 
 @views.route('/server')
 def server():
@@ -445,6 +445,7 @@ def resources():
 @views.route('/cryptocartel' , methods=['GET','POST'])
 def cryptocartel():
     response = None
+    message=''
     userData = loadUser(current_user.id)
     challengeState = '1'
     try: 
@@ -455,7 +456,7 @@ def cryptocartel():
     
     if int(challengeState) == 2:
         return redirect('/cryptocartel/loggedin')
-    elif int(challengeState) == 3:
+    elif int(challengeState) >= 3:
         return redirect('/cryptocartel/loggedin/txn')
     if request.method=='POST':
         # Check if user enters admin + any of the passwords

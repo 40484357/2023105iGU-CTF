@@ -380,15 +380,15 @@ body {
  .image-container2 {
     box-sizing: border-box;
     display: block;
-    width: 239px;
     max-width: initial;
-    height: 180px;
+    height: 200px;
     border: none;
+    border-radius:5px;
     object-fit: cover;
  }
  
  .img-content-92c95e35 {
-    content: url("https://s3-alpha-sig.figma.com/img/6d52/6eb5/2d70dcbfc855ce49c6e5817247737b0e?Expires=1694390400&Signature=FobwCQs~4fV4mgzE4zo7WDajLS9V99YXCB9AbFotPx-MI7TS4-gTLONgkShPLnrm0alUt74wHhNtQZAWZwGFH23V3b0PgSerIbrux8jYqk7RsBlXl4AHPzD86~-oH-F8HQxH0T~aN~w5LGuBA9vQzenH1v0128rCobM1qnAwdQaIxS~tc6jqStcxYic5XFj3Cu~R-olSE7EI32BsB5QShYuTenVoq8-YfGNcW2oi3j02CUd5JHEaFJ76gxxxh-K6TTRltgHUZHWqkcVJpUfDtYzoTxgf-D3HTmF4ae3vmJYQ1R0lUX4917rkoQyEKph67PdF47mDJZmmjWXSxoRHOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+    content: url("/static/splunk_practice.png");
  }
  .img-content-92c95e36 {
     content: url("/static/csi2.png");
@@ -448,7 +448,7 @@ body {
     flex: 0 0 auto;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: center;
  }
  
  .card-container1 {
@@ -457,7 +457,7 @@ body {
     margin-right: 18px;
     border-radius: 10px;
  }
- 
+/*  
  .image-container2 {
     box-sizing: border-box;
     display: block;
@@ -465,7 +465,7 @@ body {
     max-width: initial;
     height: 180px;
     border: none;
- }
+ } */
  
  .img-content-fb7836ef {
     content: url("/static/cescape.png");
@@ -1164,7 +1164,7 @@ element-styles {
    margin-right: auto;
 }
 
-.flex-container {
+.flex-container-splunk {
    box-sizing: border-box;
    display: flex;
    flex: 0 0 auto;
@@ -1299,3 +1299,91 @@ element-styles {
    border-radius: 5px;
 }
 
+/* wiki */
+.wiki-title{
+   font: 40px Inter;
+   color: #fff;
+   text-align: center;
+ }
+ 
+ .wiki-modal{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background-color: rgba(0,0,0,0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 1000;
+   opacity: 0;
+   pointer-events: none;
+   transition: all 0.3s ease;
+   text-decoration: none;
+ }
+ .wiki-modal.active{
+   opacity: 1;
+   pointer-events: all;
+ }
+ .wiki-modal-content{
+   position: relative;
+   width: 70%;
+   max-width: 100%;
+   background-color: #1f477b;
+   padding: 1em;
+   border-radius: 10px;
+ }
+ .wiki-modal-title{
+   font: 45px Inter;
+   color: #fff;
+   text-align: center;
+   margin-bottom:-0.5em;
+   margin-top:0.3em;
+ }
+ .wiki-modal-close{
+   position: absolute;
+   top: 0.5em;
+   right: 1em;
+   width: 30px;
+   height: 30px;
+   cursor: pointer;
+   font-size: 60px;
+   color: #fff;
+ }
+ .wiki-modal-text{
+   font: 25px Inter;
+   color: #fff;
+   text-align: center;
+   margin-top: 2em;
+ }
+ 
+ .wiki-grid-container{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 1em;
+   margin-top: 2em;
+ }
+ 
+ .wiki-grid-container > div{
+   background-color: #1f477b;
+   border-radius: 10px;
+   padding: 1em;
+   font: 35px Inter;
+   color:#fff;
+   text-align: center;
+   margin:0.3em;
+   margin-left:3em;
+   margin-right:3em;
+ 
+ }
+ .wiki-grid-container > div:hover{
+   background-color: #6357ce;
+   cursor: pointer;
+ }
+ 
+ .wiki-grid-container > div > h2{
+   font: 20px Inter;
+   color: #fff;
+   margin-bottom: 1em;
+ }

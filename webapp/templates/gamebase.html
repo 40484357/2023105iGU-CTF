@@ -55,21 +55,12 @@
 					</div>
 				</div>
 				<div class="buttonContainer tooltip">
-					<button class="buttonHelp" onclick="getHint({% block hint %}{% endblock %})">
+					<button class="buttonHelp" onclick="toggleHint()">
 						<span class="material-icons-outlined md-30">&#xE79A;</span>
 					</button>
 					<span class="tooltiptext">Use a hint!</span>
 				</div>
-				<div class="hidden" id="hintDiv">
-					<div class="hintNav">
-						<button id="closeHint" onclick="closeHint()">
-							&#10006;
-						</button>
-					</div>
-					<div id="hintText">
 
-					</div>
-				</div>
 			</div>
 			
 
@@ -102,22 +93,46 @@
 			var wikiBox = document.getElementById('wikiBox')
 			var infoBox = document.getElementById('gameInfoBox')
 			var toolBox = document.getElementById('toolBox')
+			var hintBox = document.getElementById('hintDiv')
+			
+			function checkInfo(){
+				let infoShow = localStorage.getItem('desktopInfo')
+				if(infoShow == 'True'){
+					openInfoBox()
+				} 
+				else{
+					localStorage.setItem('desktopInfo', 'True')
+				}
+			}
+
+			checkInfo()
+
+			function toggleHint(){
+				hintBox.classList.toggle('hidden')
+				infoBox.classList.add('hidden')
+				toolBox.classList.add('hidden')
+				wikiBox.classList.add('hidden')
+			}
+
 			function openInfoBox(){
 				infoBox.classList.toggle('hidden')
 				toolBox.classList.add('hidden')
 				wikiBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
 			}
 
 			function openWiki(){
 				wikiBox.classList.toggle('hidden')
 				toolBox.classList.add('hidden')
 				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
 			}
 
 			function openToolBox(){
 				toolBox.classList.toggle('hidden')
 				wikiBox.classList.add('hidden')
 				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
 			}
 		</script>
 	</body>

@@ -97,15 +97,27 @@ def hints():
             },
             "hint4" : {
                 "name" : "phoneHomeHint",
-                "hint" : "The hint lies in the image, download the image and use the Resource Link to solve the challenge and get the flag"
+                "hint" : "The hint lies in the image, download the image and use the Tool Link to solve the challenge and get the flag"
             },
             "hint5" : {
                 "name" : "phoneHomeHint2",
-                "hint" : "I am an Advanced Encryption Standard"
+                "hint" : "The flag is encrypted using the Advanced Encryption Standard, the phone has an app that can help you decrypt it. Use the flag and look for passphrases that may decrypt the hash"
             },
             "hint6" : {
                 "name" : "serverHint",
                 "hint" : "we are Base64 and vigenere ciphers"
+            },
+            "hint7":{
+                "name":"webChallHint",
+                "hint":"try one of these: or 1=1--, or 1=1, or 1=1#"
+            },
+            "hint8":{
+                'name':'webChallHint2',
+                'hint': 'Decrypt the hash and look for somewhere to run the flag'
+            },
+            'hint9':{
+                'name':'webChallHint3',
+                'hint':'See what you can do with the users wallet address, if you have the flag and are stuck try leaving some feedback'
             }
     }
 
@@ -118,6 +130,12 @@ def updateHints(challenge):
     elif challenge == 'phoneHint' or challenge == 'phoneHomeHint' or challenge == 'phoneHomeHint2':
         addHints(current_user.id, '1')
     elif challenge == 'serverHint':
+        addHints(current_user.id, '1')
+    elif challenge == 'webChallHint':
+        addHints(current_user.id, '1')
+    elif challenge == 'webChallHint2':
+        addHints(current_user.id, '1')
+    elif challenge == 'webChallHint3':
         addHints(current_user.id, '1')
     return 'success', 202
 

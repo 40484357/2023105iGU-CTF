@@ -44,20 +44,19 @@
 				</div>
 			</div>
 			<div class="buttonContainer tooltip">
-				<button class="buttonHelp" onclick="getHint('{{hint}}')">
+				<div class="buttonHelp" onclick="openWiki()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">
+							dictionary
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<button class="buttonHelp" onclick="toggleHint()">
 					<span class="material-icons-outlined md-30">&#xE79A;</span>
 				</button>
 				<span class="tooltiptext">Use a hint!</span>
-			</div>
-			<div class="hidden" id="hintDiv">
-				<div class="hintNav">
-					<button id="closeHint" onclick="closeHint()">
-						&#10006;
-					</button>
-				</div>
-				<div id="hintText">
-
-				</div>
 			</div>
 		</div>
 		<div class="gameBox" id="gameInfoBox">
@@ -86,14 +85,32 @@
 			</a>
 			
 		</div>
-		<div class="hidden" id="hintDiv">
-			<div class="hintNav">
-				<button id="closeHint" onclick="closeHint()">
-					&#10006;
-				</button>
+		<div class="toolBox hidden" id="wikiBox">
+			<div class="closeBox" >
+				<span class="material-symbols-outlined" onclick="openWiki()">
+					close
+				</span>
 			</div>
-			<div id="hintText">
-
+			<p class="toolBoxHeader">Steganography and AES</p>
+			<p class="toolBoxTool">Read the wiki here</p>
+			<a href="/wiki" target="_blank">
+			<div class="openToolButton">
+				Open Wiki
+			</div>
+			</a>
+		</div>
+		<div class="toolBox hidden" id="hintDiv">
+			<div class="closeBox">
+				<span class="material-symbols-outlined" onclick="toggleHint()">
+					close
+				</span>
+			</div>
+			<p class="toolBoxHeader">Hints</p>
+			<p class="toolBoxTool" id="hintText">
+				You can request a hint for each challenge. Each hint used will cost you 10 points from your final score. There is one hint available for each challenge
+			</p>
+			<div class="openToolButton" onclick="getHint('{{hint}}')">
+				Get Hint
 			</div>
 		</div>
 
@@ -136,13 +153,9 @@
 				</form>
 
 			</div>
-			{% with messages = get_flashed_messages() %} {% if messages %}
 			<div class="aesFlash">
-				{% for message in messages %}
 				<div class="aesMessage" id="aesMessage">{{message}}</div>
-				{% endfor %}
 			</div>
-			{% endif %} {% endwith %}
 			<div id="backButtonNotes" onclick="closeNotesApp()"></div>
 			<div id="backButtonAes" onclick="closeAesApp()"></div>
 
@@ -162,17 +175,50 @@
 		aesFile.classList.remove('hidden')
 	}
 
+	var wikiBox = document.getElementById('wikiBox')
 	var infoBox = document.getElementById('gameInfoBox')
-			var toolBox = document.getElementById('toolBox')
-			function openInfoBox(){
-				infoBox.classList.toggle('hidden')
-				toolBox.classList.add('hidden')
-			}
+	var toolBox = document.getElementById('toolBox')
+	var hintBox = document.getElementById('hintDiv')
+	
+	function checkInfo(){
+		let infoShow = localStorage.getItem('phoneHomeInfo')
+		if(infoShow == 'True'){
+			openInfoBox()
+		} 
+		else{
+			localStorage.setItem('phoneHomeInfo', 'True')
+		}
+	}
 
-			function openToolBox(){
-				toolBox.classList.toggle('hidden')
-				infoBox.classList.add('hidden')
-			}
+	checkInfo()
+
+	function toggleHint(){
+		hintBox.classList.toggle('hidden')
+		infoBox.classList.add('hidden')
+		toolBox.classList.add('hidden')
+		wikiBox.classList.add('hidden')
+	}
+
+	function openInfoBox(){
+		infoBox.classList.toggle('hidden')
+		toolBox.classList.add('hidden')
+		wikiBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
+
+	function openWiki(){
+		wikiBox.classList.toggle('hidden')
+		toolBox.classList.add('hidden')
+		infoBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
+
+	function openToolBox(){
+		toolBox.classList.toggle('hidden')
+		wikiBox.classList.add('hidden')
+		infoBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
 </script>
 <script src="{{ url_for('static', filename='script.js')}}" async defer></script>
 </html>

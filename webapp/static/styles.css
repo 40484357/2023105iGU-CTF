@@ -873,6 +873,7 @@ body {
   color: white;
   font:20px Inter;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .hash {
@@ -1610,6 +1611,7 @@ body {
     top: 5%;
     color: black;
     font-size: 25px;
+    word-break: break-word;
 }
  /* register page css */ 
 .login-page-container{
@@ -1777,18 +1779,6 @@ body {
     color:blue;
 }
 
-#hintDiv{
-    display: flex;
-    position: absolute;
-    right: 10px;
-    top: 25%;
-    z-index: 1;
-    flex-direction: column;
-    padding: 1em;
-    border-radius: 10px;
-    background-color: white;
-
-}
 
 .hintNav{
     display: flex;
@@ -3912,91 +3902,3 @@ cursor: pointer;
   'opsz' 24
 }
 
-/* wiki */
-.wiki-title{
-  font: 40px Inter;
-  color: #fff;
-  text-align: center;
-}
-
-.wiki-modal{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-.wiki-modal.active{
-  opacity: 1;
-  pointer-events: all;
-}
-.wiki-modal-content{
-  position: relative;
-  width: 70%;
-  max-width: 100%;
-  background-color: #1f477b;
-  padding: 1em;
-  border-radius: 10px;
-}
-.wiki-modal-title{
-  font: 45px Inter;
-  color: #fff;
-  text-align: center;
-  margin-bottom:-0.5em;
-  margin-top:0.3em;
-}
-.wiki-modal-close{
-  position: absolute;
-  top: 0.5em;
-  right: 1em;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  font-size: 60px;
-  color: #fff;
-}
-.wiki-modal-text{
-  font: 25px Inter;
-  color: #fff;
-  text-align: center;
-  margin-top: 2em;
-}
-
-.wiki-grid-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1em;
-  margin-top: 2em;
-}
-
-.wiki-grid-container > div{
-  background-color: #1f477b;
-  border-radius: 10px;
-  padding: 1em;
-  font: 35px Inter;
-  color:#fff;
-  text-align: center;
-  margin:0.3em;
-  margin-left:3em;
-  margin-right:3em;
-
-}
-.wiki-grid-container > div:hover{
-  background-color: #6357ce;
-  cursor: pointer;
-}
-
-.wiki-grid-container > div > h2{
-  font: 20px Inter;
-  color: #fff;
-  margin-bottom: 1em;
-}

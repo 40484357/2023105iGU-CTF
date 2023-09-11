@@ -91,6 +91,20 @@
                 }
 				
 			}
+
+			var modal = document.getElementById('helpOverlayModal')
+
+			function checkInfo(){
+				let infoShow = localStorage.getItem('mainInfo')
+				if(infoShow == 'True'){
+					modal.classList.add('hidden')
+				} 
+				else{
+					localStorage.setItem('mainInfo', 'True')
+				}
+			}
+
+			checkInfo()
 		</script>
 		
 	</body>

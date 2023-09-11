@@ -46,30 +46,33 @@
 					</div>
 				</div>
 				<div class="buttonContainer tooltip">
-					<button class="buttonHelp" onclick="getHint('phoneHint')">
+					<div class="buttonHelp" onclick="openWiki()">
+						<div class="buttonInfo">
+							<span class="material-symbols-outlined">
+								dictionary
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="buttonContainer tooltip">
+					<button class="buttonHelp" onclick="toggleHint()">
 						<span class="material-icons-outlined md-30">&#xE79A;</span>
 					</button>
 					<span class="tooltiptext">Use a hint!</span>
 				</div>
-				<div class="hidden" id="hintDiv">
-					<div class="hintNav">
-						<button id="closeHint" onclick="closeHint()">
-							&#10006;
-						</button>
-					</div>
-					<div id="hintText">
-
-					</div>
-				</div>
 			</div>
-			<div class="hidden" id="hintDiv">
-				<div class="hintNav">
-					<button id="closeHint" onclick="closeHint()">
-						&#10006;
-					</button>
+			<div class="toolBox hidden" id="hintDiv">
+				<div class="closeBox">
+					<span class="material-symbols-outlined" onclick="toggleHint()">
+						close
+					</span>
 				</div>
-				<div id="hintText">
-
+				<p class="toolBoxHeader">Hints</p>
+				<p class="toolBoxTool" id="hintText">
+					You can request a hint for each challenge. Each hint used will cost you 10 points from your final score. There is one hint available for each challenge
+				</p>
+				<div class="openToolButton" onclick="getHint('phoneHint')">
+					Get Hint
 				</div>
 			</div>
 			<div class="gameBox" id="gameInfoBox">
@@ -90,6 +93,20 @@
                     Can you crack it?
 				</p>
 				
+			</div>
+			<div class="toolBox hidden" id="wikiBox">
+				<div class="closeBox" >
+					<span class="material-symbols-outlined" onclick="openWiki()">
+						close
+					</span>
+				</div>
+				<p class="toolBoxHeader">Diffie Hellman Wiki</p>
+				<p class="toolBoxTool">Read the wiki here</p>
+				<a href="/wiki" target="_blank">
+				<div class="openToolButton">
+					Open Wiki
+				</div>
+				</a>
 			</div>
 			<div class="toolBox hidden" id="toolBox">
 				<div class="closeBox" >
@@ -145,17 +162,49 @@
 			defer
 		></script>
 		<script>
+			var wikiBox = document.getElementById('wikiBox')
 			var infoBox = document.getElementById('gameInfoBox')
 			var toolBox = document.getElementById('toolBox')
+			var hintBox = document.getElementById('hintDiv')
+			
+			function checkInfo(){
+				let infoShow = localStorage.getItem('phoneInfo')
+				if(infoShow == 'True'){
+					openInfoBox()
+				} 
+				else{
+					localStorage.setItem('phoneInfo', 'True')
+				}
+			}
+
+			checkInfo()
+
+			function toggleHint(){
+				hintBox.classList.toggle('hidden')
+				infoBox.classList.add('hidden')
+				toolBox.classList.add('hidden')
+				wikiBox.classList.add('hidden')
+			}
+
 			function openInfoBox(){
 				infoBox.classList.toggle('hidden')
 				toolBox.classList.add('hidden')
-				
+				wikiBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
+			}
+
+			function openWiki(){
+				wikiBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
 			}
 
 			function openToolBox(){
 				toolBox.classList.toggle('hidden')
+				wikiBox.classList.add('hidden')
 				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
 			}
 		</script>
 	</body>

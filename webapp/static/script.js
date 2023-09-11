@@ -318,11 +318,8 @@ function getHint(challenge){
     let currentHint = ""
     var hintBox = document.getElementById('hintDiv')
     var hintText = document.getElementById('hintText')
-    if(challenge == 'webchall'){
-        hintText.innerHTML = 'No hint available'
-    }
-    else{
-        const url = 'http://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
+    
+        const url = 'http://127.0.0.1:5000/hints'
 
         fetch(url)
         .then(response => response.json())
@@ -341,13 +338,10 @@ function getHint(challenge){
         const request = new XMLHttpRequest()
         request.open('POST', `updateHints/${challenge}`)
         request.send()
-       
+       console.log(challenge)
     }
     
-    hintBox.classList.remove('hidden')
 
-    
-}
 
 function goToSplunk(){
     window.location.href = '/splunk'
@@ -415,8 +409,8 @@ function openNotesApp(){
     document.getElementById('phoneHome').style.backgroundColor='#f3f198';
     document.getElementById('backButtonNotes').style.display='flex';
     document.getElementById('notesApp').style.display='flex';
-    document.getElementById('aesMessage').style.display='none';
-    document.getElementById('aesFlash').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
 }
 
 function closeNotesApp(){
@@ -430,6 +424,8 @@ function closeNotesApp(){
     document.getElementById('phoneHome').style.backgroundColor='none';
     document.getElementById('backButtonNotes').style.display='none';
     document.getElementById('notesApp').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
 }
 
 function openAesApp()
@@ -443,8 +439,8 @@ function openAesApp()
     document.getElementById('backButtonAes').style.display='flex';
     document.getElementById('aesApp').style.display='flex';
     document.getElementById('aesLock').style.display='block';
-    document.getElementById('aesMessage').style.display='none';
-    document.getElementById('aesFlash').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
    
 }
 function closeAesApp()
@@ -460,6 +456,8 @@ function closeAesApp()
     document.getElementById('backButtonAes').style.display='none';
     document.getElementById('aesApp').style.display='none';
     document.getElementById('aesLock').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
     
 }
 // Stuff for steganography
@@ -680,12 +678,9 @@ function copyAddress(walletAddress){
 }
 
 function showHelpModal(){
-    if(document.getElementById('helpOverlayModal').style.display == "none"){
-        document.getElementById('helpOverlayModal').style.display = "block";
-    }
+        document.getElementById('helpOverlayModal').classList.toggle('hidden');
+    
 }
 function closeHelpModal(){
-    if(document.getElementById('helpOverlayModal').style.display != "none"){
-        document.getElementById('helpOverlayModal').style.display = "none";
-    }
+    document.getElementById('helpOverlayModal').classList.toggle('hidden')
 }
