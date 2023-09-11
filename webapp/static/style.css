@@ -10,7 +10,7 @@ body {
     height: 100vh;
     width: 100vw;
     margin: 0;
-
+   background-color: #011126;
     overflow-x: hidden;
 }
 
@@ -118,7 +118,6 @@ body {
     min-width: 1440px;
     padding: 30px 66px 19px;
     background: #011126;
-    height:100%;
  }
 
  .game-menu-container {
@@ -1064,5 +1063,239 @@ element-styles {
 
 .userscore{
    background-color: #6357ce;
+}
+
+/* Splunk practice css */
+
+.event-section-container {
+   box-sizing: border-box;
+   background-color: #011126;
+}
+
+/* .header-container {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   width: 1440px;
+   border-top: 1px solid #949494;
+} */
+
+.event-counter1 {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   padding-right: 48px;
+   padding-left: 48px;
+}
+
+.centered-box {
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   justify-content: center;
+   height: 49px;
+   padding-right: 21px;
+   padding-left: 21px;
+   background: #6357ce;
+   border-radius: 10px;
+}
+
+.header-title {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   font: 500 20px Inter;
+   color: white;
+}
+
+.event-counter-section {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   padding-right: 48px;
+   padding-left: 48px;
+   padding-top: 1em;
+}
+
+.event-section1 {
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: row;
+   padding: 10px 10px;
+   background: #0e294b;
+}
+
+.event-counter {
+   box-sizing: border-box;
+}
+
+.event-counter-box {
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 57px;
+   height: 56px;
+   background: #6357ce;
+   border-radius: 5px;
+}
+
+.event-count-container {
+   margin-top: 10px;
+}
+
+.event-counter-box:first-child {
+   margin-top: 0px;
+}
+
+.event-count-label1 {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   font: 400 26px Inter;
+   color: white;
+}
+
+.event-section {
+   box-sizing: border-box;
+   display: flex;
+   flex: 0 0 auto;
+   flex-direction: column;
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-left:auto;
+   margin-right: auto;
+}
+
+.flex-container {
+   box-sizing: border-box;
+   display: flex;
+   flex: 0 0 auto;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.section-title1 {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   font: 700 48px Inter;
+   color: white;
+}
+
+.section-title {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   max-width: 690px;
+   margin-top: 23px;
+   font: 700 36px Inter;
+   color: white;
+   text-align: center;
+}
+
+.section-title2 {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   align-self: center;
+   max-width: 542px;
+   margin-top: 31.5px;
+   font: 400 36px Inter;
+   color: white;
+   text-align: center;
+}
+
+.event-container {
+   box-sizing: border-box;
+   display: flex;
+   flex: 0 0 auto;
+   flex-direction: column;
+   align-items: stretch;
+   justify-content: flex-start;
+   padding-right: 48px;
+   padding-left: 137px;
+}
+
+.event-count-label {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   margin-top: 14.5px;
+   font: 400 26px Inter;
+   color: white;
+}
+
+.form-controls {
+   box-sizing: border-box;
+   display: flex;
+   flex: 0 0 auto;
+   flex-direction: column;
+   gap: 23px;
+   align-items: stretch;
+   justify-content: flex-start;
+   margin-top: 32px;
+}
+
+.container-with-padding {
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   padding-right: 17px;
+   padding-left: 17px;
+}
+
+.container-box {
+   box-sizing: border-box;
+   width: 390px;
+   height: 43px;
+   background: white;
+   border-radius: 7px;
+}
+
+.submit-button {
+   box-sizing: border-box;
+   display: block;
+   flex: 0 0 auto;
+   align-self: center;
+   width: 208px;
+   height: 56px;
+   font: 400 22px Inter;
+   color: white;
+   cursor: pointer;
+   background: #6357ce;
+   border: none;
+   border-radius: 5px;
+}
+
+.button-group {
+   box-sizing: border-box;
+   display: flex;
+   flex: 0 0 auto;
+   flex-direction: row;
+   align-items: flex-start;
+   justify-content: space-between;
+}
+
+.primary-button {
+   box-sizing: border-box;
+   display: block;
+   flex: 0 0 auto;
+   width: 208px;
+   height: 56px;
+   font: 400 22px Inter;
+   color: white;
+   cursor: pointer;
+   background: #6357ce;
+   border: none;
+   border-radius: 5px;
+}
+
+.button-skip-question {
+   box-sizing: border-box;
+   display: block;
+   flex: 0 0 auto;
+   width: 208px;
+   height: 56px;
+   margin-left: 40px;
+   font: 400 22px Inter;
+   color: white;
+   cursor: pointer;
+   background: #6357ce;
+   border: none;
+   border-radius: 5px;
 }
 

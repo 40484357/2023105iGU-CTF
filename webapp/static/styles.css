@@ -2136,7 +2136,7 @@ background-color: #ec131a;
     border-top-right-radius: 4px;
     width: 60%;
     align-items: center;
-    position: absolute;
+    margin-top: -7em;
     transform: translate(30%, 0%);
 }
 

@@ -69,7 +69,7 @@ def splunk_markup(key):
         digits = digitOne
         laptopSelect = int(userData[0]['laptopSelect'])
         answer = base65Set[laptopSelect]['answer']
-        answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div></div>'
+        answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div></div>'
         key_1 += challenge_1_c 
         key_1 += answerString
         return key_1
@@ -78,7 +78,7 @@ def splunk_markup(key):
             digits = digitOne
             laptopSelect = int(userData[0]['laptopSelect'])
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: SKey ' + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY ' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
@@ -272,17 +272,18 @@ stegSet=[
         'stegHash': 'U2FsdGVkX18099HHwV0FYWBJXXfd4JDKkrhsHwGeD64=',
         'passphrase': 'ellipticcurve',
         'hash': 'check_user.php',
-        'splunkChallenge': 'using flag check_user.php, what is the input ip address 85.50.46.53 used in the password field for sql injection (status_code=200)?',
-        'answer': "or 1=1-",
-        'answer2': "or 1=1--" 
+        'splunkChallenge': 'using flag check_user.php, what is the input ip address 85.50.46.53 used along with username = "admin" as a password for sql injection (status_code=200)?',
+        'answer': "pass = '' or 1=1--'",
+        'answer2': "or 1=1--'" 
     },
     {
         'image': '/static/forensicImage2.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQRevY8ym+nWBOaUX/wxlYC0=',
         'passphrase': 'ellipticcurve',
         'hash': 'get.php?file',
-        'splunkChallenge': '(using flag - "get.php?file") which file has the ip address 78.54.12.66 successfully read through Local File Inclusion attempt (status_code=200)?',
-        'answer': '/etc/passwd'
+        'splunkChallenge': '(using flag - get.php?file) which file has the ip address 78.54.12.66 successfully read through Local File Inclusion attempt (status_code=200)?',
+        'answer': '/etc/passwd',
+        'answer2': 'etc/passwd'
     },
     {
         'image': '/static/forensicImage3.png',
@@ -290,7 +291,8 @@ stegSet=[
         'passphrase': 'ellipticcurve',
         'hash': 'cgi-bin',
         'splunkChallenge': '(using flag - cgi-bin) what is the system binary that ip address 68.49.17.11 has used to execute the payload "echo;id" with successful status_code=200?',
-        'answer': '/bin/sh'
+        'answer': '/bin/sh',
+        'answer2': 'bin/sh'
     },
     {
         'image': '/static/forensicImage4.png',
@@ -305,7 +307,7 @@ stegSet=[
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUdUNJCeR/SOREsGgmjZCuLasc8853KIZG/Sh/vYuY1t',
         'passphrase': 'ellipticcurve',
         'hash': 'blood`1234567890',
-        'splunkChallenge': '(using flag "blood`1234567890") what is the password that ip address 55.45.20.74 has used in the login function with successful status_code=200?',
+        'splunkChallenge': '(using flag blood`1234567890) what is the password that ip address 55.45.20.74 has used in the login function with successful status_code=200?',
         'answer': 'password12345'
     }
 ]
