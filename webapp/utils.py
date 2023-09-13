@@ -37,37 +37,58 @@ def pointsLogic(time, hints, points):
 
 def splunk_markup(key):
     key_0 = '<div class = "splunk_instructions"><div class="locked">You have not unlocked the necessary flags to complete Splunk challenges, return to the evidence and obtain the flags required</div></div>'
-    key_1 ='<div class="splunk_instructions"><div class="link">Follow this link to access the splunk server: <a href="http://52.1.222.178:8000" target="_blank">http://52.1.222.178:8000</a></div><div class="username">Username: ctf</div><div class="password">Password: EscapeEscap3</div><div class="setUp"><p>To set up your splunk follow these instructions</p><ul class="splunk_points"><li>Once logged in click search & report</li><li>Enter: source="ctf_dataset.log"</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will unlock a set of digits</li><li>Use these three sets of digits to escape the room</li></ul></div></div>'
+    key_1 ='<div class="splunk_instructions"><div class="link">Follow this link to access the splunk server: <a href="http://18.132.27.173:8000/" target="_blank">http://18.132.27.173:8000/</a></div><div class="username">Username: user1</div><div class="password">Password: CyberEscape</div><div class="setUp"><p>To set up your splunk follow these instructions</p><ul class="splunk_points"><li>Once logged in - enter the following into the search bar:</li><li>index = windows sourcetype = webserver ipaddress = '
+    key_1_c = ' <em>add any addition flag information here</em> |table timestamps ipaddress request_method status_code url referrer</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will get the key and unlock the evidence</li><li>Return to the evidence room to retrieve all three keys</li></ul></div></div>'
     challenge_1 = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_one">1. How many log entries are there for the malicious actor\'s IP address?</label><input type="text" name="challenge_one" id="challenge_one"><input type = "submit" name = "challange_1" value = "Validate"></form><div></div></div>'
     challenge_1_c = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><div>1. How many log entries are there for the malicious actor\'s IP address?</div><div>Answer:  '
     challenge_2 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"><label for="challenge_two">2. '
     challenge_2_c = '<div class="splunk_challenge"><div>2. '
-    challenge_3 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_three">3. Which plug-in was installed and activated by the malicious actor?</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
-    challenge_3_c = '<div class="splunk_challenge"><div>3. Which plug-in was installed and activated by the malicious actor?</div><div>Answer: File-manager</div><div class="digits">Key: 11</div></div>'
+    challenge_3 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_three">'
+    challenge_3_c = '<div class="splunk_challenge">3. '
 
     userData = loadUser(current_user.id)
     try:
         digitOne = userData[0]['key_one']
+        laptopSelect = userData[0]['laptopSelect']
+        ipAddress = base65Set[laptopSelect]['IP']
+        key_1 += ipAddress 
+        key_1 += key_1_c
     except:
         digitOne = '0'
-        
-        
     try: 
         digitTwo = userData[0]['key_two']
+        laptopSelect = userData[0]['laptopSelect']
+        ipAddress = base65Set[laptopSelect]['IP']
+        key_1 += ipAddress 
+        key_1 += key_1_c
     except:
         digitTwo = '0'
+    try: 
+        digitThree = userData[0]['key_three']
+        laptopSelect = userData[0]['laptopSelect']
+        ipAddress = base65Set[laptopSelect]['IP']
+        key_1 += ipAddress 
+        key_1 += key_1_c
+    except:
+        digitThree = '0'
 
     if key == 0:
         return key_0
     elif key == 1:
+        laptopSelect = userData[0]['laptopSelect']
+        ipAddress = base65Set[laptopSelect]['IP']
+        key_1 += ipAddress 
+        key_1 += key_1_c
         key_1 += challenge_1
         return key_1
     elif key == 2:
-        
         digits = digitOne
         laptopSelect = int(userData[0]['laptopSelect'])
+        ipAddress = base65Set[laptopSelect]['IP']
+        key_1 += ipAddress 
+        key_1 += key_1_c
         answer = base65Set[laptopSelect]['answer']
-        answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div></div>'
+        answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div></div>'
         key_1 += challenge_1_c 
         key_1 += answerString
         return key_1
@@ -75,8 +96,11 @@ def splunk_markup(key):
         if int(digitOne)> 1:
             digits = digitOne
             laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digits + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY ' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
@@ -86,6 +110,10 @@ def splunk_markup(key):
             key_1 += questionString
             return key_1
         else:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
@@ -96,61 +124,195 @@ def splunk_markup(key):
     elif key == 4:
         if int(digitOne) > 1:
             laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
             answer = base65Set[laptopSelect]['answer']
-            answerString = answer + '</div><div class="digits">Key: ' + digitOne + '</div></div>'
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
             answerTwo = stegSet[phoneSelect]['answer']
-            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: ' + digitTwo
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1_c
             key_1 += answerString
             key_1 += challenge_2_c
             key_1 += answerTwoString
             return key_1
         else: 
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             return key_1
     elif key == 5:
         if int(digitOne) > 1 and int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: SKEY'  + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
+            challenge3Q = webSet[laptopSelect]['question']
+
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3
+            key_1 += challenge3Q
+            key_1 += '</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             return key_1
         elif int(digitOne) > 1:
+            digits = digitOne
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            answer = base65Set[laptopSelect]['answer']
+            challenge3Q = webSet[laptopSelect]['question']
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2
+            key_1 += questionString
             key_1 += challenge_3
+            key_1 += challenge3Q
+            key_1 += '</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             return key_1
         elif int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            challenge3Q = webSet[laptopSelect]['question']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3
+            key_1 += challenge3Q
+            key_1 += '</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            return key_1
+        else:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            challenge3Q = webSet[laptopSelect]['question']
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            challenge3Q = webSet[laptopSelect]['question']
+            key_1 += challenge_1
+            key_1 += challenge_2
+            key_1 += questionString
+            key_1 += challenge_3
+            key_1 += challenge3Q
+            key_1 += '</label><input type="text" name="challenge_three" id="challenge_three"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             return key_1
     elif key == 6:
         if int(digitOne) > 1 and int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
+            challenge3Q = webSet[laptopSelect]['question']
+            challenge3A = webSet[laptopSelect]['answer']
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3_c
+            key_1 += challenge3Q
+            key_1 += '<div><div>'
+            key_1 += challenge3A
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         elif int(digitOne) > 1:
+            digits = digitOne
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            answer = base65Set[laptopSelect]['answer']
+            answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            challenge3Q = webSet[laptopSelect]['question']
+            challenge3A = webSet[laptopSelect]['answer']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
-            key_1 += digitOne
+            key_1 += answerString
             key_1 += challenge_2
+            key_1 += questionString
             key_1 += challenge_3_c
+            key_1 += challenge3Q
+            key_1 += '<div><div>'
+            key_1 += challenge3A
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         elif int(digitTwo) > 1:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            answerTwo = stegSet[phoneSelect]['answer']
+            answerTwoString = question + '</div><div>Answer: ' + answerTwo + '</div><div class="digits">Key: PKEY'
+            challenge3Q = webSet[laptopSelect]['question']
+            challenge3A = webSet[laptopSelect]['answer']
             key_1 += challenge_1
             key_1 += challenge_2_c
-            key_1 += digitTwo
+            key_1 += answerTwoString
             key_1 += challenge_3_c
+            key_1 += challenge3Q
+            key_1 += '<div><div>'
+            key_1 += challenge3A
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
+            return key_1
+        else:
+            laptopSelect = int(userData[0]['laptopSelect'])
+            ipAddress = base65Set[laptopSelect]['IP']
+            key_1 += ipAddress 
+            key_1 += key_1_c
+            challenge3Q = webSet[laptopSelect]['question']
+            phoneSelect = int(userData[0]['stegSelect'])
+            question = stegSet[phoneSelect]['splunkChallenge']
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            challenge3Q = webSet[laptopSelect]['question']
+            challenge3A = webSet[laptopSelect]['answer']
+            key_1 += challenge_1
+            key_1 += challenge_2
+            key_1 += questionString
+            key_1 += challenge_3_c
+            key_1 += challenge3Q
+            key_1 += '<div><div>'
+            key_1 += challenge3A
+            key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         
 
@@ -196,31 +358,34 @@ def selectfrom():
 
 stegSet=[
     {
-        'image': '../static/forensicimage1.png',
+        'image': '/static/forensicimage1.png',
         'stegHash': 'U2FsdGVkX18099HHwV0FYWBJXXfd4JDKkrhsHwGeD64=',
         'passphrase': 'ellipticcurve',
         'hash': 'check_user.php',
-        'splunkChallenge': 'using flag check_user.php, what is the input ip address 85.50.46.53 used in the password field for sql injection (status_code=200)?',
-        'answer': 'or 1=1-'
+        'splunkChallenge': 'using flag check_user.php, what is the input ip address 85.50.46.53 used along with username = "admin" as a password for sql injection (status_code=200)?',
+        'answer': "pass = '' or 1=1--'",
+        'answer2': "or 1=1--'" 
     },
     {
-        'image': '../static/forensicimage2.png',
+        'image': '/static/forensicImage2.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQRevY8ym+nWBOaUX/wxlYC0=',
         'passphrase': 'ellipticcurve',
         'hash': 'get.php?file',
-        'splunkChallenge': '(using flag - "get.php?file") which file has the ip address 78.54.12.66 successfully read through Local File Inclusion attempt (status_code=200)?',
-        'answer': '/etc/passwd'
+        'splunkChallenge': '(using flag - get.php?file) which file has the ip address 78.54.12.66 successfully read through Local File Inclusion attempt (status_code=200)?',
+        'answer': '/etc/passwd',
+        'answer2': 'etc/passwd'
     },
     {
-        'image': '../static/forensicimage3.png',
+        'image': '/static/forensicImage3.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUwpm+BzKNfdwAGxLg12a54=',
         'passphrase': 'ellipticcurve',
         'hash': 'cgi-bin',
         'splunkChallenge': '(using flag - cgi-bin) what is the system binary that ip address 68.49.17.11 has used to execute the payload "echo;id" with successful status_code=200?',
-        'answer': '/bin/sh'
+        'answer': '/bin/sh',
+        'answer2': 'bin/sh'
     },
     {
-        'image': '../static/forensicimage4.png',
+        'image': '/static/forensicImage4.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQTB0T6u+oNS022XDT/vBaiQ=',
         'passphrase': 'ellipticcurve',
         'hash': 'wshell0x.php',
@@ -228,11 +393,35 @@ stegSet=[
         'answer': 'pass1234!'
     },
     {
-        'image': '../static/forensicimage5.png',
+        'image': '/static/forensicImage5.png',
         'stegHash': 'U2FsdGVkX18kH6hnY7hTQUdUNJCeR/SOREsGgmjZCuLasc8853KIZG/Sh/vYuY1t',
         'passphrase': 'ellipticcurve',
         'hash': 'blood`1234567890',
-        'splunkChallenge': '(using flag "blood`1234567890") what is the password that ip address 55.45.20.74 has used in the login function with successful status_code=200?',
+        'splunkChallenge': '(using flag blood`1234567890) what is the password that ip address 55.45.20.74 has used in the login function with successful status_code=200?',
         'answer': 'password12345'
     }
 ]
+
+webSet = [
+    {
+        'question': '(using flag - install-plugin) Which plug-in was installed and activated by ip address 85.50.46.53?',
+        'answer': 'file-manager'
+    },
+    {
+        'question': '(Using flag - "php?|") Which file is being uploaded and accessed by ip address 78.54.12.66 with the successful status_code=200 from the web server?',
+        'answer': 'b374k.php'
+    },
+    {
+        'question': '(Using flag - "etc/passwd") What has the ip address 68.49.17.11 used instead of ../ to bypass the dot-dot check in a Remote Code Execution with status_code=400',
+        'answer': f'.%2e/'
+    },
+    {
+        'question': '(Using flag - "/etc/passwd") Which web shell (php file) has been used by the ip address 31.16.19.41 to read /etc/passwd file successfully (status_code=200)?',
+        'answer': 'weevely.php'
+    },
+    {
+        'question': '(Using flag - *.txt ) Which txt file ip address 55.45.20.74  has successfully scanned with status_code=200? ',
+        'answer': 'CHANGELOG.txt'
+    }
+]
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title></title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" />
+	<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+	<div class="gameLauncher" id="phoneChallenges">
+		<div class="gameHeader">
+			<div class="navButton"onclick="goToEvidence()">Back</div>
+			<div class="roomTitle">Crypto Cartel</div>
+			<div id="clock"></div>
+		</div>
+		<div class="toolButtonContainer">
+			<div class="buttonContainer tooltip">
+				<div class="buttonHelp" onclick="openInfoBox()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">help</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<div class="buttonHelp" onclick="openToolBox()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">
+							construction
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<div class="buttonHelp" onclick="openWiki()">
+					<div class="buttonInfo">
+						<span class="material-symbols-outlined">
+							dictionary
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="buttonContainer tooltip">
+				<button class="buttonHelp" onclick="toggleHint()">
+					<span class="material-icons-outlined md-30">&#xE79A;</span>
+				</button>
+				<span class="tooltiptext">Use a hint!</span>
+			</div>
+		</div>
+		<div class="gameBox" id="gameInfoBox">
+			<div class="closeBox" >
+				<span class="material-symbols-outlined" onclick="openInfoBox()">
+					close
+				</span>
+			</div>
+			<p class="hashDescript">
+				The administrator of this site can view account details, use SQL injection to hack into the administrators overview
+			</p>
+		</div>
+		<div class="toolBox hidden" id="hintDiv">
+				<div class="closeBox">
+					<span class="material-symbols-outlined" onclick="toggleHint()">
+						close
+					</span>
+				</div>
+				<p class="toolBoxHeader">Hints</p>
+				<p class="toolBoxTool" id="hintText">
+					You can request a hint for each challenge. Each hint used will cost you 10 points from your final score. There is one hint available for each challenge
+				</p>
+				<div class="openToolButton" onclick="getHint('webChallHint')">
+					Get Hint
+				</div>
+			</div>
+		<div class="toolBox hidden" id="toolBox">
+			<div class="closeBox" >
+				<span class="material-symbols-outlined" onclick="openToolBox()">
+					close
+				</span>
+			</div>
+			<p class="toolBoxHeader">Tools</p>
+			<p class="toolBoxTool">Hash Decrypter</p>
+			<a href="https://hashes.com/en/decrypt/hash" target="_blank">
+			<div class="openToolButton">
+				Open Tool
+			</div>
+			</a>
+		</div>
+		<div class="toolBox hidden" id="wikiBox">
+				<div class="closeBox" >
+					<span class="material-symbols-outlined" onclick="openWiki()">
+						close
+					</span>
+				</div>
+				<p class="toolBoxHeader">SQL Injections</p>
+				<p class="toolBoxTool">Read the wiki here</p>
+				<a href="/wiki" target="_blank">
+				<div class="openToolButton">
+					Open Wiki
+				</div>
+				</a>
+		</div>
+		
+	
+
+        <div class="virtualBrowser">
+            <div class="addressBar">
+              <div class="column left">
+                <span class="dot" style="background:#ED594A;"></span>
+                <span class="dot" style="background:#FDD800;"></span>
+                <span class="dot" style="background:#5AC05A;"></span>
+              </div>
+              <div class="column middle">
+                <input type="text" id = "urlText" value="http://www.cryptocartel.com">
+              </div>
+             
+            </div>
+          
+            <div class="browserContent">
+				
+				<div class = "loginPanel">
+					<h1>Crypto Cartel</h1><br>
+					<form class="ccLoginForm" action="" method="POST">
+						<label for="ccUsername">Username:</label><br>
+						<input type="text" id="ccUsername" name="ccUsername" value="admin"><br>
+						<br>
+						<label for="ccPassword">Password:</label><br>
+						<input type="text" id="ccPassword" name="ccPassword" value="'pass1234'"><br><br>
+						<input type="submit" id="ccSubmit" value="Login">
+				  	</form> 
+				
+					{% with messages = get_flashed_messages() %} {% if messages %}
+					<ul class="ccLoginFlash">
+						{% for message in messages %}
+						<div class="ccMessage">{{message}}</div>
+						{% endfor %}
+					</ul>
+					{% endif %} {% endwith %}
+				</div>
+            </div>
+          </div>
+
+
+	</div>
+	
+</body>
+<script>
+	var wikiBox = document.getElementById('wikiBox')
+	var infoBox = document.getElementById('gameInfoBox')
+	var toolBox = document.getElementById('toolBox')
+	var hintBox = document.getElementById('hintDiv')
+	
+	function checkInfo(){
+		let infoShow = localStorage.getItem('webchall1')
+		if(infoShow == 'True'){
+			openInfoBox()
+		} 
+		else{
+			localStorage.setItem('webchall1', 'True')
+		}
+	}
+
+	checkInfo()
+
+	function toggleHint(){
+		hintBox.classList.toggle('hidden')
+		infoBox.classList.add('hidden')
+		toolBox.classList.add('hidden')
+		wikiBox.classList.add('hidden')
+	}
+
+	function openInfoBox(){
+		infoBox.classList.toggle('hidden')
+		toolBox.classList.add('hidden')
+		wikiBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
+
+	function openWiki(){
+		wikiBox.classList.toggle('hidden')
+		toolBox.classList.add('hidden')
+		infoBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
+
+	function openToolBox(){
+		toolBox.classList.toggle('hidden')
+		wikiBox.classList.add('hidden')
+		infoBox.classList.add('hidden')
+		hintDiv.classList.add('hidden')
+	}
+</script>
+<script src="{{ url_for('static', filename='script.js')}}" async defer></script>
+</html>

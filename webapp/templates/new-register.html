@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Register</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles.css')}}"
+		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
+	</head>
+    <body>
+        <div style="display: inline-block; width: 100%; height: 100%;" data-ignore="used only for top most containter width">
+            <div class="main-header-container">
+                <div class="header-container">
+                <div class="cyber-scaping-containe">
+                <img class="image-container1 img-content-cb0a6a63" />
+                </div>
+                <p class="gradient-text-title">
+                <span class="cyber-scape">CyberEscape</span>
+                </p>
+                </div>
+                <div class="navbar">
+                <div class="navigation-bar">
+                <p class="navigation-link">About</p>
+                <p class="navigation-link">Contact</p>
+                <p class="navigation-link">News</p>
+                </div>
+                <a href="/">
+                <button class="register-button register-link">back</button>
+                </a> 
+                </div>
+            </div>
+                <div class="registration-container2">
+                <div class="registration-form-container">
+                <p class="register-title">Register, and create your account</p>
+                
+                <div class="registration-form">
+                <div class="flex-container-with-registration">
+                    <label class="radio-container"
+						>Student
+						<input
+							type="radio"
+							id="student"
+							name="account-type"
+							value="Student"
+							checked="checked"
+							onclick="selectAccountType()"
+						/>
+						<span class="checkmark"></span>
+					</label>
+					<label class="radio-container"
+						>Lecturer
+						<input
+							type="radio"
+							id="lecturer"
+							name="account-type"
+							value="Lecturer"
+							onclick="selectAccountType()"
+						/>
+						<span class="checkmark"></span>
+					</label>
+                </div>
+                <div class="signup-container1">
+                    <form id="student-form" method="POST">
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce">
+                        <svg viewBox="0 0 32.571 26.5" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Group" xmlns="http://www.w3.org/2000/svg">
+                        <path id="Vector_2" d="M29.643,0.5h-26.715c-1.341,0 -2.428,1.087 -2.428,2.428v20.643c0,1.342 1.087,2.429 2.428,2.429h26.715c1.341,0 2.428,-1.087 2.428,-2.429v-20.643c0,-1.341 -1.087,-2.428 -2.428,-2.428z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                        <path id="Vector_3" d="M0.5,3.536l14.231,12.143c0.437,0.363 0.987,0.562 1.555,0.562c0.568,0 1.117,-0.199 1.554,-0.562l14.231,-12.143" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                        </svg>
+                        </div>
+                        </div>
+                        <input type="email" name="student-email" id="student-email" placeholder="you@example.com" class="input" required="true">
+                        
+                        </div>
+                        <div class="error-message-container">
+                        <span class="material-symbols-outlined {{category}}" >
+                            {{category}} </span>
+                        <span class="{{category}}">{{error}}</span>
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group_2" xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector_4" d="M11.7484,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.265,0.266 -0.626,0.415 -1.001,0.415c-0.376,0 -0.736,-0.149 -1.002,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.266,-0.266 0.626,-0.415 1.002,-0.415c0.375,0 0.736,0.149 1.001,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM17.4154,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.266,0.266 -0.626,0.415 -1.002,0.415c-0.375,0 -0.736,-0.149 -1.001,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.265,-0.266 0.626,-0.415 1.001,-0.415c0.376,0 0.736,0.149 1.002,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM21.6654,23.0835c0.376,0 0.736,-0.149 1.002,-0.415c0.265,-0.265 0.415,-0.626 0.415,-1.001c0,-0.376 -0.15,-0.737 -0.415,-1.002c-0.266,-0.266 -0.626,-0.415 -1.002,-0.415c-0.376,0 -0.736,0.149 -1.002,0.415c-0.265,0.265 -0.415,0.626 -0.415,1.002c0,0.375 0.15,0.736 0.415,1.001c0.266,0.266 0.626,0.415 1.002,0.415z" fill="currentColor" />
+                            <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M6.4364,10.3335v1.846c-0.321,0.022 -0.623,0.051 -0.909,0.09c-1.275,0.17 -2.349,0.539 -3.202,1.39c-0.853,0.853 -1.218,1.927 -1.39,3.202c-0.165,1.228 -0.165,2.791 -0.165,4.727v0.156c0,1.937 0,3.499 0.165,4.728c0.17,1.275 0.539,2.348 1.39,3.201c0.853,0.853 1.927,1.219 3.202,1.391c1.228,0.165 2.791,0.165 4.727,0.165h11.489c1.937,0 3.499,0 4.728,-0.165c1.275,-0.172 2.349,-0.538 3.201,-1.391c0.853,-0.853 1.219,-1.926 1.392,-3.201c0.164,-1.229 0.164,-2.791 0.164,-4.728v-0.156c0,-1.936 0,-3.499 -0.164,-4.727c-0.173,-1.275 -0.539,-2.349 -1.392,-3.202c-0.852,-0.853 -1.926,-1.218 -3.201,-1.39c-0.302,-0.039 -0.606,-0.07 -0.91,-0.09v-1.846c0,-2.536 -1.007,-4.969 -2.801,-6.762c-1.793,-1.793 -4.225,-2.801 -6.761,-2.801c-2.536,0 -4.969,1.008 -6.762,2.801c-1.793,1.793 -2.801,4.226 -2.801,6.762zM15.9994,2.8955c-1.973,0 -3.865,0.784 -5.259,2.179c-1.395,1.395 -2.179,3.286 -2.179,5.259v1.775c0.529,-0.004 1.094,-0.004 1.693,-0.004h11.489c0.6,0 1.165,0 1.693,0.004v-1.775c0,-4.108 -3.329,-7.438 -7.437,-7.438zM5.8104,14.3755c-1.04,0.14 -1.589,0.396 -1.982,0.787c-0.392,0.393 -0.647,0.942 -0.788,1.984c-0.143,1.069 -0.145,2.487 -0.145,4.52c0,2.033 0.002,3.451 0.145,4.522c0.141,1.04 0.397,1.59 0.788,1.982c0.393,0.393 0.942,0.648 1.983,0.788c1.069,0.143 2.488,0.146 4.521,0.146h11.333c2.033,0 3.451,-0.003 4.522,-0.146c1.04,-0.14 1.59,-0.397 1.982,-0.788c0.393,-0.392 0.648,-0.942 0.788,-1.983c0.143,-1.07 0.146,-2.488 0.146,-4.521c0,-2.033 -0.003,-3.452 -0.146,-4.522c-0.14,-1.04 -0.397,-1.589 -0.788,-1.982c-0.392,-0.392 -0.942,-0.647 -1.983,-0.787c-1.07,-0.143 -2.488,-0.146 -4.521,-0.146h-11.333c-2.033,0 -3.452,0.003 -4.522,0.146z" fill="currentColor" />
+                            </g>
+                            </svg>
+                        </div>
+                        </div>
+                        <input type="password" name="student-password" id="student-password" placeholder="At least 8 characters" class="input" required="true">
+                        </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{passwordCategory}}" >
+                                {{passwordCategory}} </span>
+                            <span class="{{passwordCategory}}">{{passwordError}}</span>
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group_2" xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector_4" d="M11.7484,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.265,0.266 -0.626,0.415 -1.001,0.415c-0.376,0 -0.736,-0.149 -1.002,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.266,-0.266 0.626,-0.415 1.002,-0.415c0.375,0 0.736,0.149 1.001,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM17.4154,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.266,0.266 -0.626,0.415 -1.002,0.415c-0.375,0 -0.736,-0.149 -1.001,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.265,-0.266 0.626,-0.415 1.001,-0.415c0.376,0 0.736,0.149 1.002,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM21.6654,23.0835c0.376,0 0.736,-0.149 1.002,-0.415c0.265,-0.265 0.415,-0.626 0.415,-1.001c0,-0.376 -0.15,-0.737 -0.415,-1.002c-0.266,-0.266 -0.626,-0.415 -1.002,-0.415c-0.376,0 -0.736,0.149 -1.002,0.415c-0.265,0.265 -0.415,0.626 -0.415,1.002c0,0.375 0.15,0.736 0.415,1.001c0.266,0.266 0.626,0.415 1.002,0.415z" fill="currentColor" />
+                            <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M6.4364,10.3335v1.846c-0.321,0.022 -0.623,0.051 -0.909,0.09c-1.275,0.17 -2.349,0.539 -3.202,1.39c-0.853,0.853 -1.218,1.927 -1.39,3.202c-0.165,1.228 -0.165,2.791 -0.165,4.727v0.156c0,1.937 0,3.499 0.165,4.728c0.17,1.275 0.539,2.348 1.39,3.201c0.853,0.853 1.927,1.219 3.202,1.391c1.228,0.165 2.791,0.165 4.727,0.165h11.489c1.937,0 3.499,0 4.728,-0.165c1.275,-0.172 2.349,-0.538 3.201,-1.391c0.853,-0.853 1.219,-1.926 1.392,-3.201c0.164,-1.229 0.164,-2.791 0.164,-4.728v-0.156c0,-1.936 0,-3.499 -0.164,-4.727c-0.173,-1.275 -0.539,-2.349 -1.392,-3.202c-0.852,-0.853 -1.926,-1.218 -3.201,-1.39c-0.302,-0.039 -0.606,-0.07 -0.91,-0.09v-1.846c0,-2.536 -1.007,-4.969 -2.801,-6.762c-1.793,-1.793 -4.225,-2.801 -6.761,-2.801c-2.536,0 -4.969,1.008 -6.762,2.801c-1.793,1.793 -2.801,4.226 -2.801,6.762zM15.9994,2.8955c-1.973,0 -3.865,0.784 -5.259,2.179c-1.395,1.395 -2.179,3.286 -2.179,5.259v1.775c0.529,-0.004 1.094,-0.004 1.693,-0.004h11.489c0.6,0 1.165,0 1.693,0.004v-1.775c0,-4.108 -3.329,-7.438 -7.437,-7.438zM5.8104,14.3755c-1.04,0.14 -1.589,0.396 -1.982,0.787c-0.392,0.393 -0.647,0.942 -0.788,1.984c-0.143,1.069 -0.145,2.487 -0.145,4.52c0,2.033 0.002,3.451 0.145,4.522c0.141,1.04 0.397,1.59 0.788,1.982c0.393,0.393 0.942,0.648 1.983,0.788c1.069,0.143 2.488,0.146 4.521,0.146h11.333c2.033,0 3.451,-0.003 4.522,-0.146c1.04,-0.14 1.59,-0.397 1.982,-0.788c0.393,-0.392 0.648,-0.942 0.788,-1.983c0.143,-1.07 0.146,-2.488 0.146,-4.521c0,-2.033 -0.003,-3.452 -0.146,-4.522c-0.14,-1.04 -0.397,-1.589 -0.788,-1.982c-0.392,-0.392 -0.942,-0.647 -1.983,-0.787c-1.07,-0.143 -2.488,-0.146 -4.521,-0.146h-11.333c-2.033,0 -3.452,0.003 -4.522,0.146z" fill="currentColor" />
+                            </g>
+                            </svg>
+                        </div>
+                        </div>
+                        <input type="password" name="student-password2" id="student-password2" placeholder="Enter password again" class="input" required="true">
+                        </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{passwordMatchCategory}}" >
+                                {{passwordMatchCategory}} </span>
+                            <span class="{{passwordMatchCategory}}">{{passwordMatch}}</span>
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1">
+                        <svg viewBox="0 0 32.7111 26.5086" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_10" d="M16.6271,0.4389l-15.583,8.5l15.583,8.5l12.75,-6.956v9.789h2.834v-11.333M6.7111,14.8609v5.666l9.916,5.412l9.917,-5.412v-5.666l-9.917,5.411z" fill="#6357CE" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        </div>
+                        <input type="text" name="student-code" id="student-code" placeholder="Enter lecturer code (optional)" class="input" >
+                        </div>
+                        <div class="error-message-container">
+                            <span class="material-symbols-outlined {{lecturerCodeCategory}}" >
+                                {{lecturerCodeCategory}} </span>
+                            <span class="{{lecturerCodeCategory}}">{{lecturerError}}</span>
+                        </div>
+                        <input
+						type="radio"
+						id="studentAccount"
+						name="account-type"
+						value="studentAccount"
+						checked="checked"
+						class="hidden"
+					    />
+                        <button class="registration-button" id="submit-student" value="student" type="submit">Register</button>
+                    </form>
+                    <form id="lecturer-form" class="hidden" method="POST">
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce">
+                        <svg viewBox="0 0 32.571 26.5" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Group" xmlns="http://www.w3.org/2000/svg">
+                        <path id="Vector_2" d="M29.643,0.5h-26.715c-1.341,0 -2.428,1.087 -2.428,2.428v20.643c0,1.342 1.087,2.429 2.428,2.429h26.715c1.341,0 2.428,-1.087 2.428,-2.429v-20.643c0,-1.341 -1.087,-2.428 -2.428,-2.428z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                        <path id="Vector_3" d="M0.5,3.536l14.231,12.143c0.437,0.363 0.987,0.562 1.555,0.562c0.568,0 1.117,-0.199 1.554,-0.562l14.231,-12.143" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                        </svg>
+                        </div>
+                        </div>
+                        <input type="email" name="lecturer-email" id="lecturer-email" placeholder="you@example.com" class="input" required="true">
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group_2" xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector_4" d="M11.7484,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.265,0.266 -0.626,0.415 -1.001,0.415c-0.376,0 -0.736,-0.149 -1.002,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.266,-0.266 0.626,-0.415 1.002,-0.415c0.375,0 0.736,0.149 1.001,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM17.4154,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.266,0.266 -0.626,0.415 -1.002,0.415c-0.375,0 -0.736,-0.149 -1.001,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.265,-0.266 0.626,-0.415 1.001,-0.415c0.376,0 0.736,0.149 1.002,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM21.6654,23.0835c0.376,0 0.736,-0.149 1.002,-0.415c0.265,-0.265 0.415,-0.626 0.415,-1.001c0,-0.376 -0.15,-0.737 -0.415,-1.002c-0.266,-0.266 -0.626,-0.415 -1.002,-0.415c-0.376,0 -0.736,0.149 -1.002,0.415c-0.265,0.265 -0.415,0.626 -0.415,1.002c0,0.375 0.15,0.736 0.415,1.001c0.266,0.266 0.626,0.415 1.002,0.415z" fill="currentColor" />
+                            <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M6.4364,10.3335v1.846c-0.321,0.022 -0.623,0.051 -0.909,0.09c-1.275,0.17 -2.349,0.539 -3.202,1.39c-0.853,0.853 -1.218,1.927 -1.39,3.202c-0.165,1.228 -0.165,2.791 -0.165,4.727v0.156c0,1.937 0,3.499 0.165,4.728c0.17,1.275 0.539,2.348 1.39,3.201c0.853,0.853 1.927,1.219 3.202,1.391c1.228,0.165 2.791,0.165 4.727,0.165h11.489c1.937,0 3.499,0 4.728,-0.165c1.275,-0.172 2.349,-0.538 3.201,-1.391c0.853,-0.853 1.219,-1.926 1.392,-3.201c0.164,-1.229 0.164,-2.791 0.164,-4.728v-0.156c0,-1.936 0,-3.499 -0.164,-4.727c-0.173,-1.275 -0.539,-2.349 -1.392,-3.202c-0.852,-0.853 -1.926,-1.218 -3.201,-1.39c-0.302,-0.039 -0.606,-0.07 -0.91,-0.09v-1.846c0,-2.536 -1.007,-4.969 -2.801,-6.762c-1.793,-1.793 -4.225,-2.801 -6.761,-2.801c-2.536,0 -4.969,1.008 -6.762,2.801c-1.793,1.793 -2.801,4.226 -2.801,6.762zM15.9994,2.8955c-1.973,0 -3.865,0.784 -5.259,2.179c-1.395,1.395 -2.179,3.286 -2.179,5.259v1.775c0.529,-0.004 1.094,-0.004 1.693,-0.004h11.489c0.6,0 1.165,0 1.693,0.004v-1.775c0,-4.108 -3.329,-7.438 -7.437,-7.438zM5.8104,14.3755c-1.04,0.14 -1.589,0.396 -1.982,0.787c-0.392,0.393 -0.647,0.942 -0.788,1.984c-0.143,1.069 -0.145,2.487 -0.145,4.52c0,2.033 0.002,3.451 0.145,4.522c0.141,1.04 0.397,1.59 0.788,1.982c0.393,0.393 0.942,0.648 1.983,0.788c1.069,0.143 2.488,0.146 4.521,0.146h11.333c2.033,0 3.451,-0.003 4.522,-0.146c1.04,-0.14 1.59,-0.397 1.982,-0.788c0.393,-0.392 0.648,-0.942 0.788,-1.983c0.143,-1.07 0.146,-2.488 0.146,-4.521c0,-2.033 -0.003,-3.452 -0.146,-4.522c-0.14,-1.04 -0.397,-1.589 -0.788,-1.982c-0.392,-0.392 -0.942,-0.647 -1.983,-0.787c-1.07,-0.143 -2.488,-0.146 -4.521,-0.146h-11.333c-2.033,0 -3.452,0.003 -4.522,0.146z" fill="currentColor" />
+                            </g>
+                            </svg>
+                        </div>
+                        </div>
+                        <input type="password" name="lecturer-password" id="lecturer-password" placeholder="At least 8 characters" class="input" required="true">
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1" style="color: #6357ce"><svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group_2" xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector_4" d="M11.7484,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.265,0.266 -0.626,0.415 -1.001,0.415c-0.376,0 -0.736,-0.149 -1.002,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.266,-0.266 0.626,-0.415 1.002,-0.415c0.375,0 0.736,0.149 1.001,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM17.4154,21.6675c0,0.375 -0.149,0.736 -0.415,1.001c-0.266,0.266 -0.626,0.415 -1.002,0.415c-0.375,0 -0.736,-0.149 -1.001,-0.415c-0.266,-0.265 -0.415,-0.626 -0.415,-1.001c0,-0.376 0.149,-0.737 0.415,-1.002c0.265,-0.266 0.626,-0.415 1.001,-0.415c0.376,0 0.736,0.149 1.002,0.415c0.266,0.265 0.415,0.626 0.415,1.002zM21.6654,23.0835c0.376,0 0.736,-0.149 1.002,-0.415c0.265,-0.265 0.415,-0.626 0.415,-1.001c0,-0.376 -0.15,-0.737 -0.415,-1.002c-0.266,-0.266 -0.626,-0.415 -1.002,-0.415c-0.376,0 -0.736,0.149 -1.002,0.415c-0.265,0.265 -0.415,0.626 -0.415,1.002c0,0.375 0.15,0.736 0.415,1.001c0.266,0.266 0.626,0.415 1.002,0.415z" fill="currentColor" />
+                            <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M6.4364,10.3335v1.846c-0.321,0.022 -0.623,0.051 -0.909,0.09c-1.275,0.17 -2.349,0.539 -3.202,1.39c-0.853,0.853 -1.218,1.927 -1.39,3.202c-0.165,1.228 -0.165,2.791 -0.165,4.727v0.156c0,1.937 0,3.499 0.165,4.728c0.17,1.275 0.539,2.348 1.39,3.201c0.853,0.853 1.927,1.219 3.202,1.391c1.228,0.165 2.791,0.165 4.727,0.165h11.489c1.937,0 3.499,0 4.728,-0.165c1.275,-0.172 2.349,-0.538 3.201,-1.391c0.853,-0.853 1.219,-1.926 1.392,-3.201c0.164,-1.229 0.164,-2.791 0.164,-4.728v-0.156c0,-1.936 0,-3.499 -0.164,-4.727c-0.173,-1.275 -0.539,-2.349 -1.392,-3.202c-0.852,-0.853 -1.926,-1.218 -3.201,-1.39c-0.302,-0.039 -0.606,-0.07 -0.91,-0.09v-1.846c0,-2.536 -1.007,-4.969 -2.801,-6.762c-1.793,-1.793 -4.225,-2.801 -6.761,-2.801c-2.536,0 -4.969,1.008 -6.762,2.801c-1.793,1.793 -2.801,4.226 -2.801,6.762zM15.9994,2.8955c-1.973,0 -3.865,0.784 -5.259,2.179c-1.395,1.395 -2.179,3.286 -2.179,5.259v1.775c0.529,-0.004 1.094,-0.004 1.693,-0.004h11.489c0.6,0 1.165,0 1.693,0.004v-1.775c0,-4.108 -3.329,-7.438 -7.437,-7.438zM5.8104,14.3755c-1.04,0.14 -1.589,0.396 -1.982,0.787c-0.392,0.393 -0.647,0.942 -0.788,1.984c-0.143,1.069 -0.145,2.487 -0.145,4.52c0,2.033 0.002,3.451 0.145,4.522c0.141,1.04 0.397,1.59 0.788,1.982c0.393,0.393 0.942,0.648 1.983,0.788c1.069,0.143 2.488,0.146 4.521,0.146h11.333c2.033,0 3.451,-0.003 4.522,-0.146c1.04,-0.14 1.59,-0.397 1.982,-0.788c0.393,-0.392 0.648,-0.942 0.788,-1.983c0.143,-1.07 0.146,-2.488 0.146,-4.521c0,-2.033 -0.003,-3.452 -0.146,-4.522c-0.14,-1.04 -0.397,-1.589 -0.788,-1.982c-0.392,-0.392 -0.942,-0.647 -1.983,-0.787c-1.07,-0.143 -2.488,-0.146 -4.521,-0.146h-11.333c-2.033,0 -3.452,0.003 -4.522,0.146z" fill="currentColor" />
+                            </g>
+                            </svg>
+                        </div>
+                        </div>
+                        <input type="password" name="lecturer-password2" id="lecturer-password2" placeholder="Enter password again" class="input" required="true">
+                        </div>
+                        <div class="signup-container">
+                        <div class="svg-container3">
+                        <div class="svg-container1">
+                        <svg viewBox="0 0 32.7111 26.5086" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_10" d="M16.6271,0.4389l-15.583,8.5l15.583,8.5l12.75,-6.956v9.789h2.834v-11.333M6.7111,14.8609v5.666l9.916,5.412l9.917,-5.412v-5.666l-9.917,5.411z" fill="#6357CE" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        </div>
+                        <input type="text" name="institution" id="institution" placeholder="Enter your institution" class="input" required="true">
+                        </div>
+                        <input
+						type="radio"
+						id="lecturerAccount"
+						name="account-type"
+						value="lecturerAccount"
+						checked="checked"
+						class="hidden"
+					    />
+                        <button class="registration-button" type="submit" id="submit-lecturer" value="lecturer">Register</button>
+                        </div>
+                        
+                    </form>
+                    <div class="registration-container1">
+                        <div class="registration-container">
+                        
+                        
+                        <p class="registration-prompt">Already have an account?</p>
+                        </div>
+                        <a href="/login">
+                        <button class="registration-button">Login</button>
+                        </a>
+                    </div>
+                </div>
+                
+               
+                </div>
+                </div>
+                </div>
+        </div>
+        <script
+			src="{{ url_for('static', filename='script.js')}}"
+			async
+			defer
+		></script>
+    </body>
+</html>

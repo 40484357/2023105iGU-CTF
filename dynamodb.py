@@ -1,8 +1,22 @@
+import boto3
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import redirect
 
-user_table = resource ('dynamodb').Table('Users')
+resource = resource(
+    'dynamodb',
+    aws_access_key_id = 'AKIA5FBZYB2GS6TYFVXG',
+    aws_secret_access_key= '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',
+    region_name = 'eu-west-2'
+)
+
+
+
+user_table = resource.Table('Users')
+
+scores_table = resource.Table('GameScores')
 
 def insertUser(email, password, user_name, lecturerCode, lecturerStatus):
     response = user_table.put_item(
@@ -70,18 +84,29 @@ def initialisePoints(email):
     )
     print(response['Attributes'])
 
-def initialiseGame(email, points, startGameTime):
+def initialiseGame(email, points, startGameTime, attempts):
     response = user_table.update_item(
         Key = {'email': email},
-        UpdateExpression='SET points= :p, startGameTime= :t, splunkState= :s',
+        UpdateExpression='SET points= :p, startGameTime= :t, splunkState= :s, CSI_attempts= :c',
         ExpressionAttributeValues={
             ':p': points,
             ':t': startGameTime,
-            ':s': '0'
+            ':s': '0',
+            ':c': attempts
         },
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
+
+def bestScore(email, points, timePassed):
+    response = user_table.update_item(
+        Key = {'email': email},
+        UpdateExpression = 'SET best_csi= :p, best_csi_time= :t',
+        ExpressionAttributeValues = {
+            ':p': points,
+            ':t': timePassed
+        }
+    )
 
 def checkUsername(username):
     response = user_table.scan(
@@ -100,10 +125,12 @@ def checkLecturerCode(code):
     )
 
     items = response['Items']
-    if[items]:
+    
+    if len(items) > 0:
         return(True)
     else:
         return(False)
+    
 
 def initialiseLaptop(email, password, startTime, challengeState, hints, laptopSelect):
     response = user_table.update_item(
@@ -136,6 +163,19 @@ def initialisePhone(email, secretKey, a, b, startTime, challengeState, stegSelec
         ReturnValues='UPDATED_NEW'
     )
     print(response['Attributes'])
+
+def initialiseCrypto(email, startTime, challengeState, hints):
+    response = user_table.update_item(
+        Key = {'email': email},
+        UpdateExpression='SET challengeStart= :t, cryptoState= :s, hints= :h',
+        ExpressionAttributeValues={
+            ':t': startTime,
+            ':s': challengeState,
+            ':h': hints
+        },
+        ReturnValues='UPDATED_NEW'
+    )
+
 
 def updateUser(email, challenge, points, state):
     response = user_table.update_item(
@@ -172,9 +212,6 @@ def resetChallenge(email, challenge, state, hints, startTime):
             }
         )
 
-
-
-
 def endRoom(email, challenge, state, splunkState, points):
     if challenge == 'laptop':
         response = user_table.update_item(
@@ -202,6 +239,18 @@ def endRoom(email, challenge, state, splunkState, points):
             ReturnValues='UPDATED_NEW'
         )
         print(response['Attributes'])
+    elif challenge == 'crypto':
+        response = user_table.update_item(
+            Key={'email': email},
+            UpdateExpression='SET cryptoState= :l, hints = :h, points = :p, splunkState= :s',
+            ExpressionAttributeValues={
+                ':l': state,
+                ':h': '0',
+                ':p': points,
+                ':s': splunkState
+            },
+            ReturnValues='UPDATED_NEW'
+        )
 
 def addHints(email, hints):
     response = user_table.update_item(
@@ -225,3 +274,58 @@ def updateSplunk(email, state, key, digits):
             ReturnValues='UPDATED_NEW'
         )
     print(response['Attributes'])
+
+def newScore(user_name, game_name, points, classCode):
+    response = scores_table.put_item(
+        Item = {
+            'user_name': user_name,
+            'gamename': game_name,
+            'points': points,
+            'classCode': classCode
+        }
+    )
+
+def getScores():
+        response = scores_table.query(
+            IndexName = 'gamename-points-index',
+            KeyConditionExpression = Key('gamename').eq('overall'),
+            ScanIndexForward = False
+
+        )
+        items = response['Items']
+        return(items)
+
+def updateUserDetails(email, newClass, newPass, newMail):
+    if len(newPass) > 7:
+        newPass = generate_password_hash(newPass, method='sha256')
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression=f'SET  password = :P',
+            ExpressionAttributeValues = {
+            ':P': newPass
+        },
+        ReturnValues='UPDATED_NEW'
+        )
+        
+
+    if len(newMail) > 7:
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression= f'SET email = :E',
+            ExpressionAttributeValues = {
+            ':E': newMail
+        },
+        )
+        
+
+    
+    if len(newClass) > 3:
+        response = user_table.update_item(
+            Key = {'email': email},
+            UpdateExpression= f'SET lecturerCode = :l',
+            ExpressionAttributeValues = {
+            ':l': newClass
+        },
+     )
+        
+    

@@ -18,6 +18,8 @@
 			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
 			rel="stylesheet"
 		/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 	</head>
 	<body>
 		<div class="gameLauncher" id="challengeOne">
@@ -26,25 +28,48 @@
 				<div class="roomTitle">Evidence Room</div>
 				<div id="clock"></div>
 			</div>
-
-			<div class="buttonContainer tooltip">
-				<button class="buttonHelp" onclick="getHint({% block hint %}{% endblock %})">
-					<span class="material-icons-outlined md-30">&#xE79A;</span>
-				</button>
-				<span class="tooltiptext">Use a hint!</span>
-			</div>
-			<div class="hidden" id="hintDiv">
-				<div class="hintNav">
-					<button id="closeHint" onclick="closeHint()">
-						&#10006;
+			<div class="toolButtonContainer">
+				<div class="buttonContainer tooltip">
+					<div class="buttonHelp" onclick="openInfoBox()">
+						<div class="buttonInfo">
+							<span class="material-symbols-outlined">help</span>
+						</div>
+					</div>
+				</div>
+				<div class="buttonContainer tooltip">
+					<div class="buttonHelp" onclick="openToolBox()">
+						<div class="buttonInfo">
+							<span class="material-symbols-outlined">
+								construction
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="buttonContainer tooltip">
+					<div class="buttonHelp" onclick="openWiki()">
+						<div class="buttonInfo">
+							<span class="material-symbols-outlined">
+								dictionary
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="buttonContainer tooltip">
+					<button class="buttonHelp" onclick="toggleHint()">
+						<span class="material-icons-outlined md-30">&#xE79A;</span>
 					</button>
+					<span class="tooltiptext">Use a hint!</span>
 				</div>
-				<div id="hintText">
 
-				</div>
 			</div>
+			
 
-			<div class="gameBox">
+			<div class="gameBox" id="gameInfoBox">
+				<div class="closeBox" >
+					<span class="material-symbols-outlined" onclick="openInfoBox()">
+						close
+					</span>
+				</div>
 				<p class="hashDescript">
 					{% block instruction %} {% endblock %}
 				</p>
@@ -64,5 +89,51 @@
 			async
 			defer
 		></script>
+		<script> 
+			var wikiBox = document.getElementById('wikiBox')
+			var infoBox = document.getElementById('gameInfoBox')
+			var toolBox = document.getElementById('toolBox')
+			var hintBox = document.getElementById('hintDiv')
+			
+			function checkInfo(){
+				let infoShow = localStorage.getItem('desktopInfo')
+				if(infoShow == 'True'){
+					openInfoBox()
+				} 
+				else{
+					localStorage.setItem('desktopInfo', 'True')
+				}
+			}
+
+			checkInfo()
+
+			function toggleHint(){
+				hintBox.classList.toggle('hidden')
+				infoBox.classList.add('hidden')
+				toolBox.classList.add('hidden')
+				wikiBox.classList.add('hidden')
+			}
+
+			function openInfoBox(){
+				infoBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+				wikiBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
+			}
+
+			function openWiki(){
+				wikiBox.classList.toggle('hidden')
+				toolBox.classList.add('hidden')
+				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
+			}
+
+			function openToolBox(){
+				toolBox.classList.toggle('hidden')
+				wikiBox.classList.add('hidden')
+				infoBox.classList.add('hidden')
+				hintDiv.classList.add('hidden')
+			}
+		</script>
 	</body>
 </html>

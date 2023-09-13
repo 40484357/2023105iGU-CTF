@@ -5,12 +5,101 @@ var firstScene = document.getElementById('firstScene')
 var secondScene = document.getElementById('secondScene')
 
 var state = 0
-/* states
-0 = story intro
-1 = asking user to take quiz
-2 = asking user if they are ready to begin
-3 = quiz
-*/
+
+var quiz = [];
+quiz[0] = new Question("Which country has the most number of cameras?\n Check 'camera' in https://www.shodan.io/", "United States", "United Kingdom", "China","Germany");
+quiz[1] = new Question("Has napierstudent2023@gmail.com been pwned (https://haveibeenpwned.com/)", "No", "Yes", "Yes, 3 data breaches","Yes, 1 data breach");
+quiz[2] = new Question("What is the ip address of ns3 server of napier university (napier.ac.uk)?\n Use link https://www.whois.com/whois", "146.176.7.1", "146.196.7.1", "146.186.7.1","146.176.10.1");
+quiz[3] = new Question("Sock puppets are online fictitious identities of the OSINT investigator, to gain access to information that requires an account to access such as social media sites. Which resources can be used to create this fictitious identity?", "All of these", "This person does not exist", "Fake name generator","Privacy cards");
+quiz[4] = new Question("Which of the following is the best OSINT application to verify whether company data is available publicly?", "theHarvester", "Cuckoo", "Nmap","Nessus");
+quiz[5] = new Question("An application log containing the following, is an indication of what type of breach? https://www.comptia.com/login.php?id='%20or%20'1'1='1", "SQLi", "DLL Injection", "API attack","XSS");
+quiz[6] = new Question("Which of the following would be indicative of a hidden audio file found inside of a piece of source code?", "Steganography", "Homomorphic encryption", "Cipher suite","Blockchain");
+quiz[7] = new Question("What is the open-source framework used by cyber security professionals to conduct footprinting and reconnaissance activities?","OSINT framework","WebSploit Framework","Browser Exploitation Framework","SpeedPhish Framework");
+quiz[8] = new Question("Which country has the most number of printers? Check 'printer' in https://www.shodan.io/","China","South Korea","United States","France");
+quiz[9] = new Question("Searchcode is to check for sensitive information present within the source code of computer programs (searchcode.com). What is the first email address you come across with password1234! as the password?","rvasquez@gmail.com","joeblog@yahoo.com","rvasquez@jclouds.org","patkennedy79@yahoo.com")
+var randomQuestion;
+var answers = [];
+var currentScore = 0;
+
+function Question(question,rightAnswer,wrongAnswer1,wrongAnswer2, wrongAnswer3) { // Question constructor
+    this.question = question;
+    this.rightAnswer = rightAnswer;
+    this.wrongAnswer1 = wrongAnswer1;
+    this.wrongAnswer2 = wrongAnswer2;
+    this.wrongAnswer3 = wrongAnswer3;
+};
+
+function shuffle(o) { // Shuffles the answers after they are put in the array
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+};
+
+function genQuestion() { // Generates a random question and displays it
+
+    if(quiz.length > 5) { // Only give the user 5 questions from the list
+        var randomNumber = Math.floor(Math.random()*quiz.length);
+        randomQuestion = quiz[randomNumber]; //getQuestion
+        quiz.splice(randomNumber,1); //removeQuestionFromQuiz
+        answers = [randomQuestion.rightAnswer, randomQuestion.wrongAnswer1, randomQuestion.wrongAnswer2, randomQuestion.wrongAnswer3];
+        shuffle(answers);
+
+        document.getElementById("question").innerHTML= randomQuestion.question;
+        document.getElementById("answerA").value= answers[0];
+        document.getElementById("answerA").innerHTML= answers[0];
+        document.getElementById("answerB").value= answers[1];
+        document.getElementById("answerB").innerHTML= answers[1];
+        document.getElementById("answerC").value= answers[2];
+        document.getElementById("answerC").innerHTML= answers[2];
+        document.getElementById("answerD").value= answers[3];
+        document.getElementById("answerD").innerHTML= answers[3];
+    }
+    else{
+       document.getElementById("question").innerHTML= "You have finished the quiz! Your score is: " + currentScore+"/5";
+       document.getElementById("answerA").classList.add('hidden');
+       document.getElementById("answerB").classList.add('hidden');
+       document.getElementById("answerC").classList.add('hidden');
+       document.getElementById("answerD").classList.add('hidden');
+       document.getElementById("retry").classList.remove('hidden');
+    }
+}
+
+function answerA_clicked() {
+  var answerA = document.getElementById("answerA").value;
+  checkAnswer(answerA);
+}
+
+function answerB_clicked() {
+  var answerB = document.getElementById("answerB").value;
+  checkAnswer(answerB);
+}
+function answerC_clicked() {
+  var answerC = document.getElementById("answerC").value;
+  checkAnswer(answerC);
+}
+
+function answerD_clicked() {
+    var answerD = document.getElementById("answerD").value;
+    checkAnswer(answerD);
+}
+function adjustScore(isCorrect) {
+  if (isCorrect) {
+    currentScore++;
+  } else {
+    if (currentScore > 0) {
+      currentScore--;
+    }
+  }
+  document.getElementById("score").innerHTML = currentScore;
+}
+
+function checkAnswer(answer) {
+  if (answer == randomQuestion.rightAnswer) {
+    adjustScore(true);
+    genQuestion();
+  } else {
+    adjustScore(false);
+  }
+}
 
 if(continueButton != null){
 continueButton.addEventListener('click', ()=>{
@@ -105,7 +194,7 @@ back.addEventListener('click', ()=>{
 if(quizButton != null){
 quizButton.addEventListener('click', ()=>{
     state = 3
-    // window.open('https://kahoot.it/challenge/01822152?challenge-id=f4024f95-6f91-4152-960c-44a99e4f5152_1679495142441', '_blank')
+    genQuestion();
     var descript = document.getElementById('descriptText')
     var quizbtn = document.getElementById('quizButton')
     var quiz = document.getElementById('introQuiz')
@@ -139,7 +228,7 @@ function goToWinroom(){
 } //goes to winroom
 
 function goToServer(){
-    window.location.href = '/server'
+    window.location.href = '/cryptocartel'
 }
 
 function copyTextToClipboard(hash){
@@ -230,30 +319,29 @@ function getHint(challenge){
     var hintBox = document.getElementById('hintDiv')
     var hintText = document.getElementById('hintText')
     
-    const url = 'http://127.0.0.1:5000/hints'
+        const url = 'http://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
 
-    fetch(url)
-    .then(response => response.json())
-    .then((jsonData) =>{
-        for(const[key, value] of Object.entries(jsonData)){
-            if(value.name === challenge){
-                currentHint = value.hint
-                hintText.innerHTML = currentHint
+        fetch(url)
+        .then(response => response.json())
+        .then((jsonData) =>{
+            for(const[key, value] of Object.entries(jsonData)){
+                if(value.name === challenge){
+                    currentHint = value.hint
+                    hintText.innerHTML = currentHint
+                }
             }
-        }
-
-    })
-
+    
+        })
+    
+        
+    
+        const request = new XMLHttpRequest()
+        request.open('POST', `updateHints/${challenge}`)
+        request.send()
+       console.log(challenge)
+    }
     
 
-    const request = new XMLHttpRequest()
-    request.open('POST', `updateHints/${challenge}`)
-    request.send()
-   
-    hintBox.classList.remove('hidden')
-
-    
-}
 
 function goToSplunk(){
     window.location.href = '/splunk'
@@ -321,8 +409,8 @@ function openNotesApp(){
     document.getElementById('phoneHome').style.backgroundColor='#f3f198';
     document.getElementById('backButtonNotes').style.display='flex';
     document.getElementById('notesApp').style.display='flex';
-    document.getElementById('aesMessage').style.display='none';
-    document.getElementById('aesFlash').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
 }
 
 function closeNotesApp(){
@@ -336,6 +424,8 @@ function closeNotesApp(){
     document.getElementById('phoneHome').style.backgroundColor='none';
     document.getElementById('backButtonNotes').style.display='none';
     document.getElementById('notesApp').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
 }
 
 function openAesApp()
@@ -349,8 +439,8 @@ function openAesApp()
     document.getElementById('backButtonAes').style.display='flex';
     document.getElementById('aesApp').style.display='flex';
     document.getElementById('aesLock').style.display='block';
-    document.getElementById('aesMessage').style.display='none';
-    document.getElementById('aesFlash').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
    
 }
 function closeAesApp()
@@ -366,6 +456,8 @@ function closeAesApp()
     document.getElementById('backButtonAes').style.display='none';
     document.getElementById('aesApp').style.display='none';
     document.getElementById('aesLock').style.display='none';
+    document.getElementById('aesMessage').classList.toggle('hidden');
+    document.getElementById('aesFlash').classList.toggle('hidden');
     
 }
 // Stuff for steganography
@@ -539,4 +631,56 @@ function closeProfile(){
 }
 function slideLeft(){
     document.getElementById("side-profile-background").style.left = "100%";
+}
+
+function showHelp(){
+    if(document.getElementById('helpOverlay').classList.contains('hidden')){
+        document.getElementById('helpOverlay').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('helpOverlay').classList.add('hidden');
+    }
+}
+function copyScript(){
+    navigator.clipboard.writeText("PGltZyBzcmM9eCBvbmVlcnJvcj1hbGVydChkb2N1bWVudC5jb29raWUpPg==");
+    alert('Copied data to clipboard!');
+}
+function scriptPanel(){
+    if(document.getElementById('browserBottom').classList.contains('hidden')){
+        document.getElementById('browserBottom').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('browserBottom').classList.add('hidden');
+    }
+}
+function closeAlert(){
+    document.getElementById('popupAlert').classList.add('hidden');
+}
+function openSessionForm(){
+    if(document.getElementById('ccSessionForm').classList.contains('hidden')){
+        document.getElementById('ccSessionForm').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('ccSessionForm').classList.add('hidden');
+    }
+}
+function openTransaction(){
+    if(document.getElementById('transactionPanel').classList.contains('hidden')){
+        document.getElementById('transactionPanel').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('transactionPanel').classList.add('hidden');
+    }
+}
+function copyAddress(walletAddress){
+    navigator.clipboard.writeText(walletAddress);
+    alert('Copied address to clipboard!');
+}
+
+function showHelpModal(){
+        document.getElementById('helpOverlayModal').classList.toggle('hidden');
+    
+}
+function closeHelpModal(){
+    document.getElementById('helpOverlayModal').classList.toggle('hidden')
 }

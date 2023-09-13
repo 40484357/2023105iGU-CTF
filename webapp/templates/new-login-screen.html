@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Register</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style.css')}}"
+		/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
+	</head>
+    <body>
+        <div style="display: inline-block; width: 100%; height: 100%;" data-ignore="used only for top most containter width">
+            <div class="main-header-container">
+                <div class="header-container">
+                <div class="cyber-scaping-container">
+                <img class="image-container1 img-content-cb0a6a63" />
+                </div>
+                <p class="gradient-text-title">
+                <span class="cyber-scape">CyberEscape</span>
+                </p>
+                </div>
+                <div class="navbar">
+                <div class="navigation-bar">
+                <p class="navigation-link">About</p>
+                <p class="navigation-link">Contact</p>
+                <p class="navigation-link">News</p>
+                </div>
+                <a href="/logout">
+                <button class="register-button register-link">Log out</button>
+                </a> 
+                </div>
+            </div>
+            <div class="game-profile-leaderboard">
+                <div class="game-menu-container">
+                <p class="game-title active" id="game_click">GAMES</p>
+                <p class="game-link" id="profile_click">PROFILE</p>
+                <p class="game-link" id="leaderboard_click">LEADERBOARD</p>
+                </div>
+                <div class="game-section" id="games_section">
+                <div class="murder-mystery-card">
+                        <div class="murder-mystery-container">
+                        <div class="flex-container">
+                        <div class="card-container2">
+                        <img class="image-container2 img-content-92c95e35" />
+                        </div>
+                        <div class="info-box1">
+                        </div>
+                        </div>
+                        <p class="murder-mystery-title">Splunk Practice</p>
+                        <p class="medium-title">Practice</p>
+                        </div>
+                        <div class="launch-button-container">
+                        
+                        <button class="launch-button1">Launch</button>
+                        </div>
+                </div>
+                <div class="murder-mystery-card">
+                <div class="murder-mystery-container">
+                <div class="flex-container">
+                <div class="card-container2">
+                <img class="image-container2 img-content-92c95e36" />
+                </div>
+                <div class="info-box1">
+                </div>
+                </div>
+                <p class="murder-mystery-title">CSI</p>
+                <p class="medium-title">Medium</p>
+                </div>
+                <div class="launch-button-container">
+                
+                <a href="/intro"><button class="launch-button1">Launch</button></a>
+                </div>
+                </div>
+                <div class="main-container">
+                <div class="flex-container">
+                <div class="card-container1">
+                <img class="image-container2 img-content-fb7836ef" />
+                </div>
+                <div class="info-box1">
+                </div>
+                </div>
+                <p class="upcoming-title">Coming Soon...</p>
+                <p class="medium-title">Hard</p>
+                </div>
+                </div>
+                <div class="user-profile-container hidden" id="profile_container">
+                    <div class="user-profile-card">
+                    <img class="user-avatar img-content-efbef174" />
+                    <p class="username-heading">{{username}}</p>
+                    </div>
+                    <div class="profile-section">
+                    <div class="profile-container">
+                    <div class="profile-section2">
+                    <p class="profile-title active" id="inner-profile-nav">Profile</p>
+                    <p class="profile-settings-text" id="profile-settings-nav">Profile Settings</p>
+                    </div>
+                    <!-- <div class="profile-section1">
+                    <p class="overview-title">Overview</p>
+                    <p class="overview-badge">Badges</p>
+                    </div> -->
+                    <div class="leaderboard" id="inner-profile">
+                    <div class="global-rank-card">
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-cfa5c622" />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Global rank</p>
+                        <p class="rank-label">{{ globalrank }}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-cfa5c623" />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Class Rank</p>
+                        <p class="rank-label">{{ classrank }}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="rank-container">
+                        <div class="rank-container1">
+                        <img class="image-container img-content-ee222295 " />
+                        </div>
+                        <div class="rank-container2">
+                        <p class="global-rank">Points</p>
+                        <p class="rank-label">{{ points }}</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="crime-game-container">
+                    <div class="crime-scene-investigation">
+                    <p class="global-rank">CSI</p>
+                    <div class="game-attempts-container">
+                    
+                    <p class="game-attempts1 game-attempts">Attempts: {{CSI_attempts}}</p>
+                    <p class="game-attempts1">Best Time: {{best_csi_time}}</p>
+                    <p class="game-attempts1 game-attempts">Best Score: {{best_csi}}</p>
+                    </div>
+                    </div>
+                    <div class="murder-mystery-container-profile">
+                    <p class="global-rank">Murder Mystery</p>
+                    <div class="game-info-container">
+                    
+                    <p class="game-attempts1 game-attempts">Attempts: 4</p>
+                    <p class="game-attempts1">Best Time: 1h 10m</p>
+                    <p class="game-attempts1 game-attempts">Best Score: 545</p>
+                    </div>
+                    </div>
+                    <div class="murder-mystery-container-profile">
+                    <p class="global-rank">Murder Mystery</p>
+                    <div class="game-info-container">
+                    
+                    <p class="game-attempts1 game-attempts">Attempts: 4</p>
+                    <p class="game-attempts1">Best Time: 1h 10m</p>
+                    <p class="game-attempts1 game-attempts">Best Score: 545</p>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="leaderboard hidden" id="profile-settings">
+                    <form method="POST">
+                        <div class="profile_form">
+                                <div class="inputBox">
+                                    <input type="text" name="class" id="class">
+                                    <span>Class</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="class2" id="class2">
+                                    <span>Confirm Class</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="password" name="password" id="password">
+                                    <span>Password</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="password" name="passsword2" id="password2">
+                                    <span>Confirm password</span>
+                                </div>
+                                <!-- <div class="inputBox">
+                                    <input type="email" name="email" id="email">
+                                    <span>E-mail</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="email" name="email2" id="email2">
+                                    <span>Confirm e-mail</span>
+                                </div> -->
+                                <!-- <div class="inputBox">
+                                    <input type="text" name="github" id="github">
+                                    <span>Github</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="linkedin" id="linkedin">
+                                    <span>LinkedIn</span>
+                                </div> -->
+                                <button class="profile-settings-button">
+                                    Save Changes
+                                </button>
+                        </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="leaderboard-container hidden" id="leaderboard_section">
+                    <div class="leaderboard-container2">
+                        <div class="menu-container">
+                            <div class="dropdown" data-dropdown>
+                                <div class="dropdown-button" data-dropdown-button>
+                                    <p id = 'dropdown-button-main'>Global</p>
+                                    <p class="dropdown-arrow" data-dropdown-button>&#8964;</p>
+                                </div>
+                                <div class="dropdown-menu" >
+                                    <div class="dropdown-content" id = 'ddContent' data-dropdown-class>Class</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leaderboard-headers-container main-leaderboard-header">
+                            <div class="leaderboard-header first-header">
+                                Rank
+                            </div>
+                            <div class="leaderboard-header first-header">
+                                Username
+                            </div>
+                            <div class="leaderboard-header first-header">
+                                Points
+                            </div>
+                        </div>
+                        <div class="leaderboard-headers-container userscore ">
+                            <div class="leaderboard-header  ">
+                                {{rank}}
+                            </div>
+                            <div class="leaderboard-header ">
+                                {{username}}
+                            </div>
+                            <div class="leaderboard-header ">
+                                {{points}}
+                            </div>
+                        </div>
+                        {% for x in scores %}
+                        <div class="leaderboard-headers-container">
+                            <div class="leaderboard-header">
+                                {{loop.index}}
+                            </div>
+                            <div class="leaderboard-header">
+                                {{x['user_name']}}
+                            </div>
+                            <div class="leaderboard-header">
+                                {{x['points']}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <script>
+            var profileClick = document.getElementById('profile_click')
+            var gameSection = document.getElementById('games_section')
+            var profileContainer = document.getElementById('profile_container')
+            var gameClick = document.getElementById('game_click')
+            var profile_settingsClick = document.getElementById('profile-settings-nav')
+            var innerProfile_Click = document.getElementById('inner-profile-nav')
+            var innerProfile_settings = document.getElementById('profile-settings')
+            var innerProfile = document.getElementById('inner-profile')
+            var leaderboardClick = document.getElementById('leaderboard_click')
+            var leaderboardContainer = document.getElementById('leaderboard_section')
+
+            profileClick.addEventListener('click', () => {
+                gameSection.classList.add('hidden')
+                profileContainer.classList.remove('hidden')
+                gameClick.classList.remove('active')
+                profileClick.classList.add('active')
+                leaderboardContainer.classList.add('hidden')
+                leaderboardClick.classList.remove('active')
+                sessionStorage.setItem('leaderboard', 'false')
+            })
+            gameClick.addEventListener('click', () => {
+                gameSection.classList.remove('hidden')
+                profileContainer.classList.add('hidden')
+                gameClick.classList.add('active')
+                profileClick.classList.remove('active')
+                leaderboardContainer.classList.add('hidden')
+                leaderboardClick.classList.remove('active')
+                sessionStorage.setItem('leaderboard', 'false')
+
+            })
+
+            profile_settingsClick.addEventListener('click', ()=> {
+                innerProfile_settings.classList.remove('hidden')
+                innerProfile.classList.add('hidden')
+                profile_settingsClick.classList.add('active')
+                innerProfile_Click.classList.remove('active')
+            })
+
+            innerProfile_Click.addEventListener('click', () => {
+                innerProfile_settings.classList.add('hidden')
+                innerProfile.classList.remove('hidden')
+                profile_settingsClick.classList.remove('active')
+                innerProfile_Click.classList.add('active')
+            })
+
+            leaderboardClick.addEventListener('click', ()=>{
+                profileContainer.classList.add('hidden')
+                gameSection.classList.add('hidden')
+                leaderboardContainer.classList.remove('hidden')
+                gameClick.classList.remove('active')
+                profileClick.classList.remove('active')
+                leaderboardClick.classList.add('active')
+            })
+
+            document.addEventListener('click', e => {
+                const isDropDownButton = e.target.matches("[data-dropdown-button]")
+                if (!isDropDownButton && e.target.closest('[data-dropdown]') != null) return
+
+                let currentDropdown
+                if(isDropDownButton){
+                    currentDropdown = e.target.closest('[data-dropdown]')
+                    currentDropdown.classList.toggle('toggled')
+                }
+
+                document.querySelectorAll("[data-dropdown].toggled").forEach(dropdown => {
+                    if (dropdown === currentDropdown) return
+                    dropdown.classList.remove("toggled")
+                })
+            })
+
+            document.addEventListener('click', e => {
+                const isClassButton = e.target.matches("[data-dropdown-class]")
+                if(!isClassButton && e.target.close('[data-dropdown]') != null) return
+                let currentSelection
+                
+                if(isClassButton){
+                    currentSelection = e.target.closest('[data-dropdown-class]')
+                    currentSelection = currentSelection.innerHTML
+                    sessionStorage.setItem('leaderboard', 'true')
+                    window.location.href = `http://cyberescape.eu-west-2.elasticbeanstalk.com/logged_in/${currentSelection}`
+                }
+            })
+
+            window.addEventListener('load', e => {
+                if (sessionStorage.getItem('leaderboard') == 'true'){
+                    profileContainer.classList.add('hidden')
+                    gameSection.classList.add('hidden')
+                    leaderboardContainer.classList.remove('hidden')
+                    gameClick.classList.remove('active')
+                    profileClick.classList.remove('active')
+                    leaderboardClick.classList.add('active')
+                }
+                if (window.location == 'http://cyberescape.eu-west-2.elasticbeanstalk.com/Class'){
+                    const dropdownButtonMain = document.getElementById('dropdown-button-main')
+                    const dropdownOption = document.getElementById('ddContent')
+                    dropdownButtonMain.innerHTML = 'Class'
+                    dropdownOption.innerHTML = 'Global'
+                }
+            })
+        </script>
+    </body>
+</html>

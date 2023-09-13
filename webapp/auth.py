@@ -18,6 +18,10 @@ def selectUsername():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    emailError = ""
+    emailCategory = ""
+    passwordError = ""
+    passwordCategory = ""
     if current_user.is_authenticated:
         return redirect(url_for('views.logged_in'))
     else:
@@ -36,11 +40,12 @@ def login():
                     login_user(new_user, remember=True)
                     return redirect(url_for('views.logged_in'))
                 else:
-                    flash('incorrect password', category='error')
-                    print('wrong password')
+                    passwordError = "Incorrect password try again"
+                    passwordCategory = 'error'
             except:
-                flash('email does not exist', category='error')
-        return render_template("login.html")
+                emailError = "Incorrect email or email does not exist, sign up or try again"
+                emailCategory = 'error'
+        return render_template("new-sign-up.html", emailError = emailError, emailCategory = emailCategory, passwordError = passwordError, passwordCategory = passwordCategory)
 
 @auth.route('/logout')
 @login_required
@@ -139,6 +144,14 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    error = ""
+    category = ""
+    passwordError = ""
+    passwordMatch = ""
+    lecturerError = ""
+    passwordCategory = ""
+    passwordMatchCategory = ""
+    lecturerCodeCategory = ""
     if current_user.is_authenticated:
         return redirect(url_for('views.logged_in'))
     else:
@@ -159,23 +172,17 @@ def sign_up():
                 
 
                 if checkemail == True:
-                    flash('email already exists.', category='error')
-                    print('error checkemail')
-                
-                elif len(studentEmail) < 8:
-                    flash('Email must be greater than 7 characters', category='error')
-                    print('error email length')
-                
+                    error = ' email already exists'
+                    category = 'error'
                 elif len(studentPassword) < 7:
-                    flash('Password must be greater than 7 characters', category='error')
-                    print('error password')
-                
+                    passwordError = 'Password must be greater than 7 characters'
+                    passwordCategory = 'error'
                 elif studentPassword != studentPassword2:
-                    flash('Passwords don\'t match', category='error')
-                    print('error no match')
+                    passwordMatch = 'Passwords are not the same'
+                    passwordMatchCategory = 'error'
                 elif checkCode == False:
-                    flash('lecturer code does not exist', category='error')
-                    print('error, code')
+                    lecturerError = "Lecturer code does not exist"
+                    lecturerCodeCategory = "error"
                     
                 else:
 
@@ -205,6 +212,7 @@ def sign_up():
                 while checkCode == True:
                     lecturerId = lecturerId + 1
                     checkCode = checkLecturerCode(lecturerId)
+                    print(checkCode, lecturerId, ' checking code')
             
                 if checkemail == True:
                     flash('email already exists.', category='error')
@@ -220,9 +228,9 @@ def sign_up():
                 
 
                 else:
-                    new_user = User(email=studentEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = lecturerId, lecturerCode = lecturerCode, lecturerStatus=1)
-                    createUser = insertUser(email=studentEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = user_name, lecturerCode = lecturerCode, lecturerStatus=1)
+                    new_user = User(email=lecturerEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = lecturerId, lecturerCode = lecturerId, lecturerStatus=1)
+                    createUser = insertUser(email=lecturerEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = lecturerId, lecturerCode = lecturerId, lecturerStatus=1)
                     flash('Account created', category='success')
                     login_user(new_user, remember=True) 
                     return redirect(url_for('views.logged_in'))
-    return render_template("register.html")
+    return render_template("new-register.html", passwordCategory = passwordCategory, lecturerCodeCategory = lecturerCodeCategory, passwordMatchCategory = passwordMatchCategory, error=error, category = category, passwordError = passwordError, passwordMatch = passwordMatch, lecturerError = lecturerError)
