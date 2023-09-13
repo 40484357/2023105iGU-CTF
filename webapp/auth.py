@@ -156,7 +156,7 @@ def sign_up():
                 checkemail = getUser(studentEmail)
                 checkCode = checkLecturerCode(lecturerCode)
                 print(checkemail)
-
+                
 
                 if checkemail == True:
                     flash('email already exists.', category='error')
@@ -197,12 +197,16 @@ def sign_up():
                 lecturerEmail = request.form.get('lecturer-email')
                 lecturerPassword = request.form.get('lecturer-password')
                 lecturerPassword2 = request.form.get('lecturer-password2')
-                username = selectUsername()
-                lecturerUser = users.query.filter_by(email=lecturerEmail).first()
-                usernameCheck = users.query.filter_by(user_name = username).all()
                 lecturerId = random.randint(100000,999999)  
+
+                checkemail = getUser(lecturerEmail)
+                checkCode = checkLecturerCode(lecturerId)
+
+                while checkCode == True:
+                    lecturerId = lecturerId + 1
+                    checkCode = checkLecturerCode(lecturerId)
             
-                if lecturerUser:
+                if checkemail == True:
                     flash('email already exists.', category='error')
                 
                 elif len(lecturerEmail) < 8:
@@ -216,14 +220,8 @@ def sign_up():
                 
 
                 else:
-                    if  usernameCheck:
-                        number = usernameCheck.len + 1
-                        newUsername = username + number
-                        username = newUsername
-
-                    new_user = users(lecturerStatus = 1, lecturerId = lecturerId, email=lecturerEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = username, lecturerCode = lecturerId)
-                    db.session.add(new_user)
-                    db.session.commit()
+                    new_user = User(email=studentEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = lecturerId, lecturerCode = lecturerCode, lecturerStatus=1)
+                    createUser = insertUser(email=studentEmail, password=generate_password_hash(lecturerPassword, method='sha256'), user_name = user_name, lecturerCode = lecturerCode, lecturerStatus=1)
                     flash('Account created', category='success')
                     login_user(new_user, remember=True) 
                     return redirect(url_for('views.logged_in'))
