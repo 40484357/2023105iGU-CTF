@@ -120,6 +120,7 @@ def hints():
                 'hint':'See what you can do with the users wallet address, if you have the flag and are stuck try leaving some feedback'
             }
     }
+    challengeHints.headers.add('Access-Control-Allow-Origin', '*')
 
     return challengeHints
 
