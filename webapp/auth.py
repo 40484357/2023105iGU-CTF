@@ -164,13 +164,15 @@ def sign_up():
                 studentPassword2 = request.form.get('student-password2')
                 lecturerCode = request.form.get('student-code')
                 user_name = selectUsername()
-
+                checkCode = True
 
                 checkemail = getUser(studentEmail)
-                checkCode = checkLecturerCode(lecturerCode)
-                print(checkemail)
+               
                 
-
+                checkCode = checkLecturerCode(lecturerCode)
+                
+                    
+                
                 if checkemail == True:
                     error = ' email already exists'
                     category = 'error'

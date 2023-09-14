@@ -38,7 +38,7 @@ def pointsLogic(time, hints, points):
 def splunk_markup(key):
     key_0 = '<div class = "splunk_instructions"><div class="locked">You have not unlocked the necessary flags to complete Splunk challenges, return to the evidence and obtain the flags required</div></div>'
     key_1 ='<div class="splunk_instructions"><div class="link">Follow this link to access the splunk server: <a href="http://18.132.27.173:8000/" target="_blank">http://18.132.27.173:8000/</a></div><div class="username">Username: user1</div><div class="password">Password: CyberEscape</div><div class="setUp"><p>To set up your splunk follow these instructions</p><ul class="splunk_points"><li>Once logged in - enter the following into the search bar:</li><li>index = windows sourcetype = webserver ipaddress = '
-    key_1_c = ' <em>add any addition flag information here</em> |table timestamps ipaddress request_method status_code url referrer</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will get the key and unlock the evidence</li><li>Return to the evidence room to retrieve all three keys</li></ul></div></div>'
+    key_1_c = ' <em>add any addition flag information here</em> <br> | table timestamps ipaddress request_method status_code url referrer</li><li>Change "last 24 hours" to "All time" on search bar</li><li>Use the flag from the previous question to search and answer the question</li><li>With the correct answer you will get the key and unlock the evidence</li><li>Return to the evidence room to retrieve all three keys</li></ul></div></div>'
     challenge_1 = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><form action="" method="post" class="splunk_form"> <label for="challenge_one">1. How many log entries are there for the malicious actor\'s IP address?</label><input type="text" name="challenge_one" id="challenge_one"><input type = "submit" name = "challange_1" value = "Validate"></form><div></div></div>'
     challenge_1_c = '<div class="splunk_challenges"><h2>Splunk Challenges</h2><div class="splunk_challenge"><div>1. How many log entries are there for the malicious actor\'s IP address?</div><div>Answer:  '
     challenge_2 = '<div class="splunk_challenge"><form action="" method="post" class="splunk_form"><label for="challenge_two">2. '
@@ -47,31 +47,21 @@ def splunk_markup(key):
     challenge_3_c = '<div class="splunk_challenge">3. '
 
     userData = loadUser(current_user.id)
+    print(userData[0]['key_one'])
     try:
         digitOne = userData[0]['key_one']
-        laptopSelect = userData[0]['laptopSelect']
-        ipAddress = base65Set[laptopSelect]['IP']
-        key_1 += ipAddress 
-        key_1 += key_1_c
     except:
         digitOne = '0'
     try: 
         digitTwo = userData[0]['key_two']
-        laptopSelect = userData[0]['laptopSelect']
-        ipAddress = base65Set[laptopSelect]['IP']
-        key_1 += ipAddress 
-        key_1 += key_1_c
     except:
         digitTwo = '0'
     try: 
         digitThree = userData[0]['key_three']
-        laptopSelect = userData[0]['laptopSelect']
-        ipAddress = base65Set[laptopSelect]['IP']
-        key_1 += ipAddress 
-        key_1 += key_1_c
     except:
         digitThree = '0'
 
+    
     if key == 0:
         return key_0
     elif key == 1:
@@ -103,7 +93,7 @@ def splunk_markup(key):
             answerString = answer + '</div><div class="digits">Key: SKEY ' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" ><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
             key_1 += challenge_1_c
             key_1 += answerString
             key_1 += challenge_2
@@ -116,7 +106,7 @@ def splunk_markup(key):
             key_1 += key_1_c
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" ><input type = "submit" name = "challange_2" value = "Validate"></form></div></div>'
             key_1 += challenge_1
             key_1 += challenge_2
             key_1 += questionString
@@ -184,7 +174,7 @@ def splunk_markup(key):
             answerString = answer + '</div><div class="digits">Key: SKEY' + '</div></div>'
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" ><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
             key_1 += answerString
             key_1 += challenge_2
@@ -218,7 +208,7 @@ def splunk_markup(key):
             challenge3Q = webSet[laptopSelect]['question']
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" ><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             challenge3Q = webSet[laptopSelect]['question']
             key_1 += challenge_1
             key_1 += challenge_2
@@ -252,7 +242,7 @@ def splunk_markup(key):
             key_1 += '</div></div><div class="digits">Key: WKEY</div></div>'
             return key_1
         elif int(digitOne) > 1:
-            digits = digitOne
+            print('digit one is ', digitOne)
             laptopSelect = int(userData[0]['laptopSelect'])
             ipAddress = base65Set[laptopSelect]['IP']
             key_1 += ipAddress 
@@ -263,7 +253,7 @@ def splunk_markup(key):
             question = stegSet[phoneSelect]['splunkChallenge']
             challenge3Q = webSet[laptopSelect]['question']
             challenge3A = webSet[laptopSelect]['answer']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             key_1 += challenge_1_c
             key_1 += answerString
             key_1 += challenge_2
@@ -302,7 +292,7 @@ def splunk_markup(key):
             challenge3Q = webSet[laptopSelect]['question']
             phoneSelect = int(userData[0]['stegSelect'])
             question = stegSet[phoneSelect]['splunkChallenge']
-            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" placeholder="pass = \' or"><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
+            questionString = question + '</label><input type="text" name="challenge_two" id="challenge_two" ><input type = "submit" name = "challange_2" value = "Validate"></form></div>'
             challenge3Q = webSet[laptopSelect]['question']
             challenge3A = webSet[laptopSelect]['answer']
             key_1 += challenge_1

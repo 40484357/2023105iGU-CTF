@@ -35,31 +35,37 @@ function shuffle(o) { // Shuffles the answers after they are put in the array
 };
 
 function genQuestion() { // Generates a random question and displays it
-
-    if(quiz.length > 5) { // Only give the user 5 questions from the list
+    var nextButton = document.getElementById('nextQuestion')
+    nextButton.classList.add('hidden')
+    if(quiz.length > 7) { // Only give the user 5 questions from the list
         var randomNumber = Math.floor(Math.random()*quiz.length);
         randomQuestion = quiz[randomNumber]; //getQuestion
         quiz.splice(randomNumber,1); //removeQuestionFromQuiz
         answers = [randomQuestion.rightAnswer, randomQuestion.wrongAnswer1, randomQuestion.wrongAnswer2, randomQuestion.wrongAnswer3];
         shuffle(answers);
-
+        
         document.getElementById("question").innerHTML= randomQuestion.question;
         document.getElementById("answerA").value= answers[0];
         document.getElementById("answerA").innerHTML= answers[0];
+        document.getElementById("answerA").style.background = "#00DDEB"
         document.getElementById("answerB").value= answers[1];
         document.getElementById("answerB").innerHTML= answers[1];
+        document.getElementById("answerB").style.background = "#00DDEB"
         document.getElementById("answerC").value= answers[2];
         document.getElementById("answerC").innerHTML= answers[2];
+        document.getElementById("answerC").style.background = "#00DDEB"
         document.getElementById("answerD").value= answers[3];
         document.getElementById("answerD").innerHTML= answers[3];
+        document.getElementById("answerD").style.background = "#00DDEB"
     }
     else{
-       document.getElementById("question").innerHTML= "You have finished the quiz! Your score is: " + currentScore+"/5";
+       document.getElementById("question").innerHTML= "You have finished the quiz! Your score is: " + currentScore+"/3";
        document.getElementById("answerA").classList.add('hidden');
        document.getElementById("answerB").classList.add('hidden');
        document.getElementById("answerC").classList.add('hidden');
        document.getElementById("answerD").classList.add('hidden');
        document.getElementById("retry").classList.remove('hidden');
+       continueButton.classList.remove('hidden')
     }
 }
 
@@ -84,21 +90,43 @@ function answerD_clicked() {
 function adjustScore(isCorrect) {
   if (isCorrect) {
     currentScore++;
-  } else {
-    if (currentScore > 0) {
-      currentScore--;
-    }
-  }
+  } 
   document.getElementById("score").innerHTML = currentScore;
 }
 
 function checkAnswer(answer) {
   if (answer == randomQuestion.rightAnswer) {
     adjustScore(true);
-    genQuestion();
+    var nextButton = document.getElementById('nextQuestion')
+    nextButton.classList.remove('hidden')
+    var optionA = document.getElementById('answerA')
+    var optionB = document.getElementById('answerB')
+    var optionC = document.getElementById('answerC')
+    var optionD = document.getElementById('answerD')
+    checkRightAnswer(optionA)
+    checkRightAnswer(optionB)
+    checkRightAnswer(optionC)
+    checkRightAnswer(optionD)
+   
   } else {
     adjustScore(false);
+    var nextButton = document.getElementById('nextQuestion')
+    nextButton.classList.remove('hidden')
+    var optionA = document.getElementById('answerA')
+    var optionB = document.getElementById('answerB')
+    var optionC = document.getElementById('answerC')
+    var optionD = document.getElementById('answerD')
+    checkRightAnswer(optionA)
+    checkRightAnswer(optionB)
+    checkRightAnswer(optionC)
+    checkRightAnswer(optionD)
   }
+}
+
+function checkRightAnswer(answer){
+    if(answer.value == randomQuestion.rightAnswer){
+        answer.style.background = '#5FCF7A'
+    }
 }
 
 if(continueButton != null){
@@ -111,7 +139,7 @@ continueButton.addEventListener('click', ()=>{
         descript.innerHTML="We need to make sure you're the right person for the job. Test your eligibility by taking this short quiz."
         quizButton.classList.remove('hidden')
         backButton.classList.remove('hidden')
-
+        continueButton.classList.add('hidden')
         state = 1
         return
     }
@@ -168,6 +196,7 @@ back.addEventListener('click', ()=>{
         descript.innerHTML="We need to make sure you're the right person for the job. Test your eligibility by taking this short quiz."
         quizButton.classList.remove('hidden')
         backButton.classList.remove('hidden')
+        continueButton.classList.add('hidden')
 
         state = 1
         return
@@ -198,6 +227,8 @@ quizButton.addEventListener('click', ()=>{
     var descript = document.getElementById('descriptText')
     var quizbtn = document.getElementById('quizButton')
     var quiz = document.getElementById('introQuiz')
+    var continueButton = document.getElementById('continue')
+    continueButton.classList.add('hidden')
     descript.classList.add('hidden')
     quizbtn.classList.add('hidden')
     quiz.classList.remove('hidden')

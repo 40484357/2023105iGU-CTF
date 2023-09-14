@@ -355,7 +355,9 @@ def splunkKey():
         if "challenge_one" in request.form:
             challengeSelection = int(userData[0]['laptopSelect'])
             answerSelect = base65Set[challengeSelection]['answer']
+            print('answer select is ', answerSelect)
             if request.form['challenge_one'] != answerSelect:
+                print(request.form['challenge_one'])
                 return render_template('splunk.html', response = response, message = message)
             else:
                 new_digits = '63'
@@ -370,18 +372,15 @@ def splunkKey():
                 response = Markup(getMarkUp)
 
         elif "challenge_two" in request.form:
-            challengeSelection = int(userData[0]['stegSelect'])
+            challengeSelection = int(userData[0]['laptopSelect'])
             answerSelect = stegSet[challengeSelection]['answer']
-            print(answerSelect)
             try:
                 answerSelect2 = stegSet[challengeSelection]['answer2']
             except:
                 answerSelect2 = answerSelect
 
-            if request.form['challenge_two'] != answerSelect or request.form['challenge_two'] != answerSelect2:
-                print('wrong answer')
-                return render_template('splunk.html', response = response, message = message)
-            else:
+            if request.form['challenge_two'] == answerSelect or request.form['challenge_two'] == answerSelect2:
+                
                 new_digits = '34'
                 if int(splunkState)<4:
                     state = 4
@@ -390,7 +389,11 @@ def splunkKey():
                 key = 'key_two'
                 updateSplunk(current_user.id, state, key, new_digits)
                 getMarkUp = splunk_markup(state)
-                response = Markup(getMarkUp)       
+                response = Markup(getMarkUp)  
+                
+            else:
+                print('wrong answer', request.form['challenge_two'])
+                return render_template('splunk.html', response = response, message = message)    
         elif "challenge_three" in request.form:
             challengeSelection = int(userData[0]['laptopSelect'])
             answerSelect = webSet[challengeSelection]['answer']

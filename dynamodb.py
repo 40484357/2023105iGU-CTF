@@ -124,6 +124,7 @@ def checkLecturerCode(code):
         FilterExpression = Attr('lecturer_code').eq(code)
     )
 
+    print(code)
     items = response['Items']
     
     if len(items) > 0:
