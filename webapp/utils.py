@@ -47,7 +47,6 @@ def splunk_markup(key):
     challenge_3_c = '<div class="splunk_challenge">3. '
 
     userData = loadUser(current_user.id)
-    print(userData[0]['key_one'])
     try:
         digitOne = userData[0]['key_one']
     except:
@@ -65,7 +64,7 @@ def splunk_markup(key):
     if key == 0:
         return key_0
     elif key == 1:
-        laptopSelect = userData[0]['laptopSelect']
+        laptopSelect = int(userData[0]['laptopSelect'])
         ipAddress = base65Set[laptopSelect]['IP']
         key_1 += ipAddress 
         key_1 += key_1_c
