@@ -167,11 +167,11 @@ def sign_up():
                 checkCode = True
 
                 checkemail = getUser(studentEmail)
+
+                
                
-                
-                checkCode = checkLecturerCode(lecturerCode)
-                
-                    
+                if len(lecturerCode)> 0:
+                    checkCode = checkLecturerCode(lecturerCode)   
                 
                 if checkemail == True:
                     error = ' email already exists'
