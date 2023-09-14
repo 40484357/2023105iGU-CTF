@@ -1,4 +1,5 @@
 from flask import Flask, url_for
+from flask_cors import CORS
 from os import path
 from flask_login import LoginManager, current_user
 from dynamodb import loadUser
@@ -7,7 +8,7 @@ from .utils import User
 def create_app():
     application = Flask(__name__)
     application.config['SECRET_KEY'] = 'itsasecret'
-    
+    CORS(application)
 
     from .views import views
     from .auth import auth
