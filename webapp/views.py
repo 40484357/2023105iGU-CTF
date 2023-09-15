@@ -4,7 +4,7 @@ from flask_login import login_user, login_required, current_user
 from datetime import date, datetime
 from .utils import timeChange, pointsLogic, splunk_markup, base65Set, stegSet, webSet
 from flask import Blueprint, render_template, request, redirect, url_for, flash, Markup
-from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, getScores, updateUserDetails
+from dynamodb import getPoints, loadUser, initialiseLaptop, updateUser, resetChallenge, endRoom, initialisePhone, updateSplunk, initialiseCrypto, getScores, updateUserDetails, resetCSI
 import hashlib, random, time, webbrowser
 passwords = []
 with open('cyberA-Z.txt') as f:
@@ -581,14 +581,13 @@ def logged_in(selection):
         best_csi = 'n/a'
         bestCSITIME = 'n/a'
     for x, value in enumerate(scores):
-            print(value['user_name'])
             if value['user_name'] == username:
                 points = value['points']
                 globalrank = x + 1
                 rank = x+1
             else:
                 try:
-                    points = userData[0]['points']
+                    points = userData[0]['best_csi']
                 except: 
                     points = 0
     for x in scores:
@@ -602,7 +601,7 @@ def logged_in(selection):
         else:
                 classrank = 'n/a'
                 try:
-                    points = userData[0]['points']
+                    points = userData[0]['best_csi']
                 except: 
                     points = 0
 
@@ -624,6 +623,14 @@ def logged_in(selection):
             updateUserDetails(current_user.id, newClass, newPass, newMail)
             if len(newPass) > 7 or len(newMail)>7:
                 return redirect('/logout')
+
+    try:
+        splunkChall1 = userData[0]['key_one']
+        splunkChall2 = userData[0]['key_two']
+        splunkChall3 = userData[0]['key_three']
+        resetCSI(current_user.id)
+    except:
+        print('true')
 
     return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = bestCSITIME)
 

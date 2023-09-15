@@ -71,6 +71,8 @@ def getPoints(email):
         return('0')
     
 
+
+
 def initialisePoints(email):
     response = user_table.update_item(
         Key = {
@@ -176,7 +178,6 @@ def initialiseCrypto(email, startTime, challengeState, hints):
         ReturnValues='UPDATED_NEW'
     )
 
-
 def updateUser(email, challenge, points, state):
     response = user_table.update_item(
         Key = {'email': email},
@@ -211,6 +212,13 @@ def resetChallenge(email, challenge, state, hints, startTime):
                 ':h': hints
             }
         )
+
+def resetCSI(email):
+    response = user_table.update_item(
+        Key={'email': email},
+        UpdateExpression = 'REMOVE cryptoState, hints, key_one, key_two, key_three, laptopPassword, laptopSelect, laptopState, phoneKey, points, primeA, primeB, splunkState, phoneState',
+
+    )
 
 def endRoom(email, challenge, state, splunkState, points):
     if challenge == 'laptop':
@@ -284,6 +292,13 @@ def newScore(user_name, game_name, points, classCode):
             'classCode': classCode
         }
     )
+def removeOldScore(user_name, points):
+    response = scores_table.delete_item(
+        Key={'user_name': user_name, 'points': points}
+    )
+
+
+
 
 def getScores():
         response = scores_table.query(
@@ -294,6 +309,20 @@ def getScores():
         )
         items = response['Items']
         return(items)
+
+def getUserScores(user_name):
+        response = scores_table.query(
+            KeyConditionExpression = Key('user_name').eq(user_name),
+            ScanIndexForward = False
+
+        )
+        items = response['Items']
+        items = items[0]['points']
+        return(items)
+
+
+
+
 
 def updateUserDetails(email, newClass, newPass, newMail):
     if len(newPass) > 7:

@@ -3,10 +3,10 @@ from flask import render_template, redirect, url_for, request, Markup
 
 from flask_login import login_user, login_required, current_user
 import atexit, json
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from webapp.utils import timeChange
-from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore, bestScore
+from dynamodb import getPoints, initialiseGame, loadUser, addHints, newScore, bestScore, removeOldScore,getUserScores
 
 application = create_app()
 
@@ -62,20 +62,41 @@ def landing():
         chall3State = False
 
     if chall1State == True & chall2State == True & chall3State == True:
-        newScore(userData[0]['user_name'], 'overall', user_points, userData[0]['lecturerCode'])
+        
         try:
             bestPoints = userData[0]['best_csi']
             bestTime = int(userData[0]['best_csi_time'])
-            bestTime = time.strftime('%H:%M:%S', time.gmtime(bestTime))
-            newTime = datetime.timedelta(timePassed)
-            convertedTime  = datetime.strptime(bestTime, '%H:%M:%S')
-            if newTime < convertedTime:
-                bestTime = str(newTime)
-            if int(user_points) > bestPoints:
-                bestPoints = user_points
-            bestScore(current_user.id, bestPoints, bestTime)
+            convertedbestTime = timedelta(hours = bestTime)
+            newTime = timedelta(hours = timePassed)
+            convertedTime  = datetime.strptime(convertedbestTime, '%H:%M:%S')
+            print('try worked')
         except:
-            bestScore(current_user.id, user_points, timePassed)
+            bestPoints = 0
+            newTime = timedelta(hours = timePassed)
+            convertedbestTime = timedelta(hours = 86400)
+
+        if newTime < convertedbestTime:
+            bestTime = timePassed
+
+            
+        
+        if int(bestPoints) < int(user_points):
+            bestPoints = int(user_points)
+
+        bestScore(current_user.id, bestPoints, bestTime)
+
+        try:
+            bestoverallPoints = getUserScores(userData[0]['user_name'])
+        except: 
+            bestoverallPoints = 0
+            
+        overAllPoints = bestPoints + bestoverallPoints
+        try:
+            removeOldScore(userData[0]['user_name'], bestoverallPoints)
+            newScore(userData[0]['user_name'], 'overall', int(overAllPoints), userData[0]['lecturerCode'])
+        except:
+            removeOldScore(userData[0]['user_name'], bestPoints)
+            newScore(userData[0]['user_name'], 'overall', int(user_points), userData[0]['lecturerCode'])
 
 
     return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State, user_points = str(user_points))

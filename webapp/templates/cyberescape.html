@@ -81,13 +81,23 @@
 				}
 				if(chall1State&&chall2State&&chall3State)
 				{
+					localStorage.setItem('mainInfo', 'False')
+					localStorage.setItem('phoneHomeInfo', 'False')
+					localStorage.setItem('phoneInfo', 'False')
+					localStorage.setItem('webchall1', 'False')
+					localStorage.setItem('webchall2', 'False')
+					localStorage.setItem('webchall3', 'False')
+					localStorage.setItem('desktopInfo', 'False')
+					localStorage.setItem('laptopInfo', 'False')
+					localStorage.setItem('openIP', 'false')
 					document.getElementById('challengeInstructionsH1').innerText = "Congratulations!"
-					document.getElementById('challengeInstructionsP').innerText = "You have completed all of the splunk challenges. Well done!"
+					document.getElementById('challengeInstructionsP').innerHTML = "You have completed all of the splunk challenges. Well done!<br><br>Once you exit the game you will start a new one on the next launch. See if you can improve your time and score"
 					const jsConfetti = new JSConfetti()
                     jsConfetti.addConfetti({
                         confettiRadius: 7,
                         confettiNumber: 400,
                     })
+					
                 }
 				
 			}
