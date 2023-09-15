@@ -2973,7 +2973,7 @@ background-color: #ec131a;
     object-fit: cover;
   }
   .img-content-f27d250f {
-    content: url("https://s3-alpha-sig.figma.com/img/dd52/7f50/3efd4d97b3347ae7a3f813bc0a917a8c?Expires=1694390400&Signature=FMgkodCqAWxgh4IwIfyQGFEB0qxrW42invWvCm9aX71SoSqVHUFxIR0nRSyrd~vik4LpIRDDUDvKIqxZMKEOa75M7GrnnexEvGnFqYocApwUCNnvOkpCH0G97AqQA~8XCIhwivt51wqLbGLyfGU3KGbgC-6L8QEykUh3TBWGhsUCWXF1c18NI1Qj76JkTiahkl2~RLLKTFzhmyaXmrP7T0PSZg~xfesOTO5d~R9OKni1rHYI9nQ2Rg33MGuqzhgh06EtTaLeMPW3GZEYa0SWo4wUbRNNvhdbcmm5YHTI6rx6IS7ZFiOnob4WqDCZOmN9xSRqcE0KhJovt2Las372vA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+    content: url("/static/splunkhome.png");
   }
   .decryption-and-splunk {
     box-sizing: border-box;
@@ -3079,7 +3079,7 @@ background-color: #ec131a;
     align-items: center;
     justify-content: flex-start;
     padding: 46px 72px 72px 67px;
-    background: url(https://s3-alpha-sig.figma.com/img/1ebf/5e3d/e34bd9dda7f2affb488a2d4882376ee7?Expires=1694390400&Signature=RkIrW~zUSVbf5VaSCPvz6XLwrbEPTAqabGp8DSY17z0NroqqhU5bxi2GErr3GVwf545CDrJNuYP2fRPrWM2miybnzcHm~LLrBHvAEjwbnuLiwib5ErytjwjfjHF3OlhfNLnWvF04tKvSV3W9JT0VFNpOQ5USlEMkCeOPeAGP0HjMOiBJCNqMEIJrlveHrHup7VAWJ6VwAw0sS9xXNINZjpbC7ME6LgFuZP1AHf2BwN9Fji5L4fnGBUQGFMgAiA414rRowT5ujazHpV2QeufruF~3O99D2D6jnlEWKT3emnrN3f3WRDP~5tehYeGjFrJfXCAkfwZ8u~p5cisTNbstkA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
+    background: url('/static/gameinfobg.png');
     background-repeat: no-repeat;
     background-size: cover;
   }

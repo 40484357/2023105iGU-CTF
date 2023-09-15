@@ -48,15 +48,19 @@ function genQuestion() { // Generates a random question and displays it
         document.getElementById("answerA").value= answers[0];
         document.getElementById("answerA").innerHTML= answers[0];
         document.getElementById("answerA").style.background = "#00DDEB"
+        document.getElementById("answerA").onclick = answerA_clicked
         document.getElementById("answerB").value= answers[1];
         document.getElementById("answerB").innerHTML= answers[1];
         document.getElementById("answerB").style.background = "#00DDEB"
+        document.getElementById("answerB").onclick = answerB_clicked
         document.getElementById("answerC").value= answers[2];
         document.getElementById("answerC").innerHTML= answers[2];
         document.getElementById("answerC").style.background = "#00DDEB"
+        document.getElementById("answerC").onclick = answerC_clicked
         document.getElementById("answerD").value= answers[3];
         document.getElementById("answerD").innerHTML= answers[3];
         document.getElementById("answerD").style.background = "#00DDEB"
+        document.getElementById("answerD").onclick = answerD_clicked
     }
     else{
        document.getElementById("question").innerHTML= "You have finished the quiz! Your score is: " + currentScore+"/3";
@@ -126,6 +130,7 @@ function checkAnswer(answer) {
 function checkRightAnswer(answer){
     if(answer.value == randomQuestion.rightAnswer){
         answer.style.background = '#5FCF7A'
+        answer.onclick =null;
     }
 }
 
