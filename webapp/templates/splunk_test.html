@@ -1,98 +1,405 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>Register</title>
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='style.css')}}"
-		/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400" >
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700" >
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400" >
-	</head>
-    <body>
-        <div style="display: inline-block; width: 100%; height: 100%;" data-ignore="used only for top most containter width">
-            <div class="main-header-container">
-                <div class="header-container">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Splunk Practice</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400">
+</head>
+
+<body>
+    <div style="display: inline-block; width: 100%; height: 100%;"
+        data-ignore="used only for top most containter width">
+        <div class="main-header-container">
+            <div class="header-container">
                 <div class="cyber-scaping-container">
-                <img class="image-container1 img-content-cb0a6a63" />
+                    <img class="image-container1 img-content-cb0a6a63" />
                 </div>
                 <p class="gradient-text-title">
-                <span class="cyber-scape">CyberEscape</span>
+                    <span class="cyber-scape">CyberEscape</span>
                 </p>
-                </div>
-                <div class="navbar">
+            </div>
+            <div class="navbar">
                 <div class="navigation-bar">
-                <p class="navigation-link">About</p>
-                <p class="navigation-link">Contact</p>
-                <p class="navigation-link">News</p>
+                    <p class="navigation-link">About</p>
+                    <p class="navigation-link">Contact</p>
+                    <p class="navigation-link">News</p>
                 </div>
                 <a href="/logout">
-                <button class="register-button register-link">Log out</button>
-                </a> 
+                    <button class="register-button register-link">Log out</button>
+                </a>
+            </div>
+        </div>
+        <div class="event-section-container">
+            <div class = "info-modal">
+                <div class = "info-modal-content">
+                    <h1 class = "info-modal-title"></h1>
+                    <span class = "info-modal-close">&times;</span>
+                    <p class = "info-modal-text"></p>
                 </div>
             </div>
-            <div class="event-section-container">
-                <div class="event-counter-section">
+            <div class="event-counter-section">
                 <div class="event-section1">
-                <div class="event-counter">
-                <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
-                <div class="event-counter-box event-count-container">
-                <p class="event-count-label1">i</p>
-                </div>
-                <div class="event-counter-box event-count-container">
-                <p class="event-count-label1">1</p>
-                </div>
-                <div class="event-counter-box event-count-container">
-                <p class="event-count-label1">2</p>
-                </div>
-                <div class="event-counter-box event-count-container">
-                <p class="event-count-label1">3</p>
-                </div>
-                <div class="event-counter-box event-count-container">
-                <p class="event-count-label1">4</p>
-                </div>
-                </div>
-                <div class="event-section">
-                <div class="flex-container-splunk">
-                <p class="section-title1">Section 1:</p>
-                <p class="section-title">
-                Splunk Logic:
-                <br />
-                Index=honeypot sourcetype=honeypot
-                </p>
-                </div>
-                <p class="section-title2">
-                Task 1: Add the string the query
-                <br />
-                “connect_type=accept”
-                </p>
-                <div class="event-container">
-                <div class="flex-container-splunk">
-                <p class="event-count-label1">Question 1:</p>
-                <p class="event-count-label">How many events are there?</p>
-                </div>
-                <div class="form-controls">
-                <div class="container-with-padding">
-                <div class="container-box"></div>
-                </div>
-                <!-- Button Component is detected here -->
-                <button class="submit-button">submit</button>
-                <div class="button-group">
-                <!-- Button Component is detected here -->
-                <button class="primary-button">previous question</button>
-                <!-- Button Component is detected here -->
-                <button class="button-skip-question">skip question</button>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
+                    <div class="event-counter">
+                        <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                        <div class="infoSectionBox">
+                            <p class="event-count-label1">i</p>
+                        </div>
+                        <div class="section1Box">
+                            <p class="event-count-label1">1</p>
+                        </div>
+                        <div class="section2Box">
+                            <p class="event-count-label1">2</p>
+                        </div>
+                        <div class="section3Box">
+                            <p class="event-count-label1">3</p>
+                        </div>
+                        <div class="section4Box">
+                            <p class="event-count-label1">4</p>
+                        </div>
+                        <div class ="section5Box">
+                            <p class="event-count-label1">5</p>
+                        </div>
+                    </div>
+                    <div class="event-section">
+                        <div class="flex-container-splunk">
+                            <p class="section-title1">Section 1</p>
+                            <p class="section-title">
+                                Splunk Logic:
+                                <br />
+                                Index=honeypot sourcetype=honeypot
+                            </p>
+                        </div>
+                        <p class="section-title2">
+                            Task 1: Add this string in the query
+                            <br>
+                            “connect_type=accept”
+                        </p>
+                        <div class="event-container">
+                            <div class = "anwer-status">
+                                <p class = "answer-status-text"></p>
+                            </div>
+                            <div class="flex-container-splunk">
+                                <p class="question-title">Question 1:</p>
+                                <p class="event-count-label">How many events are there?</p>
+                            </div>
+                            <div class="form-controls">
+                                <div class="container-with-padding">
+                                    <form id = "splunkPracticeForm">
+                                        <input type="text" id="splunkPracticeAnswer" name="splunkPracticeAnswer"><br>
+                                    </form>
+                                </div>
+                                <!-- Button Component is detected here -->
+                                <button class="submit-button">submit</button>
+                                <div class="button-group">
+                                    <!-- Button Component is detected here -->
+                                    <button class="primary-button">previous question</button>
+                                    <!-- Button Component is detected here -->
+                                    <button class="button-skip-question">skip question</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+    <script>
+    let section = 1;
+    let questionNum = 1;
+    // Splunk practice logic
+    // Query selectors
+    var infoSection = document.querySelector(".infoSectionBox");
+    var section1 = document.querySelector(".section1Box");
+    var section2 = document.querySelector(".section2Box");
+    var section3 = document.querySelector(".section3Box");
+    var section4 = document.querySelector(".section4Box");
+    var section5 = document.querySelector(".section5Box");
+    var title = document.querySelector(".section-title1");
+    var infoModalClose = document.querySelector(".info-modal-close")
+    var infoModal = document.querySelector(".info-modal")
+    var infoModalText = document.querySelector(".info-modal-text")
+    var infoModalTitle = document.querySelector(".info-modal-title")
+    var taskInstructions = document.querySelector(".section-title2")
+    var questionTitle = document.querySelector(".question-title")
+    var question = document.querySelector(".event-count-label")
+    var submit = document.querySelector(".submit-button")
+    var answerStatus = document.querySelector(".answer-status-text")
+    var previousQuestion = document.querySelector(".primary-button")
+    var skipQuestion = document.querySelector(".button-skip-question")
+    
+    // Question lists
+    function QuestConst(question,answer,instructions){
+        this.question = question;
+        this.answer = answer;
+        this.instructions = "";
+        this.answered = false;
+        this.attempts = 0;
+    };
+
+    function swapQuestionLists(section){
+          // Switch the list of questions based on section
+          switch(section){
+            case 1:
+                questionList = section1List;
+                break;
+            case 2:
+                questionList = section2List;
+                break;
+            case 3:
+                questionList = section3List;
+                break;
+            case 4:
+                questionList = section4List;
+                break;
+        }
+    }
+
+    // Section 1
+    var section1List = [
+        new QuestConst("How many events are there?", "814"),
+        new QuestConst("What is the host or splunk_server name?","EC2AMAZ-NVS61EL"),
+        new QuestConst("Which connection_protocol has the highest number of events?","Mysqld"),
+        new QuestConst("Which connection_protocol is using local_port 21?","ftpd"),
+        new QuestConst('What is the remote_port used by remote_host="::ffff:141.212.122.98"?',"15279")
+    ]
+    // Instructions for section 1
+    for (var i = 0; i < section1List.length; i++) {
+        section1List[i].instructions = "Task 1: Add this string in the query<br>“connect_type=accept”";
+    }
+
+    var section2List = [
+        new QuestConst("How many events are there for connection_protocol = pcap?","13837"),
+        new QuestConst("How many events are there for connection_transport=UDP?","9780"),
+        new QuestConst("Which source_port is most used?","68"),
+        new QuestConst("Which protocol uses this UDP port?","DHCP"),
+        new QuestConst('How many events are recorded in 2016?("timestamp.$date"="*2016*")',"22556")
+    ]
+    var section3List = [
+        new QuestConst("What is the victimIP with the most count?","172.31.13.124"),
+        new QuestConst("Which victimPort is most attacked?","3389"),
+        new QuestConst("What protocol runs on this tcp port?","RDP"),
+        new QuestConst("How many events contain .php file?","269"),
+        new QuestConst('Which php file is being accessed by source IP 89.248.168.46?',"Xmlrpc.php"),
+        new QuestConst('Which txt file is being created by IP 112.124.36.187?',"Webscan38502863.txt"),
+        new QuestConst('What is the date timestamp of the event?',"2015-04-01")
+    ]
+    var section4List = [
+        new QuestConst("Which protocol has only 1 event?","ftpdatalisten"),
+        new QuestConst('Which destination has the highest count?',"255.255.255.255:67"),
+        new QuestConst('Check the visualisation tab and select a piechart. (Enter OK to continue)',"OK"),
+        new QuestConst('Add another field connection_transport to the table and check the results. (Enter OK to continue)',"OK")
+    ]
+    section4List[0].instructions = "Stats calculates aggregate statistics, such as average, count, and sum, over the results set.<br><br>index=honeypot sourcetype=honeypot<br>| stats count by connection_protocol<br>| sort count desc";
+    section4List[1].instructions = 'The eval command calculates an expression and<br> puts the resulting value into a search results field.<br><br>index=honeypot sourcetype=honeypot<br>| eval remoteSource = source_ip.\":\".source_port, destination = destination_ip.\":\".destination_port<br>| stats count by remoteSource destination<br>| sort count desc<br>| table remoteSource destination count';
+    section4List[2].instructions = 'The chart command is a transforming command that returns the results in a<br> table format, which can be visualized in the visualization tab.<br><br>index=honeypot sourcetype=honeypot<br>| chart count(connection_transport) AS count BY connection_transport';
+    section4List[3].instructions = 'The table command returns a table that is formed by only the fields that you specify in the arguments.<br><br>index=honeypot sourcetype=honeypot<br>| rename timestamp.$date AS timestamp, connection_protocol AS protocol, local_host AS source_ip, remote_host AS destination_ip<br>| where isnotnull(source_ip)<br>| fillnull value="-" timestamp source_ip destination_ip protocol local_host local_port remote_host remote_port<br>| table timestamp source_ip destination_ip protocol local_port remote_port<br>';
+    
+    var section5List = [
+        new QuestConst('Link to pdf: <a href ="../static/splunkGuide.pdf" target="_blank"> Here</a>')
+    ]
+    // Start with section 1
+    let questionList = section1List;
+
+    // Event listeners
+    infoSection.addEventListener('click', () => {
+        infoModal.classList.add('active')
+        infoModalTitle.innerHTML='Splunk Practice Information'
+        infoModalText.innerHTML='Practice your splunk skills if you wish to get through the challenge faster!<br><br>&#8226; Log into the splunk server: <a class = "splunk" href="http://18.132.27.173:8000/" target="_blank">here</a><br>&#8226; The username is: user1 &#8197; &#8197; &#8197;  &#8197;&#8194;&#8194;&#8194;<br>&#8226; The password is: CyberEscape<br><br>Feel free to skip questions, you can change sections using the buttons on the left.'
+    })
+
+    infoModalClose.addEventListener('click', () => {
+        infoModal.classList.remove('active')
+    })
+
+    // This section deals with switching sections
+    section1.addEventListener('click', () => {
+        swapQuestionLists(1);
+        section = 1;
+        questionNum = 1;
+        answerStatus.innerHTML = "";
+        title.innerHTML = "Section 1"
+        taskInstructions.innerHTML = "Task 1: Add this string in the query<br>“connect_type=accept”"
+        questionTitle.innerHTML = "Question 1:"
+        question.innerHTML = section1List[questionNum-1].question
+        document.getElementById("splunkPracticeAnswer").value = "";
+        if(section1List[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + section1List[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+        skipQuestion.disabled = false;
+        previousQuestion.disabled = false;
+        submit.disabled = false;
+    })
+
+    section2.addEventListener('click', () => {
+        swapQuestionLists(2);
+        section = 2;
+        questionNum = 1;
+        answerStatus.innerHTML = "";
+        title.innerHTML = "Section 2"
+        taskInstructions.innerHTML = ""
+        questionTitle.innerHTML = "Question 1:"
+        question.innerHTML = section2List[questionNum-1].question
+        document.getElementById("splunkPracticeAnswer").value = "";
+        if(section2List[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + section2List[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+        skipQuestion.disabled = false;
+        previousQuestion.disabled = false;
+        submit.disabled = false;
+    })
+
+    section3.addEventListener('click', () => {
+        swapQuestionLists(3);
+        section = 3;
+        questionNum = 1;
+        answerStatus.innerHTML = "";
+        title.innerHTML = "Section 3"
+        taskInstructions.innerHTML = ""
+        questionTitle.innerHTML = "Question 1:"
+        question.innerHTML = section3List[questionNum-1].question
+        document.getElementById("splunkPracticeAnswer").value = "";
+        if(section3List[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + section3List[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+        skipQuestion.disabled = false;
+        previousQuestion.disabled = false;
+        submit.disabled = false;
+    })
+
+    section4.addEventListener('click', () => {
+        swapQuestionLists(4);
+        section = 4;
+        questionNum = 1;
+        answerStatus.innerHTML = "";
+        title.innerHTML = "Section 4: Splunk query commands"
+        taskInstructions.innerHTML = "Stats calculates aggregate statistics, such as average, count, and sum, over the results set.<br><br>index=honeypot sourcetype=honeypot<br>| stats count by connection_protocol<br>| sort count desc"
+        questionTitle.innerHTML = "Question 1:"
+        question.innerHTML = section4List[questionNum-1].question
+        document.getElementById("splunkPracticeAnswer").value = "";
+        if(section4List[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + section4List[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+        skipQuestion.disabled = false;
+        previousQuestion.disabled = false;
+        submit.disabled = false;
+    })
+    section5.addEventListener('click', () => {
+        swapQuestionLists(5);
+        section = 5;
+        questionNum = 1;
+        answerStatus.innerHTML = "";
+        title.innerHTML = "Section 5: Ingesting data into splunk"
+        taskInstructions.innerHTML = "This section contains a pdf that will guide you through ingesting data into splunk."
+        questionTitle.innerHTML = ""
+        question.innerHTML = section5List[questionNum-1].question
+        skipQuestion.disabled = true;
+        previousQuestion.disabled = true;
+        submit.disabled = true;
+    })
+
+
+    // This handles pretty much all the question/section logic
+    submit.addEventListener('click', () => {
+        // Get answer
+        var answer = document.getElementById("splunkPracticeAnswer").value;
+
+        // If answer is correct
+        if (answer == questionList[questionNum-1].answer) {
+            // Tell them they are correct
+            answerStatus.innerHTML = "Correct!"
+            answerStatus.style.color = "green"
+            questionList[questionNum-1].answered = true;
+            questionNum++;
+            // Display next question if there is one
+            if (questionNum <= questionList.length) {
+                questionTitle.innerHTML = "Question " + questionNum + ":"
+                question.innerHTML = questionList[questionNum-1].question
+                taskInstructions.innerHTML = questionList[questionNum-1].instructions
+                document.getElementById("splunkPracticeAnswer").value = "";
+            }
+            // If not, display that they have completed the section
+            else if(questionNum > questionList.length){
+                questionNum = questionList.length;  
+                answerStatus.innerHTML = "You have completed this section!"
+            }
+        } 
+        // If the answer is not correct
+        else {
+            answerStatus.innerHTML = "Incorrect, try again!"
+            answerStatus.style.color = "red"
+            questionList[questionNum-1].attempts++;
+            if (questionList[questionNum-1].attempts > 2) {
+                //give them the answer if they have tried 3 times, and move on
+                answerStatus.innerHTML = "Incorrect, the answer was: " + questionList[questionNum-1].answer
+                questionList[questionNum-1].answered = true;
+                questionNum++;
+                // Display next question if there is one
+                if (questionNum <= questionList.length) {
+                    questionTitle.innerHTML = "Question " + questionNum + ":"
+                    taskInstructions.innerHTML = questionList[questionNum-1].instructions
+                    question.innerHTML = questionList[questionNum-1].question
+                    document.getElementById("splunkPracticeAnswer").value = "";
+                }
+                // If not, display that they have completed the section
+                else if(questionNum > questionList.length){
+                    questionNum = questionList.length;
+                    answerStatus.style.color = "green"
+                    answerStatus.innerHTML = "You have completed this section!"
+                }
+            }
+        }
+    })
+    // Skip question button
+    skipQuestion.addEventListener('click', () => {
+        // Clear answer status
+        answerStatus.innerHTML = "";
+        questionNum++;
+        // If on last question, cant skip anymore
+        if (questionNum > questionList.length) {
+            questionNum = questionList.length;
+        }
+        // Display next question
+        questionTitle.innerHTML = "Question " + questionNum + ":"
+        question.innerHTML = questionList[questionNum-1].question
+        taskInstructions.innerHTML = questionList[questionNum-1].instructions
+        document.getElementById("splunkPracticeAnswer").value = "";
+        // If the question has been answered, display the answer
+        if(questionList[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + questionList[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+    })
+    // Previous question button
+    previousQuestion.addEventListener('click', () => {
+        // Clear answer status
+        answerStatus.innerHTML = "";
+        questionNum--;
+        // If on question 1, dont go back anymore
+        if (questionNum < 1) {
+            questionNum = 1;
+        }
+        questionTitle.innerHTML = "Question " + questionNum + ":"
+        question.innerHTML = questionList[questionNum-1].question
+        taskInstructions.innerHTML = questionList[questionNum-1].instructions
+        document.getElementById("splunkPracticeAnswer").value = "";
+        // If the question has been answered, display the answer
+        if(questionList[questionNum-1].answered == true){
+            answerStatus.innerHTML = "The answer was: " + questionList[questionNum-1].answer
+            answerStatus.style.color = "green"
+        }
+    })
+
+    </script>
+</body>
+</html>

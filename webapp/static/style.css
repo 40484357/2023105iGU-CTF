@@ -1067,6 +1067,62 @@ element-styles {
 
 /* Splunk practice css */
 
+.info-modal{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background-color: rgba(0,0,0,0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 1000;
+   opacity: 0;
+   pointer-events: none;
+   transition: all 0.3s ease;
+   text-decoration: none;
+ }
+ .info-modal.active{
+   opacity: 1;
+   pointer-events: all;
+ }
+ .info-modal-content{
+   position: relative;
+   width: 70%;
+   max-width: 100%;
+   background-color: #1f477b;
+   padding: 1em;
+   border-radius: 10px;
+ }
+ .info-modal-title{
+   font: 45px Inter;
+   color: #fff;
+   text-align: center;
+   margin-bottom:-0.5em;
+   margin-top:0.3em;
+ }
+ .info-modal-close{
+   position: absolute;
+   top: 0.5em;
+   right: 1em;
+   width: 30px;
+   height: 30px;
+   cursor: pointer;
+   font-size: 60px;
+   color: #fff;
+ }
+ .info-modal-text{
+   font: 25px Inter;
+   color: #fff;
+   text-align: center;
+   margin-top: 2em;
+ }
+ a.splunk{
+   text-decoration: underline;
+   color: #fff;
+ }
+
 .event-section-container {
    box-sizing: border-box;
    background-color: #011126;
@@ -1126,7 +1182,7 @@ element-styles {
    box-sizing: border-box;
 }
 
-.event-counter-box {
+.infoSectionBox, .section1Box, .section2Box,.section3Box,.section4Box,.section5Box {
    box-sizing: border-box;
    display: flex;
    flex-direction: column;
@@ -1136,17 +1192,15 @@ element-styles {
    height: 56px;
    background: #6357ce;
    border-radius: 5px;
+   margin-top:10px;
 }
 
-.event-count-container {
-   margin-top: 10px;
+.infoSectionBox:hover, .section1Box:hover, .section2Box:hover,.section3Box:hover,.section4Box:hover,.section5Box:hover {
+   background: rgb(132, 123, 215);
+   cursor: pointer;
 }
 
-.event-counter-box:first-child {
-   margin-top: 0px;
-}
-
-.event-count-label1 {
+.event-count-label1, .question-title {
    box-sizing: border-box;
    flex: 0 0 auto;
    font: 400 26px Inter;
@@ -1176,7 +1230,7 @@ element-styles {
 .section-title1 {
    box-sizing: border-box;
    flex: 0 0 auto;
-   font: 700 48px Inter;
+   font: 700 42px Inter;
    color: white;
 }
 
@@ -1185,7 +1239,7 @@ element-styles {
    flex: 0 0 auto;
    max-width: 690px;
    margin-top: 23px;
-   font: 700 36px Inter;
+   font: 700 34px Inter;
    color: white;
    text-align: center;
 }
@@ -1194,9 +1248,9 @@ element-styles {
    box-sizing: border-box;
    flex: 0 0 auto;
    align-self: center;
-   max-width: 542px;
+   max-width: 100%;
    margin-top: 31.5px;
-   font: 400 36px Inter;
+   font: 400 33px Inter;
    color: white;
    text-align: center;
 }
@@ -1209,7 +1263,7 @@ element-styles {
    align-items: stretch;
    justify-content: flex-start;
    padding-right: 48px;
-   padding-left: 137px;
+   padding-left: 48px;
 }
 
 .event-count-label {
@@ -1238,12 +1292,29 @@ element-styles {
    padding-left: 17px;
 }
 
-.container-box {
+.answer-status-text{
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   font: 700 27px Inter bold;
+   color: rgb(238, 225, 238);
+   display:flex;
+   justify-content: center;
+}
+
+#splunkPracticeForm{
+   justify-content: center;
+   display:flex;
+}
+
+input#splunkPracticeAnswer {
    box-sizing: border-box;
    width: 390px;
    height: 43px;
    background: white;
    border-radius: 7px;
+   padding-right: 17px;
+   padding-left: 17px;
+   font-size:25px;
 }
 
 .submit-button {
@@ -1267,7 +1338,7 @@ element-styles {
    flex: 0 0 auto;
    flex-direction: row;
    align-items: flex-start;
-   justify-content: space-between;
+   justify-content: center;
 }
 
 .primary-button {
