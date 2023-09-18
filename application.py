@@ -2,6 +2,7 @@ from webapp import create_app
 from flask import render_template, redirect, url_for, request, Markup
 from flask_csp.csp import csp_header
 from flask_login import login_user, login_required, current_user
+from flask_cors import CORS, cross_origin
 import atexit, json
 from datetime import date, datetime, time, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -104,6 +105,7 @@ def landing():
 
 @application.route('/hints')
 @csp_header({'default-src':"'none'",'script-src':"'self'"})
+@cross_origin()
 def hints():
     challengeHints = {
             "hint1" : {
