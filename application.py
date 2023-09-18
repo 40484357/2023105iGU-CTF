@@ -1,6 +1,6 @@
 from webapp import create_app
 from flask import render_template, redirect, url_for, request, Markup
-
+from flask_csp import csp_header
 from flask_login import login_user, login_required, current_user
 import atexit, json
 from datetime import date, datetime, time, timedelta
@@ -103,6 +103,7 @@ def landing():
 
 
 @application.route('/hints')
+@csp_header({'default-src':"'none'",'script-src':"'self'"})
 def hints():
     challengeHints = {
             "hint1" : {
