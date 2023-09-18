@@ -355,7 +355,7 @@ function getHint(challenge){
     var hintBox = document.getElementById('hintDiv')
     var hintText = document.getElementById('hintText')
     
-        const url = 'https://cyberescape.eu-west-2.elasticbeanstalk.com/hints'
+        const url = 'https://cyber-escape.co.uk/hints'
 
         fetch(url)
         .then(response => response.json())
