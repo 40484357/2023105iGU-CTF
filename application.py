@@ -93,10 +93,9 @@ def landing():
         overAllPoints = bestPoints + bestoverallPoints
         try:
             removeOldScore(userData[0]['user_name'], bestoverallPoints)
-            newScore(userData[0]['user_name'], 'overall', int(overAllPoints), userData[0]['lecturerCode'])
+            newScore(str(userData[0]['user_name']), 'overall', int(overAllPoints), userData[0]['lecturerCode'])
         except:
-            removeOldScore(userData[0]['user_name'], bestPoints)
-            newScore(userData[0]['user_name'], 'overall', int(user_points), userData[0]['lecturerCode'])
+            newScore(str(userData[0]['user_name']), 'overall', int(user_points), userData[0]['lecturerCode'])
 
 
     return render_template('cyberescape.html', user = current_user, userPoints = userPoints, userTime = timeLeft, chall1State = chall1State, chall2State = chall2State, chall3State = chall3State, user_points = str(user_points))

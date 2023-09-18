@@ -581,10 +581,11 @@ def logged_in(selection):
         best_csi = 'n/a'
         bestCSITIME = 'n/a'
     for x, value in enumerate(scores):
-            if value['user_name'] == username:
+            if value['user_name'] == str(username):
                 points = value['points']
                 globalrank = x + 1
                 rank = x+1
+                break
             else:
                 try:
                     points = userData[0]['best_csi']
@@ -598,6 +599,7 @@ def logged_in(selection):
         if value['user_name'] == username:
                 points = value['points']
                 classrank = x + 1
+                break
         else:
                 classrank = 'n/a'
                 try:
@@ -621,8 +623,9 @@ def logged_in(selection):
         newMail2 = request.form.get('email2')
         if newClass == newClass2 or str(newPass) == str(newPass2) or str(newMail) == str(newMail2):
             updateUserDetails(current_user.id, newClass, newPass, newMail)
-            if len(newPass) > 7 or len(newMail)>7:
-                return redirect('/logout')
+            if newPass or newMail:
+                if len(newPass) > 7 or len(newMail)>7:
+                    return redirect('/logout')
 
     try:
         splunkChall1 = userData[0]['key_one']
@@ -631,7 +634,7 @@ def logged_in(selection):
         resetCSI(current_user.id)
     except:
         print('true')
-
+    
     return render_template('new-login-screen.html', username = username, scores = scores, rank = rank, globalrank = globalrank, classrank = classrank, points = points, CSI_attempts = CSI_attempts, best_csi = best_csi, best_csi_time = bestCSITIME)
 
 @views.route('/wiki')

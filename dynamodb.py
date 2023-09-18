@@ -337,14 +337,15 @@ def updateUserDetails(email, newClass, newPass, newMail):
         )
         
 
-    if len(newMail) > 7:
-        response = user_table.update_item(
-            Key = {'email': email},
-            UpdateExpression= f'SET email = :E',
-            ExpressionAttributeValues = {
-            ':E': newMail
-        },
-        )
+    if newMail:
+        if len(newMail) > 7:
+            response = user_table.update_item(
+                Key = {'email': email},
+                UpdateExpression= f'SET email = :E',
+                ExpressionAttributeValues = {
+                ':E': newMail
+            },
+            )
         
 
     
