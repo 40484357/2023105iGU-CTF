@@ -123,15 +123,16 @@ def checkUsername(username):
     
 def checkLecturerCode(code):
     response = user_table.scan(
-        FilterExpression = Attr('lecturer_code').eq(code)
+        FilterExpression = Attr('lecturerCode').eq(code)
     )
-
+    print('code is ', code)
     items = response['Items']
     
     if len(items) > 0:
         return(True)
     else:
         return(False)
+    
     
 
 def initialiseLaptop(email, password, startTime, challengeState, hints, laptopSelect):

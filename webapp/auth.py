@@ -167,7 +167,7 @@ def sign_up():
                 checkCode = True
 
                 checkemail = getUser(studentEmail)
-
+                
                 
                
                 if len(lecturerCode)> 0:
